@@ -1,0 +1,133 @@
+@import "../variables.modules";
+
+.navWrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  pointer-events: none; 
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  pointer-events: all;
+}
+
+/* Botón hamburguesa */
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  height: 40px; 
+
+  span {
+    width: 25px;
+    height: 3px;
+    background-color: #686868;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  &.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  &.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+/* Menú solo visible cuando se abre */
+.mobileMenu {
+  max-height: 0;
+  overflow: hidden;
+  background-color: $white;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  border-radius: 0 0 16px 16px;
+  box-shadow: #ece2e2;
+  pointer-events: all;
+
+  &.show {
+    max-height: 300px;
+    padding: 1rem 1.5rem;
+  }
+
+  &.dark {
+    background-color: $dark;
+  }
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  li {
+    text-align: center;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: $dark;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  &:hover {
+    color: rgb(255, 0, 234);
+  }
+}
+
+.linkActive {
+  color: $color-start;
+}
+
+.dark .linkActive {
+  color: #ff79c6; // lila más suave y legible en dark mode (puedes ajustarlo)
+}
+
+
+
+@media (min-width: 768px) {
+  .navWrapper {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    pointer-events: all;
+  }
+
+  .topBar {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: block;
+    max-height: none;
+    padding: 0.6rem 2rem;
+    background-color: $white;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .navList {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
