@@ -19,38 +19,34 @@ export const info = {
   baseColor: colors[0],
   miniBio: [
     {
+      emoji: "🌎",
+      text: "Chile",
+    },
+    {
       emoji: "💻 ",
       text: "Técnico en Desarrollo web",
     },
     {
-      emoji: "🌎",
-      text: "Chile, Santiago",
-    },
-    {
       emoji: "💼",
-      text: "Systems Engineer at Google",
+      text: "Diseño y maquetación de sitios web",
     },
   ],
   socials: [
+  
     {
-      link: "https://facebook.com",
-      icon: "fa fa-facebook",
-      label: "facebook",
-    },
-    {
-      link: "https://instagram.com",
-      icon: "fa fa-instagram",
-      label: "instagram",
-    },
-    {
-      link: "https://github.com",
-      icon: "fa fa-github",
-      label: "github",
-    },
-    {
-      link: "https://linkedin.com",
+      link: "#",
       icon: "fa fa-linkedin",
-      label: "linkedin",
+      label: "Linkedin",
+    },
+    {
+      link: "#",
+      icon: "fa fa-github",
+      label: "Github",
+    },
+    {
+      link: "#",
+      icon: "fa fa-behance",
+      label: "Behance",
     },
   ],
   bio: "Hola! Soy Alejandro, desarrollador curioso que disfruta crear soluciones con código y siempre en busca de aprender algo nuevo.",
@@ -83,6 +79,7 @@ export const info = {
         "E-commerce site prototype with shopping cart and payment integration.",
       techstack: ["Wordpress", "Bootstrap", "Stripe API"],
     },
+    
     /* {
       title: "Project 4",
       live: "https://paytonpierce.dev",
@@ -99,5 +96,23 @@ export const info = {
       description: "Blog platform with markdown support and user authentication.",
       techstack: ["Next.js", "Markdown", "Firebase Auth"],
     },*/
+  ],
+
+  footerLinks: [
+    {
+      link: "mailto:al.marquezmiranda@gmail.com",
+      icon: "fa fa-envelope",
+      label: "Email",
+    },
+    {
+      link: "https://www.linkedin.com/in/amarquezmiranda/",
+      icon: "fa fa-linkedin",
+      label: "LinkedIn",
+    },
+    {
+      link: "/AlejandroMarquez.pdf",
+      icon: "fa fa-file",
+      label: "Resume",
+    },
   ],
 };

@@ -21,7 +21,7 @@ function DotNav({ darkMode }){
               to={section.id}
               spy={true}
               smooth={true}
-              offset={-50}
+              offset={-80}
               duration={500}
               className="dot"
             >

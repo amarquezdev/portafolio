@@ -16,7 +16,7 @@
     margin-bottom: 0.5rem;
 
     span {
-      color: #9a6aff; // O usa el color dinámico si lo pasas como prop o CSS var
+      color: #9a6aff;
     }
   }
 
@@ -25,33 +25,46 @@
     font-size: 1rem;
   }
 
-  &-buttons {
+  &-socials {
     display: flex;
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  &-button {
+  &-social-link {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 0.6rem;
-    padding: 0.6rem 1.4rem;
-    border-radius: 8px;
-    font-weight: 600;
     font-size: 1rem;
-    border: 2px solid currentColor;
-    color: #9a6aff; // o usa `color: var(--accent-color);` si usas variables
-    background-color: transparent;
-    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
     transition: all 0.3s ease;
-    max-width: 250px;
-    text-align: center;
+    color: white;
+    background-color: transparent;
+
+    i {
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      color: white;
+      transition: color 0.3s ease;
+    }
 
     &:hover {
-      background-color: #9a6aff;
-      color: #141414;
+      background-color: white;
+
+      i,
+      span {
+        color: #141414;
+      }
     }
   }
 
@@ -64,18 +77,27 @@
       font-weight: 600;
     }
   }
+
+  &--light {
+    background-color: #141414;
+  }
+
+  &--dark {
+    background-color: #141414;
+  }
 }
 
 @media (max-width: 600px) {
-  .footer-buttons {
+  .footer-socials {
     flex-direction: column;
     align-items: center;
   }
 
-  .footer-button {
+  .footer-social-link {
     width: auto;
     min-width: 200px;
     max-width: 280px;
     margin-bottom: 0.8rem;
+    justify-content: center;
   }
 }
