@@ -58,8 +58,8 @@ export const info = {
       source: "#",
       image: mock1,
       description:
-        "A cool project demonstrating React, TailwindCSS and API integration.",
-      techstack: ["React", "Figma", "API"],
+        "Sitio de salón creado con React, GSAP, Figma, HTML, CSS y Grid.",
+      techstack: ["React", "Figma", "Grid"],
     },
     {
       title: "GlobalMarket",
@@ -67,7 +67,7 @@ export const info = {
       source: "#",
       image: mock2,
       description:
-        "A responsive landing page built with modern CSS techniques.",
+        "Sitio web en PHP con API y globo 3D para explorar y comprar por país.",
       techstack: ["Jquery", "Mysql", "Php"],
     },
     {
@@ -76,8 +76,8 @@ export const info = {
       source: "#",
       image: mock3,
       description:
-        "E-commerce site prototype with shopping cart and payment integration.",
-      techstack: ["Wordpress", "Bootstrap", "Stripe API"],
+        "Sitio tipo Spotify con VR e IA, desarrollado con React, API y Figma.",
+      techstack: ["API", "React", "Figma"],
     },
     
     /* {
