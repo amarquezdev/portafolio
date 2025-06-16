@@ -34,12 +34,12 @@ export const info = {
   socials: [
   
     {
-      link: "#",
+      link: "https://www.linkedin.com/in/amarquezmiranda/",
       icon: "fa fa-linkedin",
       label: "Linkedin",
     },
     {
-      link: "#",
+      link: "https://github.com/amarquezdev",
       icon: "fa fa-github",
       label: "Github",
     },
