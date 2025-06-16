@@ -44,7 +44,7 @@ export const info = {
       label: "Github",
     },
     {
-      link: "#",
+      link: "https://www.behance.net/amarquezdev",
       icon: "fa fa-behance",
       label: "Behance",
     },
