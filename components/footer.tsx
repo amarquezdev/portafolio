@@ -26,15 +26,15 @@ export function Footer() {
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="mb-4 flex items-center gap-2" aria-label="WebLocal, ir al inicio">
+            <Link href="/" className="mb-4 flex items-center gap-2" aria-label="AmarquezDev, ir al inicio">
               <Image
-                src="/images/weblocal-logo.svg"
-                alt="Logo de WebLocal"
+                src="/images/am-logo.svg"
+                alt="Logo de AmarquezDev"
                 width={28}
                 height={28}
                 className="h-7 w-7"
               />
-              <span className="text-lg font-semibold text-white">WebLocal</span>
+              <span className="text-lg font-semibold text-white">AmarquezDev</span>
             </Link>
             <p className="mb-5 text-sm text-white/50">
               Diseño y desarrollo web para pequeños y medianos negocios locales.
@@ -42,21 +42,21 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <a
                 href="#"
-                aria-label="WebLocal en LinkedIn"
+                aria-label="AmarquezDev en LinkedIn"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                aria-label="WebLocal en Instagram"
+                aria-label="AmarquezDev en Instagram"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                aria-label="WebLocal en Facebook"
+                aria-label="AmarquezDev en Facebook"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
               >
                 <Facebook className="h-4 w-4" />
@@ -84,7 +84,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/40">
-          &copy; {new Date().getFullYear()} WebLocal. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} AmarquezDev. Todos los derechos reservados.
         </div>
       </div>
     </footer>

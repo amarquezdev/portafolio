@@ -62,17 +62,17 @@ export function GlassmorphismNav() {
         )}
       >
         <div className="flex items-center justify-between gap-4 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md md:px-6 md:py-3">
-          <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="WebLocal, ir al inicio">
+          <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="AmarquezDev, ir al inicio">
             <Image
-              src="/images/weblocal-logo.svg"
-              alt="Logo de WebLocal"
+              src="/images/am-logo.svg"
+              alt="Logo de AmarquezDev"
               width={28}
               height={28}
               className="h-7 w-7"
               priority
             />
             <span className="hidden text-lg font-semibold text-white sm:inline">
-              WebLocal
+              AmarquezDev
             </span>
           </Link>
 

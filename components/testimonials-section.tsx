@@ -3,7 +3,7 @@ import { StatsColumn } from "@/components/ui/stats-column";
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    text: "Nuestra web anterior era de 2015. Con WebLocal tenemos una tienda online que por fin vende algo por su cuenta.",
+    text: "Nuestra web anterior era de 2015. Con AmarquezDev tenemos una tienda online que por fin vende algo por su cuenta.",
     name: "Marta Gómez",
     role: "Dueña, Tienda de Decoración Luz",
     initials: "MG",

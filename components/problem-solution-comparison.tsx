@@ -48,7 +48,7 @@ export function ProblemSolutionComparison() {
       >
         <h3 className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-primary">
           <Check className="h-4 w-4 text-success" />
-          Con WebLocal
+          Con AmarquezDev
         </h3>
         <ul className="space-y-4">
           {ROWS.map((row) => (
