@@ -64,11 +64,11 @@ export function GlassmorphismNav() {
         <div className="flex items-center justify-between gap-4 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md md:px-6 md:py-3">
           <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="AmarquezDev, ir al inicio">
             <Image
-              src="/images/am-logo.svg"
+              src="/images/logo-portafolio.png"
               alt="Logo de AmarquezDev"
               width={28}
               height={28}
-              className="h-7 w-7"
+              className="h-7 w-7 object-contain"
               priority
             />
             <span className="hidden text-lg font-semibold text-white sm:inline">

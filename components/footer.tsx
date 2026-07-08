@@ -28,11 +28,11 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2" aria-label="AmarquezDev, ir al inicio">
               <Image
-                src="/images/am-logo.svg"
+                src="/images/logo-portafolio.png"
                 alt="Logo de AmarquezDev"
                 width={28}
                 height={28}
-                className="h-7 w-7"
+                className="h-7 w-7 object-contain"
               />
               <span className="text-lg font-semibold text-white">AmarquezDev</span>
             </Link>
