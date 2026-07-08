@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Menu, X } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn, scrollToSection } from "@/lib/utils";
 
 const NAV_LINKS = [
   { label: "Servicios", href: "#servicios" },
@@ -45,11 +45,7 @@ export function GlassmorphismNav() {
 
   function handleNavClick(href: string) {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    scrollToSection(href, NAVBAR_OFFSET);
   }
 
   return (

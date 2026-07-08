@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { evaluate } from "mathjs";
-import { Clock, Euro, Layers } from "lucide-react";
+import { Clock, DollarSign, Layers } from "lucide-react";
 
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
@@ -23,8 +23,8 @@ const SITE_TYPES: { value: SiteType; label: string }[] = [
 ];
 
 const BASE_PRICE: Record<Approach, Record<SiteType, number>> = {
-  wordpress: { landing: 350, corporate: 600, booking: 750, ecommerce: 900 },
-  custom: { landing: 600, corporate: 1100, booking: 1400, ecommerce: 1900 },
+  wordpress: { landing: 180000, corporate: 350000, booking: 450000, ecommerce: 600000 },
+  custom: { landing: 350000, corporate: 650000, booking: 850000, ecommerce: 1200000 },
 };
 
 const BASE_WEEKS: Record<Approach, Record<SiteType, number>> = {
@@ -32,10 +32,10 @@ const BASE_WEEKS: Record<Approach, Record<SiteType, number>> = {
   custom: { landing: 2, corporate: 3, booking: 4, ecommerce: 5 },
 };
 
-const PAGE_RATE: Record<Approach, number> = { wordpress: 40, custom: 80 };
-const INTEGRATION_RATE: Record<Approach, number> = { wordpress: 60, custom: 120 };
+const PAGE_RATE: Record<Approach, number> = { wordpress: 25000, custom: 50000 };
+const INTEGRATION_RATE: Record<Approach, number> = { wordpress: 40000, custom: 80000 };
 
-const MAX_PRICE_SCALE = 3000;
+const MAX_PRICE_SCALE = 2000000;
 const CIRCLE_CIRCUMFERENCE = 283;
 
 export function PricingCalculatorSection() {
@@ -78,7 +78,7 @@ export function PricingCalculatorSection() {
     const dashOffset = CIRCLE_CIRCUMFERENCE * (1 - progress);
 
     return {
-      estimatedPrice: Math.round(price / 10) * 10,
+      estimatedPrice: Math.round(price / 1000) * 1000,
       estimatedWeeks: Math.max(1, Math.round(weeks)),
       offset: dashOffset,
     };
@@ -152,7 +152,7 @@ export function PricingCalculatorSection() {
                 <span>Páginas o secciones adicionales</span>
                 <span className="font-semibold text-white">{extraPages}</span>
               </div>
-              <Slider value={extraPages} onValueChange={setExtraPages} min={0} max={10} step={1} />
+              <Slider value={extraPages} onValueChange={setExtraPages} min={1} max={10} step={1} />
             </div>
 
             <div>
@@ -197,7 +197,7 @@ export function PricingCalculatorSection() {
               </svg>
               <div className="absolute flex flex-col items-center">
                 <span className="text-3xl font-bold text-white">
-                  &euro;{estimatedPrice.toLocaleString("es-ES")}
+                  ${estimatedPrice.toLocaleString("es-CL")}
                 </span>
                 <span className="text-xs text-white/50">presupuesto estimado</span>
               </div>
@@ -221,7 +221,7 @@ export function PricingCalculatorSection() {
             </div>
 
             <div className="flex items-center gap-2 text-xs text-white/40">
-              <Euro className="h-3.5 w-3.5" />
+              <DollarSign className="h-3.5 w-3.5" />
               Estimación orientativa, el presupuesto final se ajusta a tu proyecto
             </div>
           </div>

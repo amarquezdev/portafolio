@@ -4,6 +4,8 @@ import { ArrowRight, LayoutTemplate } from "lucide-react";
 
 import RotatingText from "@/components/RotatingText";
 import { Button } from "@/components/ui/button";
+import { scrollToSection } from "@/lib/utils";
+import { WHATSAPP_BUDGET_URL } from "@/lib/whatsapp";
 
 const LOCAL_BUSINESSES = [
   "Studio Clau Miranda",
@@ -54,11 +56,18 @@ export function HeroSection() {
       </p>
 
       <div className="animate-fade-in-buttons opacity-0 [animation-delay:0.55s] mt-10 flex flex-col items-center gap-4 sm:flex-row">
-        <Button variant="white" size="lg" className="group">
-          Solicitar Presupuesto
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        <Button variant="white" size="lg" className="group" asChild>
+          <a href={WHATSAPP_BUDGET_URL} target="_blank" rel="noopener noreferrer">
+            Solicitar Presupuesto
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </a>
         </Button>
-        <Button variant="outline" size="lg" className="group">
+        <Button
+          variant="outline"
+          size="lg"
+          className="group"
+          onClick={() => scrollToSection("#servicios")}
+        >
           <LayoutTemplate className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
           Ver Servicios
         </Button>

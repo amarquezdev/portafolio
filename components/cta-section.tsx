@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { WHATSAPP_BUDGET_URL, WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 export function CTASection() {
   return (
@@ -17,12 +18,16 @@ export function CTASection() {
             compromiso, adaptado a lo que realmente necesitas.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button variant="white" size="lg" className="group">
-              Solicitar Presupuesto Gratis
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <Button variant="white" size="lg" className="group" asChild>
+              <a href={WHATSAPP_BUDGET_URL} target="_blank" rel="noopener noreferrer">
+                Solicitar Presupuesto Gratis
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
             </Button>
-            <Button variant="outline" size="lg">
-              Hablar con Nosotros
+            <Button variant="outline" size="lg" asChild>
+              <a href={WHATSAPP_CONTACT_URL} target="_blank" rel="noopener noreferrer">
+                Hablar con Nosotros
+              </a>
             </Button>
           </div>
         </div>
