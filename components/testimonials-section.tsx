@@ -20,24 +20,6 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Fundadora, Estudio Lucía F.",
     initials: "LF",
   },
-  {
-    text: "Nos hicieron una web corporativa completa, con todas las secciones que necesitábamos. Se nota que entendieron el negocio.",
-    name: "Carlos Medina",
-    role: "Gerente, Despacho Medina & Asociados",
-    initials: "CM",
-  },
-  {
-    text: "Elegimos WordPress para tener algo rápido y económico, y quedó exactamente como lo imaginamos.",
-    name: "Ana Torres",
-    role: "Dueña, Panadería El Trigal",
-    initials: "AT",
-  },
-  {
-    text: "El proceso fue muy claro desde el primer día. Sabíamos en qué fase estábamos en todo momento.",
-    name: "Diego Ramírez",
-    role: "Dueño, Gimnasio PowerFit",
-    initials: "DR",
-  },
 ];
 
 const COL1 = TESTIMONIALS.slice(0, 2);
