@@ -14,17 +14,13 @@ const FOOTER_LINKS = {
     { label: "Precios", href: "/#precios" },
     { label: "Contacto", href: "/#contacto" },
   ],
-  Legal: [
-    { label: "Política de Privacidad", href: "/#" },
-    { label: "Términos de Servicio", href: "/#" },
-  ],
 };
 
 export function Footer() {
   return (
     <footer className="border-t border-white/10 px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2" aria-label="AmarquezDev, ir al inicio">
               <Image

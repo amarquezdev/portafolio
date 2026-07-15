@@ -3,33 +3,33 @@ import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonia
 const TESTIMONIALS: Testimonial[] = [
   {
     text: "Nuestra web anterior era de 2015. Con AmarquezDev tenemos una tienda online que por fin vende algo por su cuenta.",
-    name: "Marta Gómez",
-    role: "Dueña, Tienda de Decoración Luz",
-    initials: "MG",
+    name: "Raul Baca",
+    role: "Dueño, Todo en Vidrio",
+    initials: "RB",
   },
   {
     text: "El sistema de reservas nos quitó todas las llamadas para agendar citas. Ahora los clientes reservan solos desde el móvil.",
-    name: "Javier Ruiz",
-    role: "Dueño, Peluquería Bella",
-    initials: "JR",
-  },
-  {
-    text: "Necesitábamos algo rápido y con buena imagen. La landing page que nos hicieron se pagó sola en el primer mes.",
-    name: "Lucía Fernández",
-    role: "Fundadora, Estudio Lucía F.",
-    initials: "LF",
-  },
-  {
-    text: "Nos hicieron una web corporativa completa, con todas las secciones que necesitábamos. Se nota que entendieron el negocio.",
-    name: "Carlos Medina",
-    role: "Gerente, Despacho Medina & Asociados",
+    name: "Claudia Miranda",
+    role: "Fundadora, Studio Clau Miranda",
     initials: "CM",
   },
   {
+    text: "Necesitábamos algo rápido y con buena imagen. La landing page que nos hicieron se pagó sola en el primer mes.",
+    name: "Agustin Inostroza",
+    role: "Dueño, Tienda Mafia Court",
+    initials: "AI",
+  },
+  {
+    text: "Nos hicieron una web corporativa completa, con todas las secciones que necesitábamos. Se nota que entendieron el negocio.",
+    name: "Marcia Perez",
+    role: "Dueña, Asesoria Legal E Integral C&M",
+    initials: "MP",
+  },
+  {
     text: "Elegimos WordPress para tener algo rápido y económico, y quedó exactamente como lo imaginamos.",
-    name: "Ana Torres",
-    role: "Dueña, Panadería El Trigal",
-    initials: "AT",
+    name: "Camila Vergara",
+    role: "Consultora, Sistema de abogados",
+    initials: "CV",
   },
   {
     text: "El proceso fue muy claro desde el primer día. Sabíamos en qué fase estábamos en todo momento.",

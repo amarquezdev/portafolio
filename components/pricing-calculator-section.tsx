@@ -23,8 +23,8 @@ const SITE_TYPES: { value: SiteType; label: string }[] = [
 ];
 
 const BASE_PRICE: Record<Approach, Record<SiteType, number>> = {
-  wordpress: { landing: 180000, corporate: 350000, booking: 450000, ecommerce: 600000 },
-  custom: { landing: 350000, corporate: 650000, booking: 850000, ecommerce: 1200000 },
+  wordpress: { landing: 250000, corporate: 450000, booking: 550000, ecommerce: 650000 },
+  custom: { landing: 700000, corporate: 1100000, booking: 1600000, ecommerce: 2000000 },
 };
 
 const BASE_WEEKS: Record<Approach, Record<SiteType, number>> = {
@@ -32,10 +32,12 @@ const BASE_WEEKS: Record<Approach, Record<SiteType, number>> = {
   custom: { landing: 2, corporate: 3, booking: 4, ecommerce: 5 },
 };
 
-const PAGE_RATE: Record<Approach, number> = { wordpress: 25000, custom: 50000 };
-const INTEGRATION_RATE: Record<Approach, number> = { wordpress: 40000, custom: 80000 };
+const PAGE_RATE: Record<Approach, number> = { wordpress: 30000, custom: 60000 };
+const INTEGRATION_RATE: Record<Approach, number> = { wordpress: 70000, custom: 150000 };
 
-const MAX_PRICE_SCALE = 2000000;
+const MAX_EXTRA_PAGES = 5;
+const MAX_EXTRA_INTEGRATIONS = 3;
+const MAX_PRICE_SCALE = 3000000;
 const CIRCLE_CIRCUMFERENCE = 283;
 
 export function PricingCalculatorSection() {
@@ -44,8 +46,14 @@ export function PricingCalculatorSection() {
   const [extraPages, setExtraPages] = useState(2);
   const [extraIntegrations, setExtraIntegrations] = useState(1);
 
+  const isLanding = siteType === "landing";
+
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    if (isLanding) setExtraPages(1);
+  }, [isLanding]);
 
   useEffect(() => {
     const node = ref.current;
@@ -59,9 +67,11 @@ export function PricingCalculatorSection() {
   }, []);
 
   const { estimatedPrice, estimatedWeeks, offset } = useMemo(() => {
+    const pages = isLanding ? 1 : extraPages;
+
     const price = evaluate("base + pages * pageRate + integrations * intRate", {
       base: BASE_PRICE[approach][siteType],
-      pages: extraPages,
+      pages,
       pageRate: PAGE_RATE[approach],
       integrations: extraIntegrations,
       intRate: INTEGRATION_RATE[approach],
@@ -69,7 +79,7 @@ export function PricingCalculatorSection() {
 
     const weeks = evaluate("base + pages * 0.15 + integrations * 0.3", {
       base: BASE_WEEKS[approach][siteType],
-      pages: extraPages,
+      pages,
       integrations: extraIntegrations,
     }) as number;
 
@@ -82,7 +92,7 @@ export function PricingCalculatorSection() {
       estimatedWeeks: Math.max(1, Math.round(weeks)),
       offset: dashOffset,
     };
-  }, [approach, siteType, extraPages, extraIntegrations]);
+  }, [approach, siteType, extraPages, extraIntegrations, isLanding]);
 
   return (
     <section id="precios" className="relative px-4 py-24 sm:px-6 lg:px-8">
@@ -150,9 +160,22 @@ export function PricingCalculatorSection() {
             <div>
               <div className="mb-3 flex items-center justify-between text-sm text-white/70">
                 <span>Páginas o secciones adicionales</span>
-                <span className="font-semibold text-white">{extraPages}</span>
+                <span className="font-semibold text-white">{isLanding ? 1 : extraPages}</span>
               </div>
-              <Slider value={extraPages} onValueChange={setExtraPages} min={1} max={10} step={1} />
+              <Slider
+                value={isLanding ? 1 : extraPages}
+                onValueChange={setExtraPages}
+                min={1}
+                max={MAX_EXTRA_PAGES}
+                step={1}
+                disabled={isLanding}
+                className={cn(isLanding && "cursor-not-allowed opacity-40")}
+              />
+              {isLanding && (
+                <p className="mt-2 text-xs text-white/40">
+                  Una landing page siempre es de una sola página.
+                </p>
+              )}
             </div>
 
             <div>
@@ -164,7 +187,7 @@ export function PricingCalculatorSection() {
                 value={extraIntegrations}
                 onValueChange={setExtraIntegrations}
                 min={0}
-                max={5}
+                max={MAX_EXTRA_INTEGRATIONS}
                 step={1}
               />
             </div>
