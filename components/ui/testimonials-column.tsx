@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -25,14 +22,9 @@ export function TestimonialsColumn({
 }: TestimonialsColumnProps) {
   return (
     <div className={cn("overflow-hidden", className)}>
-      <motion.div
-        animate={{ y: ["0%", "-50%"] }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="flex flex-col gap-4"
+      <div
+        className="flex animate-slide-up flex-col gap-4"
+        style={{ "--slide-up-duration": `${duration}s` } as React.CSSProperties}
       >
         {[...testimonials, ...testimonials].map((t, i) => (
           <div
@@ -56,7 +48,7 @@ export function TestimonialsColumn({
             </div>
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

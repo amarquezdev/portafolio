@@ -270,6 +270,15 @@
   }
 }
 
+@keyframes slide-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
 @keyframes mobile-menu-item {
   from {
     opacity: 0;
@@ -526,6 +535,10 @@
 }
 .animate-slide-left-mobile {
   animation: slide-left-mobile 25s linear infinite;
+}
+.animate-slide-up {
+  animation: slide-up linear infinite;
+  animation-duration: var(--slide-up-duration, 20s);
 }
 .animate-mobile-menu-item {
   animation: mobile-menu-item 0.35s ease-out forwards;

@@ -1,5 +1,4 @@
 import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-column";
-import { StatsColumn } from "@/components/ui/stats-column";
 
 const TESTIMONIALS: Testimonial[] = [
   {
@@ -20,6 +19,24 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Fundadora, Estudio Lucía F.",
     initials: "LF",
   },
+  {
+    text: "Nos hicieron una web corporativa completa, con todas las secciones que necesitábamos. Se nota que entendieron el negocio.",
+    name: "Carlos Medina",
+    role: "Gerente, Despacho Medina & Asociados",
+    initials: "CM",
+  },
+  {
+    text: "Elegimos WordPress para tener algo rápido y económico, y quedó exactamente como lo imaginamos.",
+    name: "Ana Torres",
+    role: "Dueña, Panadería El Trigal",
+    initials: "AT",
+  },
+  {
+    text: "El proceso fue muy claro desde el primer día. Sabíamos en qué fase estábamos en todo momento.",
+    name: "Diego Ramírez",
+    role: "Dueño, Gimnasio PowerFit",
+    initials: "DR",
+  },
 ];
 
 const COL1 = TESTIMONIALS.slice(0, 2);
@@ -39,19 +56,17 @@ export function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-          <div className="h-[420px]">
-            <TestimonialsColumn testimonials={COL1} duration={22} />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+          <div className="h-[420px] lg:h-[200px]">
+            <TestimonialsColumn testimonials={COL1} duration={14} />
           </div>
-          <div className="hidden h-[420px] sm:block">
-            <TestimonialsColumn testimonials={COL2} duration={28} />
+          <div className="hidden h-[420px] sm:block lg:h-[200px]">
+            <TestimonialsColumn testimonials={COL2} duration={18} />
           </div>
-          <div className="hidden h-[420px] lg:block">
-            <TestimonialsColumn testimonials={COL3} duration={25} />
+          <div className="hidden h-[420px] lg:block lg:h-[200px]">
+            <TestimonialsColumn testimonials={COL3} duration={16} />
           </div>
         </div>
-
-        <StatsColumn />
       </div>
     </section>
   );
