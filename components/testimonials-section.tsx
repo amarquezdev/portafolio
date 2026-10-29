@@ -2,7 +2,7 @@ import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonia
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    text: "Nuestra web anterior era de 2015. Con AmarquezDev tenemos una tienda online que por fin vende algo por su cuenta.",
+    text: "Nuestra web anterior era de 2015. Con Macno tenemos una tienda online que por fin vende algo por su cuenta.",
     name: "Raul Baca",
     role: "Dueño, Todo en Vidrio",
     initials: "RB",

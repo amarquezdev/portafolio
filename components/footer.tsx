@@ -22,15 +22,15 @@ export function Footer() {
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="mb-4 flex items-center gap-2" aria-label="AmarquezDev, ir al inicio">
+            <Link href="/" className="mb-4 flex items-center gap-2" aria-label="Macno, ir al inicio">
               <Image
                 src="/images/logo-portafolio.png"
-                alt="Logo de AmarquezDev"
+                alt="Logo de Macno"
                 width={28}
                 height={28}
                 className="h-7 w-7 object-contain"
               />
-              <span className="text-lg font-semibold text-white">AmarquezDev</span>
+              <span className="text-lg font-semibold text-white">Macno</span>
             </Link>
             <p className="mb-5 text-sm text-white/50">
               Diseño y desarrollo web para pequeños y medianos negocios locales.
@@ -38,21 +38,21 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <a
                 href="#"
-                aria-label="AmarquezDev en LinkedIn"
+                aria-label="Macno en LinkedIn"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                aria-label="AmarquezDev en Instagram"
+                aria-label="Macno en Instagram"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                aria-label="AmarquezDev en Facebook"
+                aria-label="Macno en Facebook"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
               >
                 <Facebook className="h-4 w-4" />
@@ -80,7 +80,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/40">
-          &copy; {new Date().getFullYear()} AmarquezDev. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Macno. Todos los derechos reservados.
         </div>
       </div>
     </footer>
