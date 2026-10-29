@@ -85,9 +85,20 @@ function MapsProfileDemo({ active }: { active: boolean }) {
           <div>
             <p className="text-xs font-semibold text-white">Tu negocio</p>
             <div className="flex items-center gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-2.5 w-2.5 fill-primary text-primary" />
-              ))}
+              {Array.from({ length: 5 }).map((_, i) => {
+                // Antes: 1 estrella. Al terminar: se llenan las 5, una tras otra.
+                const filled = i === 0 || step >= 3;
+                return (
+                  <Star
+                    key={i}
+                    className={cn(
+                      "h-2.5 w-2.5 transition-colors duration-300",
+                      filled ? "fill-primary text-primary" : "fill-transparent text-white/20"
+                    )}
+                    style={{ transitionDelay: step >= 3 ? `${i * 120}ms` : "0ms" }}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -138,7 +149,12 @@ function MapsProfileDemo({ active }: { active: boolean }) {
 /* ---------------- Demo servicio: sitio web ---------------- */
 
 function WebsiteDemo({ active }: { active: boolean }) {
-  const step = useStepCycle(active, 3, 800, 600, 2000);
+  const step = useStepCycle(active, 5, 550, 500, 2000);
+  const show = (n: number) =>
+    cn(
+      "transition-all duration-500",
+      step >= n ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+    );
 
   return (
     <div className="flex h-44 flex-col rounded-lg bg-neutral-900 p-2.5">
@@ -152,31 +168,58 @@ function WebsiteDemo({ active }: { active: boolean }) {
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2">
-        <div
-          className={cn(
-            "h-5 rounded bg-primary/40 transition-all duration-500",
-            step >= 1 ? "w-full" : "w-0"
-          )}
-        />
-        <div
-          className={cn(
-            "flex items-center gap-1.5 text-[10px] text-white/60 transition-opacity duration-500",
-            step >= 2 ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <Clock className="h-3 w-3 text-white/40" />
-          Lunes a sábado · 10:00 a 20:00
+      <div className="flex flex-1 flex-col gap-1.5">
+        {/* Menú */}
+        <div className={cn("flex items-center justify-between", show(1))}>
+          <span className="h-2.5 w-2.5 rounded-sm bg-primary/70" />
+          <div className="flex items-center gap-1">
+            <span className="h-1 w-4 rounded-full bg-white/25" />
+            <span className="h-1 w-4 rounded-full bg-white/25" />
+            <span className="h-1 w-4 rounded-full bg-white/25" />
+            <span className="ml-1 h-2 w-6 rounded-full bg-primary/60" />
+          </div>
         </div>
-        <div className="flex-1" />
-        <div
-          className={cn(
-            "flex h-6 items-center justify-center gap-1.5 self-start rounded-full bg-primary px-3 text-[10px] font-medium text-primary-foreground transition-all duration-500",
-            step >= 3 ? "scale-100 opacity-100" : "scale-75 opacity-0"
-          )}
-        >
-          <MessageCircle className="h-3 w-3" />
-          Escríbenos por WhatsApp
+
+        {/* Portada: texto e imagen */}
+        <div className={cn("grid flex-1 grid-cols-5 gap-1.5", show(2))}>
+          <div className="col-span-3 flex flex-col justify-center gap-1">
+            <span className="h-2.5 w-full rounded bg-primary/40" />
+            <span className="h-1 w-5/6 rounded-full bg-white/20" />
+            <span className="h-1 w-2/3 rounded-full bg-white/20" />
+            <span className="mt-0.5 h-2.5 w-10 rounded-full bg-primary/70" />
+          </div>
+          <div className="col-span-2 rounded bg-white/10" />
+        </div>
+
+        {/* Servicios */}
+        <div className={cn("grid grid-cols-3 gap-1", show(3))}>
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="flex h-6 flex-col justify-center gap-0.5 rounded bg-white/[0.06] px-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+              <span className="h-1 w-3/4 rounded-full bg-white/20" />
+            </div>
+          ))}
+        </div>
+
+        {/* Horario y botón de WhatsApp */}
+        <div className={cn("flex items-center justify-between gap-1", show(4))}>
+          <span className="flex items-center gap-1 text-[8px] text-white/60">
+            <Clock className="h-2.5 w-2.5 text-white/40" />
+            Lun a sáb · 10:00 a 20:00
+          </span>
+          <span className="flex h-4 items-center gap-1 rounded-full bg-primary px-1.5 text-[8px] font-medium text-primary-foreground">
+            <MessageCircle className="h-2.5 w-2.5" />
+            WhatsApp
+          </span>
+        </div>
+
+        {/* Pie de página */}
+        <div className={cn("flex items-center justify-between border-t border-white/10 pt-1", show(5))}>
+          <span className="h-1 w-8 rounded-full bg-white/15" />
+          <div className="flex gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
+          </div>
         </div>
       </div>
     </div>
