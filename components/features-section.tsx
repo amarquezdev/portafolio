@@ -20,7 +20,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
+import { WHATSAPP_BOTH_URL, WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
 
 // Precio "desde" de cada servicio. El de la web coincide con la Landing WordPress de la calculadora.
 const MAPS_PRICE_FROM = 50000; // PENDIENTE: confirmar precio real
@@ -524,10 +524,33 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        <div className="mx-auto mb-24 grid max-w-4xl grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-5 md:grid-cols-2">
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} service={service} />
           ))}
+        </div>
+
+        <div className="mx-auto mb-24 mt-5 flex max-w-4xl flex-col items-center gap-4 rounded-2xl border border-primary/20 bg-primary/[0.06] p-6 text-center sm:flex-row sm:text-left">
+          <div className="flex shrink-0 items-center -space-x-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary/15">
+              <MapPin className="h-4 w-4 text-primary" />
+            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary/15">
+              <Globe className="h-4 w-4 text-primary" />
+            </div>
+          </div>
+          <div className="flex-1">
+            <p className="font-semibold text-neutral-900">¿Necesitas las dos?</p>
+            <p className="text-sm text-neutral-500">
+              Te cotizo la ficha y la web juntas, y las dejo con los mismos datos desde el primer día.
+            </p>
+          </div>
+          <Button className="group/btn shrink-0" asChild>
+            <a href={WHATSAPP_BOTH_URL} target="_blank" rel="noopener noreferrer">
+              Cotizar las dos
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            </a>
+          </Button>
         </div>
 
         <div className="mx-auto mb-12 max-w-2xl text-center">

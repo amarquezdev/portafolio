@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
+import { WHATSAPP_BOTH_URL, WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
 
 export function CTASection() {
   return (
@@ -30,6 +30,15 @@ export function CTASection() {
               </a>
             </Button>
           </div>
+          <a
+            href={WHATSAPP_BOTH_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-6 inline-flex items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-white"
+          >
+            ¿Necesitas las dos? Te cotizo la ficha y la web juntas
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>

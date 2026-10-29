@@ -16,6 +16,10 @@ export const WHATSAPP_WEB_URL = buildWhatsAppUrl(
   "Hola Alejandro, quiero cotizar un sitio web para mi negocio."
 );
 
+export const WHATSAPP_BOTH_URL = buildWhatsAppUrl(
+  "Hola Alejandro, quiero arreglar la ficha de Google Maps de mi negocio y también cotizar un sitio web."
+);
+
 export const WHATSAPP_CONTACT_URL = buildWhatsAppUrl(
   "Hola Alejandro, tengo una consulta sobre tu trabajo."
 );
