@@ -14,34 +14,14 @@ const TESTIMONIALS: Testimonial[] = [
     initials: "CM",
   },
   {
-    text: "Necesitábamos algo rápido y con buena imagen. La landing page que nos hicieron se pagó sola en el primer mes.",
-    name: "Agustin Inostroza",
-    role: "Dueño, Tienda Mafia Court",
-    initials: "AI",
-  },
-  {
     text: "Nos hicieron una web corporativa completa, con todas las secciones que necesitábamos. Se nota que entendieron el negocio.",
     name: "Marcia Perez",
     role: "Dueña, Asesoria Legal E Integral C&M",
     initials: "MP",
   },
-  {
-    text: "Elegimos WordPress para tener algo rápido y económico, y quedó exactamente como lo imaginamos.",
-    name: "Camila Vergara",
-    role: "Consultora, Sistema de abogados",
-    initials: "CV",
-  },
-  {
-    text: "El proceso fue muy claro desde el primer día. Sabíamos en qué fase estábamos en todo momento.",
-    name: "Diego Ramírez",
-    role: "Dueño, Gimnasio PowerFit",
-    initials: "DR",
-  },
 ];
 
-const COL1 = TESTIMONIALS.slice(0, 2);
-const COL2 = TESTIMONIALS.slice(2, 4);
-const COL3 = TESTIMONIALS.slice(4, 6);
+const MASK = "[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]";
 
 export function TestimonialsSection() {
   return (
@@ -49,23 +29,25 @@ export function TestimonialsSection() {
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Negocios que ya confiaron en nosotros
+            Lo que dicen los negocios con los que trabajé
           </h2>
           <p className="mt-4 text-white/60">
-            Resultados reales de negocios locales que dieron el salto a una web profesional.
+            Clientes de la zona, con sus palabras.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-          <div className="h-[420px] lg:h-[200px]">
-            <TestimonialsColumn testimonials={COL1} duration={14} />
-          </div>
-          <div className="hidden h-[420px] sm:block lg:h-[200px]">
-            <TestimonialsColumn testimonials={COL2} duration={18} />
-          </div>
-          <div className="hidden h-[420px] lg:block lg:h-[200px]">
-            <TestimonialsColumn testimonials={COL3} duration={16} />
-          </div>
+        {/* Celular y tablet: una columna con las tres reseñas */}
+        <div className={`mx-auto h-[420px] max-w-xl lg:hidden ${MASK}`}>
+          <TestimonialsColumn testimonials={TESTIMONIALS} duration={20} />
+        </div>
+
+        {/* Escritorio: una reseña por columna */}
+        <div className={`hidden grid-cols-3 gap-6 lg:grid ${MASK}`}>
+          {TESTIMONIALS.map((t, i) => (
+            <div key={t.name} className="h-[200px]">
+              <TestimonialsColumn testimonials={[t]} duration={[10, 12, 11][i]} />
+            </div>
+          ))}
         </div>
       </div>
     </section>

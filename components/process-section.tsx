@@ -5,29 +5,29 @@ import { cn } from "@/lib/utils";
 const STEPS = [
   {
     number: "01",
-    name: "Descubrimiento",
-    description: "Entendemos tu negocio, tu público y qué necesita tu web para funcionar de verdad.",
+    name: "Conversamos",
+    description: "Me cuentas de tu negocio y vemos si necesitas la ficha de Google, la web o las dos.",
     icon: Search,
     float: "animate-float-slow",
   },
   {
     number: "02",
-    name: "Diseño",
-    description: "Te mostramos una propuesta visual a medida antes de escribir una sola línea de código.",
+    name: "Te mando la cotización",
+    description: "Con precio y plazo claros, antes de empezar. Si no te convence, no pasa nada.",
     icon: Palette,
     float: "animate-float-medium",
   },
   {
     number: "03",
-    name: "Desarrollo",
-    description: "Construimos tu sitio en WordPress o a medida, según lo que mejor se adapte a tu proyecto.",
+    name: "Hago el trabajo",
+    description: "Ordeno la ficha o armo la web, y te voy mostrando avances para que opines.",
     icon: Code2,
     float: "animate-float",
   },
   {
     number: "04",
-    name: "Lanzamiento y soporte",
-    description: "Publicamos tu web y te acompañamos con soporte y mejoras después del lanzamiento.",
+    name: "Entrego y te explico",
+    description: "Te dejo todo funcionando, con un documento de indicaciones para que sepas cómo mantenerlo.",
     icon: Rocket,
     float: "animate-float-delayed",
   },
@@ -41,13 +41,13 @@ export function ProcessSection() {
       <div className="relative mx-auto max-w-6xl">
         <div className="mx-auto mb-16 max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Así es{" "}
+            Así{" "}
             <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-              trabajar con nosotros
+              trabajo contigo
             </span>
           </h2>
           <p className="mt-4 text-white/60">
-            Un proceso claro, de principio a fin, sin sorpresas.
+            Hablas conmigo desde el primer mensaje hasta la entrega.
           </p>
         </div>
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <rect width="1280" height="800" fill="#171717"/>
+  <rect x="0" y="0" width="1280" height="72" fill="#262626"/>
+  <rect x="48" y="24" width="160" height="24" rx="12" fill="#404040"/>
+  <rect x="880" y="26" width="90" height="20" rx="10" fill="#333"/>
+  <rect x="990" y="26" width="90" height="20" rx="10" fill="#333"/>
+  <rect x="1100" y="20" width="132" height="32" rx="16" fill="#3b5bdb"/>
+  <rect x="48" y="150" width="620" height="56" rx="10" fill="#3b5bdb" opacity="0.55"/>
+  <rect x="48" y="226" width="460" height="22" rx="8" fill="#404040"/>
+  <rect x="48" y="262" width="400" height="22" rx="8" fill="#333"/>
+  <rect x="48" y="320" width="200" height="52" rx="26" fill="#3b5bdb"/>
+  <rect x="740" y="140" width="492" height="300" rx="20" fill="#262626"/>
+  <rect x="48" y="500" width="368" height="220" rx="18" fill="#262626"/>
+  <rect x="456" y="500" width="368" height="220" rx="18" fill="#262626"/>
+  <rect x="864" y="500" width="368" height="220" rx="18" fill="#262626"/>
+  <text x="640" y="780" fill="#737373" font-family="sans-serif" font-size="22" text-anchor="middle">Captura de ejemplo · reemplazar por la web real</text>
+</svg>

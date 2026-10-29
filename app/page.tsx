@@ -3,6 +3,9 @@ import { GlassmorphismNav } from "@/components/glassmorphism-nav";
 import { HeroSection } from "@/components/hero-section";
 import { ProblemSolutionSection } from "@/components/problem-solution-section";
 import { FeaturesSection } from "@/components/features-section";
+import { HowItConnectsSection } from "@/components/how-it-connects-section";
+import { DiagnosisCTASection } from "@/components/diagnosis-cta-section";
+import { CaseStudySection } from "@/components/case-study-section";
 import { ProcessSection } from "@/components/process-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { PricingCalculatorSection } from "@/components/pricing-calculator-section";
@@ -26,6 +29,9 @@ export default function Home() {
           <HeroSection />
           <ProblemSolutionSection />
           <FeaturesSection />
+          <HowItConnectsSection />
+          <DiagnosisCTASection />
+          <CaseStudySection />
           <ProcessSection />
           <TestimonialsSection />
           <PricingCalculatorSection />

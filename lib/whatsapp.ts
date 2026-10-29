@@ -1,13 +1,21 @@
 const WHATSAPP_NUMBER = "56934300536";
 
-function buildWhatsAppUrl(message: string) {
+export function buildWhatsAppUrl(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-export const WHATSAPP_BUDGET_URL = buildWhatsAppUrl(
-  "Hola, me gustaría solicitar un presupuesto para mi sitio web."
+export const WHATSAPP_DIAGNOSIS_URL = buildWhatsAppUrl(
+  "Hola Alejandro, quiero el diagnóstico gratis de mi ficha de Google. Mi negocio se llama: "
+);
+
+export const WHATSAPP_MAPS_URL = buildWhatsAppUrl(
+  "Hola Alejandro, quiero arreglar la ficha de Google Maps de mi negocio."
+);
+
+export const WHATSAPP_WEB_URL = buildWhatsAppUrl(
+  "Hola Alejandro, quiero cotizar un sitio web para mi negocio."
 );
 
 export const WHATSAPP_CONTACT_URL = buildWhatsAppUrl(
-  "Hola, me gustaría hablar sobre sus servicios de diseño web."
+  "Hola Alejandro, tengo una consulta sobre tu trabajo."
 );

@@ -1,16 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Linkedin, Instagram, Facebook } from "lucide-react";
+import { Linkedin, Instagram, MessageCircle } from "lucide-react";
+
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
+
+const INSTAGRAM_URL = "https://www.instagram.com/macno.cl";
+
+const SOCIAL_CLASS =
+  "flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary";
 
 const FOOTER_LINKS = {
   Servicios: [
-    { label: "Tiendas Online", href: "/#servicios" },
-    { label: "Sistemas de Reserva", href: "/#servicios" },
-    { label: "Landing Pages", href: "/#servicios" },
-    { label: "Webs Corporativas", href: "/#servicios" },
+    { label: "Perfil de Google Maps", href: "/#servicios" },
+    { label: "Sitios web", href: "/#servicios" },
+    { label: "Caso real", href: "/#caso" },
   ],
-  Empresa: [
-    { label: "Proceso", href: "/#proceso" },
+  Información: [
+    { label: "Cómo trabajo", href: "/#proceso" },
     { label: "Precios", href: "/#precios" },
     { label: "Contacto", href: "/#contacto" },
   ],
@@ -33,29 +39,31 @@ export function Footer() {
               <span className="text-lg font-semibold text-white">Macno</span>
             </Link>
             <p className="mb-5 text-sm text-white/50">
-              Diseño y desarrollo web para pequeños y medianos negocios locales.
+              Fichas de Google Maps y sitios web para negocios de Viña del Mar,
+              Reñaca y Concón.
             </p>
             <div className="flex items-center gap-3">
-              <a
-                href="#"
-                aria-label="Macno en LinkedIn"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
-              >
+              {/* LinkedIn sin enlace por ahora */}
+              <span aria-label="Macno en LinkedIn" className={SOCIAL_CLASS}>
                 <Linkedin className="h-4 w-4" />
-              </a>
+              </span>
               <a
-                href="#"
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Macno en Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
+                className={SOCIAL_CLASS}
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
-                href="#"
-                aria-label="Macno en Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary"
+                href={WHATSAPP_CONTACT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Escribirle a Macno por WhatsApp"
+                className={SOCIAL_CLASS}
               >
-                <Facebook className="h-4 w-4" />
+                <MessageCircle className="h-4 w-4" />
               </a>
             </div>
           </div>

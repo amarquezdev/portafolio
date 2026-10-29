@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { WHATSAPP_BUDGET_URL, WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
+import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
 
 export function CTASection() {
   return (
@@ -11,22 +11,22 @@ export function CTASection() {
 
         <div className="relative">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            ¿Listo para tener la web que tu negocio necesita?
+            Escríbeme y vemos qué necesita tu negocio
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-white/60">
-            Cuéntanos sobre tu negocio y te preparamos un presupuesto sin
-            compromiso, adaptado a lo que realmente necesitas.
+            Puede ser la ficha de Google, la web o las dos. Te respondo yo, por
+            WhatsApp, y te mando la cotización sin compromiso.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button variant="white" size="lg" className="group" asChild>
-              <a href={WHATSAPP_BUDGET_URL} target="_blank" rel="noopener noreferrer">
-                Solicitar Presupuesto Gratis
+              <a href={WHATSAPP_MAPS_URL} target="_blank" rel="noopener noreferrer">
+                Arreglar mi ficha de Google
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a href={WHATSAPP_CONTACT_URL} target="_blank" rel="noopener noreferrer">
-                Hablar con Nosotros
+              <a href={WHATSAPP_WEB_URL} target="_blank" rel="noopener noreferrer">
+                Cotizar un sitio web
               </a>
             </Button>
           </div>

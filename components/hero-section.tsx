@@ -1,23 +1,21 @@
 "use client";
 
-import { ArrowRight, LayoutTemplate } from "lucide-react";
+import { LayoutTemplate, MapPin } from "lucide-react";
 
 import RotatingText from "@/components/RotatingText";
 import { Button } from "@/components/ui/button";
 import { scrollToSection } from "@/lib/utils";
-import { WHATSAPP_BUDGET_URL } from "@/lib/whatsapp";
+import { WHATSAPP_DIAGNOSIS_URL } from "@/lib/whatsapp";
 
 const LOCAL_BUSINESSES = [
   "Studio Clau Miranda",
   "Asesoria Legal E Integral C&M",
   "Todo en Vidrio",
-  "Gimnasio PowerFit",
-  "Ferretería Martínez",
-  "Panadería El Trigal",
 ];
 
 export function HeroSection() {
-  const businesses = [...LOCAL_BUSINESSES, ...LOCAL_BUSINESSES];
+  // La animación recorre la mitad de la cinta, así que se repite en múltiplos de 2.
+  const businesses = Array.from({ length: 4 }, () => LOCAL_BUSINESSES).flat();
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-32 pb-16 text-center animate-fade-in-hero">
@@ -27,20 +25,20 @@ export function HeroSection() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
           </span>
-          Diseño Web para Negocios Locales
+          Viña del Mar · Reñaca · Concón
         </div>
       </div>
 
       <h1 className="animate-fade-in-heading opacity-0 [animation-delay:0.25s] max-w-4xl text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-7xl">
-        Tu negocio necesita
+        Que tu negocio se vea bien
         <br />
-        una web que{" "}
+        en{" "}
         <RotatingText
-          texts={["Vende", "Reserva", "Convierte", "Crece", "Destaca"]}
+          texts={["Google Maps", "tu sitio web"]}
           mainClassName="inline-flex items-center justify-center overflow-hidden rounded-xl bg-primary px-3 py-1 text-primary-foreground align-middle"
           staggerFrom="last"
           staggerDuration={0.025}
-          rotationInterval={2000}
+          rotationInterval={2500}
           transition={{ type: "spring", damping: 30, stiffness: 400 }}
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -49,17 +47,17 @@ export function HeroSection() {
       </h1>
 
       <p className="animate-fade-in-subheading opacity-0 [animation-delay:0.4s] mx-auto mt-6 max-w-xl text-base text-white/70 sm:text-lg">
-        Diseñamos y desarrollamos sitios web para pequeños y medianos
-        negocios: desde plantillas WordPress listas para lanzar hasta
-        desarrollos 100% a medida. Tiendas online, sistemas de reserva,
-        landing pages y webs corporativas.
+        Ordeno tu ficha de Google y hago sitios web simples para negocios de
+        la zona. Puedes contratar uno o los dos. La idea es que la gente vea
+        el mismo horario y el mismo teléfono en todas partes, y que
+        escribirte le resulte fácil.
       </p>
 
       <div className="animate-fade-in-buttons opacity-0 [animation-delay:0.55s] mt-10 flex flex-col items-center gap-4 sm:flex-row">
         <Button variant="white" size="lg" className="group" asChild>
-          <a href={WHATSAPP_BUDGET_URL} target="_blank" rel="noopener noreferrer">
-            Solicitar Presupuesto
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          <a href={WHATSAPP_DIAGNOSIS_URL} target="_blank" rel="noopener noreferrer">
+            <MapPin className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+            Diagnóstico gratis de mi ficha
           </a>
         </Button>
         <Button
@@ -69,13 +67,13 @@ export function HeroSection() {
           onClick={() => scrollToSection("#servicios")}
         >
           <LayoutTemplate className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-          Ver Servicios
+          Ver servicios
         </Button>
       </div>
 
       <div className="animate-fade-in-trust opacity-0 [animation-delay:0.8s] mt-24 w-full max-w-5xl">
         <p className="mb-6 text-xs uppercase tracking-widest text-white/40">
-          Diseñamos webs para negocios como el tuyo
+          Negocios de la zona con los que he trabajado
         </p>
 
         <div className="relative hidden overflow-hidden sm:block">

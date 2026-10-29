@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { evaluate } from "mathjs";
-import { Clock, DollarSign, Layers } from "lucide-react";
+import { ArrowRight, Clock, DollarSign, Layers } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 type Approach = "wordpress" | "custom";
 type SiteType = "landing" | "corporate" | "booking" | "ecommerce";
@@ -94,16 +96,29 @@ export function PricingCalculatorSection() {
     };
   }, [approach, siteType, extraPages, extraIntegrations, isLanding]);
 
+  const siteLabel = SITE_TYPES.find((s) => s.value === siteType)?.label;
+  const approachLabel = approach === "wordpress" ? "WordPress" : "a medida";
+  const pagesText = isLanding
+    ? ""
+    : `, con ${extraPages} ${extraPages === 1 ? "página extra" : "páginas extra"}`;
+  const integrationsText =
+    extraIntegrations === 0
+      ? ""
+      : ` y ${extraIntegrations} ${extraIntegrations === 1 ? "integración" : "integraciones"}`;
+  const whatsappUrl = buildWhatsAppUrl(
+    `Hola Alejandro, quiero cotizar una ${siteLabel} en ${approachLabel}${pagesText}${integrationsText}. La calculadora me dio $${estimatedPrice.toLocaleString("es-CL")}.`
+  );
+
   return (
     <section id="precios" className="relative px-4 py-24 sm:px-6 lg:px-8">
       <div ref={ref} className="mx-auto max-w-5xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Calcula el presupuesto de tu proyecto
+            Calcula una cotización para tu web
           </h2>
           <p className="mt-4 text-white/60">
-            Elige el enfoque, el tipo de web y ajusta los extras para ver una
-            estimación al instante.
+            Elige cómo quieres la web y qué tipo necesitas, y ajusta los extras.
+            La ficha de Google se cotiza aparte, según cómo esté.
           </p>
         </div>
 
@@ -222,7 +237,7 @@ export function PricingCalculatorSection() {
                 <span className="text-3xl font-bold text-white">
                   ${estimatedPrice.toLocaleString("es-CL")}
                 </span>
-                <span className="text-xs text-white/50">presupuesto estimado</span>
+                <span className="text-xs text-white/50">cotización estimada</span>
               </div>
             </div>
 
@@ -235,7 +250,7 @@ export function PricingCalculatorSection() {
               <div className="flex flex-col items-center rounded-xl bg-white/5 p-4 text-center">
                 <Layers className="mb-2 h-5 w-5 text-primary" />
                 <span className="text-lg font-semibold text-white">
-                  {SITE_TYPES.find((s) => s.value === siteType)?.label}
+                  {siteLabel}
                 </span>
                 <span className="text-xs text-white/50">
                   {approach === "wordpress" ? "WordPress" : "A medida"}
@@ -243,9 +258,16 @@ export function PricingCalculatorSection() {
               </div>
             </div>
 
+            <Button variant="white" className="group w-full" asChild>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                Pedir esta cotización por WhatsApp
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </Button>
+
             <div className="flex items-center gap-2 text-xs text-white/40">
               <DollarSign className="h-3.5 w-3.5" />
-              Estimación orientativa, el presupuesto final se ajusta a tu proyecto
+              Es una estimación. La cotización final depende de lo que necesites.
             </div>
           </div>
         </div>

@@ -6,10 +6,12 @@ import Image from "next/image";
 import { ArrowRight, Menu, X } from "lucide-react";
 
 import { cn, scrollToSection } from "@/lib/utils";
+import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const NAV_LINKS = [
   { label: "Servicios", href: "#servicios" },
-  { label: "Proceso", href: "#proceso" },
+  { label: "Cómo funciona", href: "#como-funciona" },
+  { label: "Caso real", href: "#caso" },
   { label: "Precios", href: "#precios" },
   { label: "Contacto", href: "#contacto" },
 ];
@@ -85,13 +87,15 @@ export function GlassmorphismNav() {
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => handleNavClick("#contacto")}
+            <a
+              href={WHATSAPP_CONTACT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group hidden items-center gap-1.5 rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition-transform hover:scale-105 sm:flex"
             >
-              Empezar
+              Escríbeme
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
+            </a>
 
             <button
               onClick={() => setMobileOpen((v) => !v)}
@@ -137,17 +141,20 @@ export function GlassmorphismNav() {
               {link.label}
             </button>
           ))}
-          <button
-            onClick={() => handleNavClick("#contacto")}
+          <a
+            href={WHATSAPP_CONTACT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
             className={cn(
               "mt-4 flex items-center gap-2 rounded-full bg-white px-6 py-3 text-base font-medium text-black opacity-0",
               mobileOpen && "animate-mobile-menu-item"
             )}
             style={{ animationDelay: mobileOpen ? `${NAV_LINKS.length * 80}ms` : undefined }}
           >
-            Empezar
+            Escríbeme
             <ArrowRight className="h-4 w-4" />
-          </button>
+          </a>
         </div>
       </div>
     </>

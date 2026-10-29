@@ -6,20 +6,24 @@ import { cn } from "@/lib/utils";
 
 const ROWS = [
   {
-    problem: "Los clientes no te encuentran cuando buscan en Google",
-    solution: "Apareces en las búsquedas con una web optimizada",
+    problem: "Google muestra un horario antiguo y la gente llega con el local cerrado",
+    solution: "El horario queda igual en Google y en tu web",
   },
   {
-    problem: "Pierdes ventas y reservas fuera de tu horario",
-    solution: "Tu web vende o gestiona reservas las 24 horas",
+    problem: "El teléfono de la ficha ya no existe o nadie contesta",
+    solution: "El botón de llamar o escribir llega a tu WhatsApp de verdad",
   },
   {
-    problem: "Compites con negocios que ya tienen presencia online",
-    solution: "Destacas frente a la competencia con una imagen profesional",
+    problem: "Hay dos fichas del mismo local, una con el nombre antiguo",
+    solution: "Hago la gestión con Google para que quede una sola, con el nombre de hoy",
   },
   {
-    problem: "Tu web actual es lenta, anticuada o no se ve bien en el móvil",
-    solution: "Diseño moderno, rápido y adaptado a cualquier dispositivo",
+    problem: "Las fotos son de hace años o las subió un cliente",
+    solution: "Fotos actuales del local y de tu trabajo",
+  },
+  {
+    problem: "No tienes web, o la que tienes no se ve bien en el celular",
+    solution: "Una web simple que carga rápido en el celular",
   },
 ];
 
@@ -29,7 +33,7 @@ export function ProblemSolutionComparison() {
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
         <h3 className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-red-400/80">
           <X className="h-4 w-4" />
-          Sin una web profesional
+          Lo que encuentro seguido
         </h3>
         <ul className="space-y-4">
           {ROWS.map((row) => (
@@ -48,7 +52,7 @@ export function ProblemSolutionComparison() {
       >
         <h3 className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-primary">
           <Check className="h-4 w-4 text-success" />
-          Con Macno
+          Cómo lo dejo
         </h3>
         <ul className="space-y-4">
           {ROWS.map((row) => (

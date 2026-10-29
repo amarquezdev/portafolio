@@ -19,9 +19,9 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Macno - Diseño y Desarrollo Web para Negocios Locales",
+  title: "Macno | Google Maps y sitios web en Viña del Mar, Reñaca y Concón, Chile",
   description:
-    "Macno crea sitios web para pequeños y medianos negocios: desde plantillas WordPress listas para lanzar hasta desarrollos 100% a medida. Tiendas online, sistemas de reserva, landing pages y webs corporativas.",
+    "Ordeno la ficha de Google Maps de tu negocio y hago sitios web simples, en WordPress o a medida. Trabajo con negocios de Viña del Mar, Reñaca y Concón. Pide un diagnóstico gratis de tu ficha por WhatsApp.",
 };
 
 export default function RootLayout({

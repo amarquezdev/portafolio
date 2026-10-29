@@ -2,16 +2,29 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  ArrowRight,
   Building2,
   Calendar,
+  Check,
+  Clock,
+  Globe,
   Layers,
+  MapPin,
+  MessageCircle,
+  Phone,
   Rocket,
   ShoppingCart,
   Sparkles,
-  TrendingUp,
+  Star,
 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
+
+// Precio "desde" de cada servicio. El de la web coincide con la Landing WordPress de la calculadora.
+const MAPS_PRICE_FROM = 50000; // PENDIENTE: confirmar precio real
+const WEB_PRICE_FROM = 250000;
 
 function useInView<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -33,34 +46,153 @@ function useInView<T extends HTMLElement>() {
   return { ref, inView };
 }
 
-/* ---------------- Demo 1: Tienda Online ---------------- */
-
-const PRODUCTS = [
-  { name: "Producto A", price: 24 },
-  { name: "Producto B", price: 39 },
-  { name: "Producto C", price: 18 },
-];
-
-function EcommerceDemo({ active }: { active: boolean }) {
-  const [cartCount, setCartCount] = useState(0);
+/** Avanza por `steps` pasos cada `interval` ms y reinicia el ciclo mientras está activo. */
+function useStepCycle(active: boolean, steps: number, interval: number, start = 500, hold = 1800) {
+  const [step, setStep] = useState(0);
   const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
     if (!active) return;
-    setCartCount(0);
-    const timers = PRODUCTS.map((_, i) =>
-      setTimeout(() => setCartCount((c) => c + 1), 700 + i * 800)
+    setStep(0);
+    const timers = Array.from({ length: steps }, (_, i) =>
+      setTimeout(() => setStep(i + 1), start + (i + 1) * interval)
     );
     const reset = setTimeout(
       () => {
-        setCartCount(0);
+        setStep(0);
         setCycle((c) => c + 1);
       },
-      700 + PRODUCTS.length * 800 + 1800
+      start + steps * interval + hold
     );
     return () => [...timers, reset].forEach(clearTimeout);
-  }, [active, cycle]);
+  }, [active, cycle, steps, interval, start, hold]);
 
+  return step;
+}
+
+/* ---------------- Demo servicio: ficha de Google ---------------- */
+
+function MapsProfileDemo({ active }: { active: boolean }) {
+  const step = useStepCycle(active, 3, 800, 600, 2000);
+
+  return (
+    <div className="flex h-44 flex-col justify-between rounded-lg bg-neutral-900 p-3">
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15">
+            <MapPin className="h-4 w-4 text-primary" />
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-white">Tu negocio</p>
+            <div className="flex items-center gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-2.5 w-2.5 fill-primary text-primary" />
+              ))}
+            </div>
+          </div>
+        </div>
+        <span
+          className={cn(
+            "rounded-full border px-2 py-0.5 text-[9px] transition-all duration-500",
+            step >= 3
+              ? "border-white/10 text-white/30 line-through opacity-0"
+              : "border-red-400/40 text-red-400/80 opacity-100"
+          )}
+        >
+          Ficha duplicada
+        </span>
+      </div>
+
+      <div className="space-y-1.5 text-[11px]">
+        <div className="flex items-center gap-2">
+          <Clock className="h-3.5 w-3.5 text-white/40" />
+          <span
+            className={cn(
+              "transition-colors duration-500",
+              step >= 1 ? "text-success" : "text-red-400/80"
+            )}
+          >
+            {step >= 1 ? "Abierto · cierra a las 20:00" : "Cerrado"}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Phone className="h-3.5 w-3.5 text-white/40" />
+          <span
+            className={cn(
+              "transition-colors duration-500",
+              step >= 2 ? "text-white/80" : "text-white/30 line-through"
+            )}
+          >
+            {step >= 2 ? "+56 9 1234 5678" : "+56 32 123 4567"}
+          </span>
+        </div>
+      </div>
+
+      <span className="text-[11px] text-white/50">
+        {step >= 3 ? "Ficha ordenada y al día" : "Revisando la ficha..."}
+      </span>
+    </div>
+  );
+}
+
+/* ---------------- Demo servicio: sitio web ---------------- */
+
+function WebsiteDemo({ active }: { active: boolean }) {
+  const step = useStepCycle(active, 3, 800, 600, 2000);
+
+  return (
+    <div className="flex h-44 flex-col rounded-lg bg-neutral-900 p-2.5">
+      <div className="mb-2 flex items-center gap-1 border-b border-white/10 pb-2">
+        <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+        <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+        <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+        <span className="ml-2 flex items-center gap-1 text-[9px] text-white/40">
+          <Globe className="h-2.5 w-2.5" />
+          tunegocio.cl
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-2">
+        <div
+          className={cn(
+            "h-5 rounded bg-primary/40 transition-all duration-500",
+            step >= 1 ? "w-full" : "w-0"
+          )}
+        />
+        <div
+          className={cn(
+            "flex items-center gap-1.5 text-[10px] text-white/60 transition-opacity duration-500",
+            step >= 2 ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <Clock className="h-3 w-3 text-white/40" />
+          Lunes a sábado · 10:00 a 20:00
+        </div>
+        <div className="flex-1" />
+        <div
+          className={cn(
+            "flex h-6 items-center justify-center gap-1.5 self-start rounded-full bg-primary px-3 text-[10px] font-medium text-primary-foreground transition-all duration-500",
+            step >= 3 ? "scale-100 opacity-100" : "scale-75 opacity-0"
+          )}
+        >
+          <MessageCircle className="h-3 w-3" />
+          Escríbenos por WhatsApp
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- Demo 1: Tienda Online ---------------- */
+
+const PRODUCTS = [
+  { name: "Producto A", price: 14990 },
+  { name: "Producto B", price: 24990 },
+  { name: "Producto C", price: 9990 },
+];
+
+function EcommerceDemo({ active }: { active: boolean }) {
+  const cartCount = useStepCycle(active, PRODUCTS.length, 800, -100, 2600);
   const total = PRODUCTS.slice(0, cartCount).reduce((sum, p) => sum + p.price, 0);
 
   return (
@@ -82,13 +214,15 @@ function EcommerceDemo({ active }: { active: boolean }) {
                 i < cartCount ? "text-primary" : "text-white/30"
               )}
             />
-            <span className="text-[9px] text-white/50">&euro;{product.price}</span>
+            <span className="text-[9px] text-white/50">
+              ${product.price.toLocaleString("es-CL")}
+            </span>
           </div>
         ))}
       </div>
       <div className="flex items-center justify-between text-xs">
         <span className="text-white/50">Carrito ({cartCount})</span>
-        <span className="font-semibold text-white">&euro;{total}</span>
+        <span className="font-semibold text-white">${total.toLocaleString("es-CL")}</span>
       </div>
     </div>
   );
@@ -97,23 +231,8 @@ function EcommerceDemo({ active }: { active: boolean }) {
 /* ---------------- Demo 2: Sistema de Reservas ---------------- */
 
 function BookingDemo({ active }: { active: boolean }) {
-  const [booked, setBooked] = useState(false);
-  const [cycle, setCycle] = useState(0);
+  const booked = useStepCycle(active, 1, 1200, 0, 3000) >= 1;
   const days = Array.from({ length: 21 }, (_, i) => i + 1);
-
-  useEffect(() => {
-    if (!active) return;
-    setBooked(false);
-    const t = setTimeout(() => setBooked(true), 1200);
-    const reset = setTimeout(() => {
-      setBooked(false);
-      setCycle((c) => c + 1);
-    }, 4200);
-    return () => {
-      clearTimeout(t);
-      clearTimeout(reset);
-    };
-  }, [active, cycle]);
 
   return (
     <div className="flex h-40 flex-col justify-center rounded-lg bg-neutral-900 p-3">
@@ -137,7 +256,7 @@ function BookingDemo({ active }: { active: boolean }) {
         ))}
       </div>
       <span className="mt-2 text-[11px] text-white/50">
-        {booked ? "Reserva confirmada para el día 15" : "Buscando hueco disponible..."}
+        {booked ? "Reserva confirmada para el día 15" : "Buscando disponibilidad..."}
       </span>
     </div>
   );
@@ -146,41 +265,7 @@ function BookingDemo({ active }: { active: boolean }) {
 /* ---------------- Demo 3: Landing Page ---------------- */
 
 function LandingBuildDemo({ active }: { active: boolean }) {
-  const [step, setStep] = useState(0);
-  const [cycle, setCycle] = useState(0);
-  const [conversion, setConversion] = useState(0);
-
-  useEffect(() => {
-    if (!active) return;
-    setStep(0);
-    const timers = [1, 2, 3, 4].map((s) => setTimeout(() => setStep(s), 500 + s * 550));
-    const reset = setTimeout(
-      () => {
-        setStep(0);
-        setCycle((c) => c + 1);
-      },
-      500 + 4 * 550 + 1800
-    );
-    return () => [...timers, reset].forEach(clearTimeout);
-  }, [active, cycle]);
-
-  useEffect(() => {
-    if (step < 4) {
-      setConversion(0);
-      return;
-    }
-    let raf: number;
-    let start: number | null = null;
-    const duration = 700;
-    function tick(timestamp: number) {
-      if (start === null) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      setConversion(Math.round(progress * 32));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    }
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [step]);
+  const step = useStepCycle(active, 4, 550);
 
   return (
     <div className="flex h-40 flex-col rounded-lg bg-neutral-900 p-2.5">
@@ -214,13 +299,17 @@ function LandingBuildDemo({ active }: { active: boolean }) {
         <div className="mt-1 flex items-center justify-between">
           <div
             className={cn(
-              "h-5 w-16 rounded-full bg-primary transition-all duration-500",
+              "flex h-5 items-center gap-1 rounded-full bg-primary px-2 transition-all duration-500",
               step >= 4 ? "scale-100 opacity-100" : "scale-75 opacity-0"
             )}
-          />
+          >
+            <MessageCircle className="h-3 w-3 text-primary-foreground" />
+            <span className="h-1.5 w-8 rounded-full bg-primary-foreground/60" />
+          </div>
           {step >= 4 && (
             <span className="flex items-center gap-1 text-[10px] font-medium text-primary">
-              <TrendingUp className="h-3 w-3" />+{conversion}% conversión
+              <Check className="h-3 w-3" />
+              Botón a WhatsApp listo
             </span>
           )}
         </div>
@@ -234,24 +323,7 @@ function LandingBuildDemo({ active }: { active: boolean }) {
 const PAGES = ["Inicio", "Nosotros", "Servicios", "Contacto"];
 
 function SitemapDemo({ active }: { active: boolean }) {
-  const [connected, setConnected] = useState(0);
-  const [cycle, setCycle] = useState(0);
-
-  useEffect(() => {
-    if (!active) return;
-    setConnected(0);
-    const timers = PAGES.map((_, i) =>
-      setTimeout(() => setConnected((c) => c + 1), 500 + i * 500)
-    );
-    const reset = setTimeout(
-      () => {
-        setConnected(0);
-        setCycle((c) => c + 1);
-      },
-      500 + PAGES.length * 500 + 1800
-    );
-    return () => [...timers, reset].forEach(clearTimeout);
-  }, [active, cycle]);
+  const connected = useStepCycle(active, PAGES.length, 500, 0, 2300);
 
   return (
     <div className="flex h-40 flex-col justify-center gap-3 rounded-lg bg-neutral-900 p-3">
@@ -271,41 +343,122 @@ function SitemapDemo({ active }: { active: boolean }) {
         ))}
       </div>
       <span className="text-center text-[11px] text-white/50">
-        Estructura multipágina conectada
+        Varias páginas conectadas entre sí
       </span>
     </div>
   );
 }
 
-/* ---------------- Feature config ---------------- */
+/* ---------------- Servicios principales ---------------- */
+
+const SERVICES = [
+  {
+    icon: MapPin,
+    title: "Perfil de Google Maps",
+    priceFrom: MAPS_PRICE_FROM,
+    description:
+      "Reviso y corrijo tu ficha para que la gente vea los datos correctos cuando te busca.",
+    items: [
+      "Horario, teléfono, dirección y categoría",
+      "Fotos actuales del local y de tu trabajo",
+      "Gestión con Google de fichas duplicadas o con nombre antiguo",
+      "QR para pedir reseñas en el mesón",
+    ],
+    cta: "Arreglar mi ficha",
+    href: WHATSAPP_MAPS_URL,
+    Demo: MapsProfileDemo,
+  },
+  {
+    icon: Globe,
+    title: "Sitio web",
+    priceFrom: WEB_PRICE_FROM,
+    description:
+      "Páginas simples y rápidas, en WordPress o a medida, que se ven bien en el celular.",
+    items: [
+      "Desde una landing de una página hasta una tienda",
+      "Sistema de reservas si trabajas con hora",
+      "Mismo horario y teléfono que tu ficha de Google",
+      "Botón directo a tu WhatsApp",
+    ],
+    cta: "Cotizar mi web",
+    href: WHATSAPP_WEB_URL,
+    Demo: WebsiteDemo,
+  },
+] as const;
+
+function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
+  const { ref, inView } = useInView<HTMLDivElement>();
+  const [hovered, setHovered] = useState(false);
+  const active = inView || hovered;
+  const Icon = service.icon;
+  const Demo = service.Demo;
+
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8"
+    >
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
+          <Icon className="h-5 w-5 text-primary" />
+        </div>
+        <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          Desde ${service.priceFrom.toLocaleString("es-CL")}
+        </span>
+      </div>
+      <h3 className="mb-1.5 text-xl font-semibold text-neutral-900">{service.title}</h3>
+      <p className="mb-5 text-sm text-neutral-500">{service.description}</p>
+
+      <ul className="mb-6 space-y-2.5">
+        {service.items.map((item) => (
+          <li key={item} className="flex items-start gap-2.5 text-sm text-neutral-700">
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-auto">
+        <Demo active={active} />
+        <Button className="group/btn mt-6 w-full" asChild>
+          <a href={service.href} target="_blank" rel="noopener noreferrer">
+            {service.cta}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+          </a>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- Tipos de web ---------------- */
 
 const FEATURES = [
   {
     icon: ShoppingCart,
     title: "Tiendas Online",
-    description:
-      "Vende tus productos 24/7 con pasarela de pago, gestión de stock y carrito integrado.",
+    description: "Vendes por internet con pago en línea, carrito y control de stock.",
     Demo: EcommerceDemo,
   },
   {
     icon: Calendar,
     title: "Sistemas de Reserva",
-    description:
-      "Tus clientes reservan citas o mesas online sin llamadas ni idas y venidas.",
+    description: "Tus clientes eligen día y hora sin tener que llamarte.",
     Demo: BookingDemo,
   },
   {
     icon: Rocket,
     title: "Landing Pages",
     description:
-      "Una sola página enfocada 100% en convertir visitas en clientes o leads.",
+      "Una sola página con lo importante de tu negocio y un botón directo a tu WhatsApp.",
     Demo: LandingBuildDemo,
   },
   {
     icon: Building2,
     title: "Webs Corporativas",
-    description:
-      "Sitios multipágina con Inicio, Nosotros, Servicios y Contacto para dar una imagen profesional.",
+    description: "Varias páginas: inicio, quiénes son, qué hacen y cómo contactarlos.",
     Demo: SitemapDemo,
   },
 ] as const;
@@ -357,17 +510,33 @@ export function FeaturesSection() {
         <div className="mx-auto mb-16 max-w-2xl text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm text-primary">
             <Sparkles className="h-3.5 w-3.5" />
-            Sea cual sea tu negocio, tenemos la web adecuada
+            Puedes contratar uno o los dos
           </div>
           <h2 className="text-3xl font-bold text-neutral-900 sm:text-5xl">
-            Cuatro formas de{" "}
+            Dos servicios,{" "}
             <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-gradient">
-              hacer crecer tu negocio
+              eliges el que necesitas
             </span>
           </h2>
-          <p className="mx-auto mt-4 flex max-w-lg items-center justify-center gap-2 text-sm text-neutral-500">
+          <p className="mx-auto mt-4 max-w-lg text-sm text-neutral-500">
+            El precio final depende de cómo esté tu ficha o de lo que necesite tu
+            web. Te mando la cotización antes de empezar.
+          </p>
+        </div>
+
+        <div className="mx-auto mb-24 grid max-w-4xl grid-cols-1 gap-5 md:grid-cols-2">
+          {SERVICES.map((service) => (
+            <ServiceCard key={service.title} service={service} />
+          ))}
+        </div>
+
+        <div className="mx-auto mb-12 max-w-2xl text-center">
+          <h3 className="text-2xl font-bold text-neutral-900 sm:text-3xl">
+            Cuatro tipos de web, según lo que vendes
+          </h3>
+          <p className="mx-auto mt-3 flex max-w-lg items-center justify-center gap-2 text-sm text-neutral-500">
             <Layers className="h-4 w-4" />
-            Disponibles en WordPress a medida o desarrollo 100% personalizado
+            Todas se pueden hacer en WordPress o a medida
           </p>
         </div>
 
