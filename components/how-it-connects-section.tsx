@@ -72,11 +72,6 @@ export function HowItConnectsSection() {
             );
           })}
         </div>
-
-        <p className="mx-auto mt-12 max-w-xl text-center text-sm text-white/50">
-          Aunque me contrates solo uno de los dos servicios, reviso que la ficha y
-          la web digan lo mismo.
-        </p>
       </div>
     </section>
   );

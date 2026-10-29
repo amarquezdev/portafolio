@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { WHATSAPP_BOTH_URL, WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
 
-// Precio "desde" de cada servicio. El de la web coincide con la Landing WordPress de la calculadora.
+// Precio "desde" de cada servicio. El de la web es el de una landing en WordPress.
 const MAPS_PRICE_FROM = 50000; // PENDIENTE: confirmar precio real
 const WEB_PRICE_FROM = 250000;
 
@@ -420,7 +420,6 @@ const SERVICES = [
     items: [
       "Desde una landing de una página hasta una tienda",
       "Sistema de reservas si trabajas con hora",
-      "Mismo horario y teléfono que tu ficha de Google",
       "Botón directo a tu WhatsApp",
     ],
     cta: "Cotizar mi web",
@@ -585,7 +584,7 @@ export function FeaturesSection() {
           <div className="flex-1">
             <p className="font-semibold text-neutral-900">¿Necesitas las dos?</p>
             <p className="text-sm text-neutral-500">
-              Te cotizo la ficha y la web juntas, y las dejo con los mismos datos desde el primer día.
+              Te cotizo la ficha y la web juntas.
             </p>
           </div>
           <Button className="group/btn shrink-0" asChild>

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const ROWS = [
   {
     problem: "Google muestra un horario antiguo y la gente llega con el local cerrado",
-    solution: "El horario queda igual en Google y en tu web",
+    solution: "Google muestra el horario que tienes hoy",
   },
   {
     problem: "El teléfono de la ficha ya no existe o nadie contesta",

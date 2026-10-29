@@ -12,7 +12,6 @@ const NAV_LINKS = [
   { label: "Servicios", href: "#servicios" },
   { label: "Cómo funciona", href: "#como-funciona" },
   { label: "Caso real", href: "#caso" },
-  { label: "Precios", href: "#precios" },
   { label: "Contacto", href: "#contacto" },
 ];
 

@@ -17,7 +17,6 @@ const FOOTER_LINKS = {
   ],
   Información: [
     { label: "Cómo trabajo", href: "/#proceso" },
-    { label: "Precios", href: "/#precios" },
     { label: "Contacto", href: "/#contacto" },
   ],
 };

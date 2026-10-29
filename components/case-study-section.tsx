@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const CASE = {
   name: "Studio Clau Miranda",
   summary:
-    "Le hice el sitio web con reservas en línea y ordené su ficha de Google, para que las dos muestren los mismos datos.",
+    "Le hice el sitio web con reservas en línea y ordené su ficha de Google.",
   web: {
     image: "/images/casos/studio-clau-web.svg",
     url: "",
@@ -26,7 +26,7 @@ const CASE = {
     image: "/images/casos/studio-clau-maps.svg",
     url: "",
     items: [
-      "Horario y teléfono iguales a los de la web",
+      "Horario y teléfono corregidos",
       "Fotos actuales del estudio y de los trabajos",
       "QR para pedir reseñas al terminar la atención",
     ],
