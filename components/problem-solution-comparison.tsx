@@ -2,6 +2,9 @@
 
 import { Check, X } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+
+// hideOnMobile: en celular se muestran solo 4 puntos para no alargar la sección
 const ROWS = [
   {
     problem: "Google muestra un horario desactualizado y el cliente se encuentra con el local cerrado",
@@ -18,6 +21,7 @@ const ROWS = [
   {
     problem: "Las fotos del perfil son antiguas o no hay ninguna",
     solution: "Adjunto tus fotos actuales del local y de tus servicios",
+    hideOnMobile: true,
   },
   {
     problem: "No tiene web, no hay manera sencilla de agendar o no hay catalogo",
@@ -35,7 +39,10 @@ export function ProblemSolutionComparison() {
         </h3>
         <ul className="space-y-4">
           {ROWS.map((row) => (
-            <li key={row.problem} className="flex items-start gap-3 text-sm text-muted-foreground">
+            <li
+              key={row.problem}
+              className={cn("flex items-start gap-3 text-sm text-muted-foreground", row.hideOnMobile && "hidden sm:flex")}
+            >
               <X className="mt-0.5 h-4 w-4 shrink-0 text-red-400" />
               {row.problem}
             </li>
@@ -50,7 +57,10 @@ export function ProblemSolutionComparison() {
         </h3>
         <ul className="space-y-4">
           {ROWS.map((row) => (
-            <li key={row.solution} className="flex items-start gap-3 text-sm text-white/85">
+            <li
+              key={row.solution}
+              className={cn("flex items-start gap-3 text-sm text-white/85", row.hideOnMobile && "hidden sm:flex")}
+            >
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
               {row.solution}
             </li>

@@ -32,6 +32,8 @@ import {
 const MAPS_PRICE_FROM = 80000;
 const WEB_PRICE_FROM = 250000;
 
+const MOBILE_MAX_ITEMS = 3;
+
 function useInView<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   const [inView, setInView] = useState(false);
@@ -449,8 +451,15 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
       <p className="mb-5 text-sm text-neutral-500">{service.description}</p>
 
       <ul className="mb-6 space-y-2.5">
-        {service.items.map((item) => (
-          <li key={item} className="flex items-start gap-2.5 text-sm text-neutral-700">
+        {service.items.map((item, i) => (
+          <li
+            key={item}
+            className={cn(
+              "flex items-start gap-2.5 text-sm text-neutral-700",
+              // En celular, máximo 3 puntos por tarjeta
+              i >= MOBILE_MAX_ITEMS && "hidden sm:flex"
+            )}
+          >
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
             {item}
           </li>
