@@ -36,7 +36,7 @@ export function HeroSection() {
         <br />
         en{" "}
         <RotatingText
-          texts={["Google Maps", "tu sitio web"]}
+          texts={["Internet", "Google Maps", "tu sitio web", ]}
           mainClassName="inline-flex items-center justify-center overflow-hidden rounded-2xl bg-primary px-4 py-1 text-primary-foreground align-middle"
           staggerFrom="last"
           staggerDuration={0.025}
