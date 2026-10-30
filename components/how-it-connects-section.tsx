@@ -1,16 +1,18 @@
-import { ArrowRight, Globe, MapPin, MessageCircle, Search } from "lucide-react";
+import { ChevronDown, ChevronRight, Globe, MapPin, MessageCircle, Search } from "lucide-react";
 
+import { Glows } from "@/components/glows";
+import { SectionEyebrow } from "@/components/section-eyebrow";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
   {
     name: "Te buscan en Google",
-    description: "Escriben el nombre de tu local, o algo como “manicure Reñaca”.",
+    description: "Escriben el nombre de tu local, o “negocios cerca de mí”.",
     icon: Search,
     float: "animate-float-slow",
   },
   {
-    name: "Ven tu ficha",
+    name: "Ven tu perfil",
     description: "Miran el horario, las fotos y las reseñas antes de decidir.",
     icon: MapPin,
     float: "animate-float-medium",
@@ -23,7 +25,7 @@ const STEPS = [
   },
   {
     name: "Te escriben por WhatsApp",
-    description: "Con un botón, sin andar buscando tu número.",
+    description: "Con un botón, sin esperas.",
     icon: MessageCircle,
     float: "animate-float-delayed",
   },
@@ -31,47 +33,71 @@ const STEPS = [
 
 export function HowItConnectsSection() {
   return (
-    <section id="como-funciona" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute right-1/4 top-10 h-72 w-72 animate-pulse-slow rounded-full bg-primary/10 blur-3xl" />
+    <section id="como-funciona" className="relative isolate px-4 py-24 sm:px-6 lg:px-8">
+      <Glows preset="connects" />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+          <SectionEyebrow step={1}>Cómo te encuentran</SectionEyebrow>
+          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
             Así llega un cliente{" "}
-            <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+            <span className="text-primary">
               hasta tu WhatsApp
             </span>
           </h2>
-          <p className="mt-4 text-white/60">
-            La ficha y la web son partes del mismo camino. Si en una parte hay un
-            dato malo, ahí se pierde la persona.
+          <p className="mt-4 text-muted-foreground">
+            Antes de agendarte, tu cliente generalmente sigue este proceso hasta llegar a ti.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-14">
           {STEPS.map((step, index) => {
             const Icon = step.icon;
+            // El último paso (WhatsApp) es el destino: se marca en naranja
+            const isLast = index === STEPS.length - 1;
             return (
               <div key={step.name} className="relative">
                 <div
                   className={cn(
-                    "group relative h-full rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.06]",
+                    "group relative h-full rounded-3xl p-6 text-center shadow-sm transition-all duration-300 hover:shadow-xl",
+                    isLast ? "bg-primary text-primary-foreground" : "glass",
                     step.float
                   )}
                 >
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                  <div
+                    className={cn(
+                      "mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full",
+                      isLast ? "bg-white" : "bg-white/70"
+                    )}
+                  >
                     <Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold text-white">{step.name}</h3>
-                  <p className="mt-2 text-sm text-white/60">{step.description}</p>
+                  <h3 className={cn("text-lg font-semibold", isLast ? "text-white" : "text-foreground")}>
+                    {step.name}
+                  </h3>
+                  <p className={cn("mt-2 text-sm", isLast ? "text-white/85" : "text-muted-foreground")}>
+                    {step.description}
+                  </p>
                 </div>
+                {/* Flecha al centro del espacio entre tarjetas: abajo en celular, a la derecha en escritorio */}
                 {index < STEPS.length - 1 && (
-                  <ArrowRight className="absolute -right-5 top-1/2 z-10 hidden h-4 w-4 -translate-y-1/2 text-primary/60 lg:block" />
+                  <>
+                    <span className="glass absolute -bottom-11 left-1/2 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full text-primary sm:hidden">
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
+                    <span className="glass absolute -right-11 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-primary lg:flex">
+                      <ChevronRight className="h-4 w-4" />
+                    </span>
+                  </>
                 )}
               </div>
             );
           })}
         </div>
+
+        <p className="mx-auto mt-12 max-w-xl text-center text-muted-foreground">
+          Si en uno de estos pasos hay falta de información o un enredo, tu potencial cliente desiste.
+        </p>
       </div>
     </section>
   );

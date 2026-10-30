@@ -1,98 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.98 0 0);
+  /* Paleta clara inspirada en la referencia: gris muy claro, blanco, negro y naranja */
+  --background: #f3f3f1;
+  --foreground: #0d0d0d;
 
-  --card: oklch(0.08 0 0);
-  --card-foreground: oklch(0.98 0 0);
+  --card: #ffffff;
+  --card-foreground: #0d0d0d;
 
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.98 0 0);
+  --popover: #ffffff;
+  --popover-foreground: #0d0d0d;
 
-  --primary: oklch(0.6 0.22 260);
-  --primary-foreground: oklch(0.98 0 0);
+  --primary: #f26b1d;
+  --primary-foreground: #ffffff;
 
-  --success: oklch(0.7 0.15 142);
-  --success-foreground: oklch(0.05 0 0);
+  --success: #16a34a;
+  --success-foreground: #ffffff;
 
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary: #141414;
+  --secondary-foreground: #ffffff;
 
-  --muted: oklch(0.12 0 0);
-  --muted-foreground: oklch(0.6 0 0);
+  --muted: #ebebe8;
+  --muted-foreground: #6b6b6b;
 
-  --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.98 0 0);
+  --accent: #ebebe8;
+  --accent-foreground: #0d0d0d;
 
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
 
-  --border: oklch(0.2 0 0);
-  --input: oklch(0.2 0 0);
-  --ring: oklch(0.6 0.22 260);
+  --border: rgb(0 0 0 / 0.07);
+  --input: rgb(0 0 0 / 0.1);
+  --ring: #f26b1d;
 
-  --radius: 0.75rem;
+  --radius: 1rem;
 
-  --chart-1: oklch(0.6 0.22 260);
-  --chart-2: oklch(0.65 0.15 200);
-  --chart-3: oklch(0.75 0.15 80);
-  --chart-4: oklch(0.65 0.2 320);
-  --chart-5: oklch(0.7 0.18 25);
+  --chart-1: #f26b1d;
+  --chart-2: #141414;
+  --chart-3: #a3a3a3;
+  --chart-4: #fdba74;
+  --chart-5: #525252;
 
-  --sidebar: oklch(0.06 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.6 0.22 260);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.2 0 0);
-  --sidebar-ring: oklch(0.6 0.22 260);
-
-  --font-dancing-script: "Dancing Script", cursive;
-  --font-caveat: "Caveat", cursive;
-}
-
-.dark {
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.98 0 0);
-
-  --card: oklch(0.08 0 0);
-  --card-foreground: oklch(0.98 0 0);
-
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-
-  --primary: oklch(0.6 0.22 260);
-  --primary-foreground: oklch(0.98 0 0);
-
-  --success: oklch(0.7 0.15 142);
-  --success-foreground: oklch(0.05 0 0);
-
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-
-  --muted: oklch(0.12 0 0);
-  --muted-foreground: oklch(0.6 0 0);
-
-  --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.98 0 0);
-
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
-
-  --border: oklch(0.2 0 0);
-  --input: oklch(0.2 0 0);
-  --ring: oklch(0.6 0.22 260);
-
-  --sidebar: oklch(0.06 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.6 0.22 260);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.2 0 0);
-  --sidebar-ring: oklch(0.6 0.22 260);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0d0d0d;
+  --sidebar-primary: #f26b1d;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ebebe8;
+  --sidebar-accent-foreground: #0d0d0d;
+  --sidebar-border: rgb(0 0 0 / 0.07);
+  --sidebar-ring: #f26b1d;
 }
 
 @theme inline {
@@ -147,8 +103,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 0.25rem);
 
-  --font-script: var(--font-dancing-script);
-  --font-handwriting: var(--font-caveat);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -164,6 +120,21 @@
   body {
     background: var(--background);
     color: var(--foreground);
+  }
+
+  /* Títulos con la letra geométrica y apretada de la referencia */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+  /* Apretado solo en tamaños grandes; en textos chicos se vuelve difícil de leer */
+  h1,
+  h2 {
+    letter-spacing: -0.035em;
+  }
+  h3 {
+    letter-spacing: -0.01em;
   }
 }
 
@@ -625,4 +596,56 @@
 }
 .delay-600 {
   animation-delay: 0.6s;
+}
+
+/* Desplaza una captura más alta que su marco (celular del caso real) */
+@keyframes screen-pan {
+  0%,
+  12% {
+    object-position: 50% 0%;
+  }
+  48%,
+  62% {
+    object-position: 50% 100%;
+  }
+  100% {
+    object-position: 50% 0%;
+  }
+}
+.animate-screen-pan {
+  animation: screen-pan 14s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-screen-pan {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------- */
+/* Vidrio (glassmorphism) sobre los destellos      */
+/* ---------------------------------------------- */
+@utility glass {
+  background-color: rgb(255 255 255 / 0.45);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgb(255 255 255 / 0.75);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 10px 30px -14px rgb(0 0 0 / 0.15);
+}
+
+/* Si el sistema pide menos transparencia, el vidrio pasa a sólido */
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background-color: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Los destellos quedan quietos si el sistema pide reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .glow-blob {
+    animation: none !important;
+  }
 }

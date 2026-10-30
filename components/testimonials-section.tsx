@@ -1,3 +1,5 @@
+import { Glows } from "@/components/glows";
+import { SectionEyebrow } from "@/components/section-eyebrow";
 import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-column";
 
 const TESTIMONIALS: Testimonial[] = [
@@ -25,14 +27,16 @@ const MASK = "[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonios" className="relative px-4 py-24 sm:px-6 lg:px-8">
+    <section id="testimonios" className="relative isolate px-4 py-24 sm:px-6 lg:px-8">
+      <Glows preset="testimonials" />
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Lo que dicen los negocios con los que trabajé
+          <SectionEyebrow step={6}>Lo que dicen</SectionEyebrow>
+          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
+            No lo digo <span className="text-primary">solo yo</span>
           </h2>
-          <p className="mt-4 text-white/60">
-            Clientes de la zona, con sus palabras.
+          <p className="mt-4 text-muted-foreground">
+            Esto cuentan tres de los negocios con los que he trabajado.
           </p>
         </div>
 

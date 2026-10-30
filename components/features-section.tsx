@@ -14,16 +14,22 @@ import {
   Phone,
   Rocket,
   ShoppingCart,
-  Sparkles,
   Star,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { WHATSAPP_BOTH_URL, WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
+import { Glows } from "@/components/glows";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import { Button, ButtonArrow } from "@/components/ui/button";
+import { cn, scrollToSection } from "@/lib/utils";
+import {
+  WHATSAPP_BOTH_URL,
+  WHATSAPP_MAPS_URL,
+  WHATSAPP_WEB_TYPE_URLS,
+  WHATSAPP_WEB_URL,
+} from "@/lib/whatsapp";
 
 // Precio "desde" de cada servicio. El de la web es el de una landing en WordPress.
-const MAPS_PRICE_FROM = 50000; // PENDIENTE: confirmar precio real
+const MAPS_PRICE_FROM = 80000; // PENDIENTE: confirmar precio real
 const WEB_PRICE_FROM = 250000;
 
 function useInView<T extends HTMLElement>() {
@@ -72,75 +78,84 @@ function useStepCycle(active: boolean, steps: number, interval: number, start = 
 
 /* ---------------- Demo servicio: ficha de Google ---------------- */
 
+// Fotos de ejemplo: antes grises y sin imagen, después con color (como fotos actuales)
+const PHOTO_TONES = [
+  "from-[#f6b38a] to-[#b4532a]",
+  "from-[#e9d5c4] to-[#8a6a55]",
+  "from-[#fbd0a6] to-[#d9752f]",
+];
+
 function MapsProfileDemo({ active }: { active: boolean }) {
-  const step = useStepCycle(active, 3, 800, 600, 2000);
+  // 1: horario · 2: teléfono · 3: fotos · 4: sin duplicado y con buenas reseñas
+  const step = useStepCycle(active, 4, 750, 600, 2200);
+  const done = step >= 4;
 
   return (
-    <div className="flex h-44 flex-col justify-between rounded-lg bg-neutral-900 p-3">
+    <div className="flex h-56 flex-col gap-3 rounded-lg bg-neutral-900 p-4">
+      {/* Encabezado: nombre, valoración y categoría */}
       <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15">
-            <MapPin className="h-4 w-4 text-primary" />
-          </div>
-          <div>
-            <p className="text-xs font-semibold text-white">Tu negocio</p>
-            <div className="flex items-center gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => {
-                // Antes: 1 estrella. Al terminar: se llenan las 5, una tras otra.
-                const filled = i === 0 || step >= 3;
-                return (
-                  <Star
-                    key={i}
-                    className={cn(
-                      "h-2.5 w-2.5 transition-colors duration-300",
-                      filled ? "fill-primary text-primary" : "fill-transparent text-white/20"
-                    )}
-                    style={{ transitionDelay: step >= 3 ? `${i * 120}ms` : "0ms" }}
-                  />
-                );
-              })}
-            </div>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-white">Tu negocio</p>
+          <div className="mt-1 flex items-center gap-1.5 text-[11px] text-white/50">
+            <span className="flex items-center gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className={cn(
+                    "h-3 w-3 transition-colors duration-300",
+                    i === 0 || done ? "fill-primary text-primary" : "fill-transparent text-white/20"
+                  )}
+                  style={{ transitionDelay: done ? `${i * 110}ms` : "0ms" }}
+                />
+              ))}
+            </span>
+            <span>· Peluquería</span>
           </div>
         </div>
         <span
           className={cn(
-            "rounded-full border px-2 py-0.5 text-[9px] transition-all duration-500",
-            step >= 3
-              ? "border-white/10 text-white/30 line-through opacity-0"
-              : "border-red-400/40 text-red-400/80 opacity-100"
+            "shrink-0 rounded-full border px-2 py-0.5 text-[10px] transition-all duration-500",
+            done ? "scale-90 border-transparent text-transparent opacity-0" : "border-red-400/40 text-red-400/80"
           )}
         >
           Ficha duplicada
         </span>
       </div>
 
-      <div className="space-y-1.5 text-[11px]">
+      {/* Fotos */}
+      <div className="grid grid-cols-3 gap-1.5">
+        {PHOTO_TONES.map((tone, i) => (
+          <div key={tone} className="relative h-10 overflow-hidden rounded-md bg-white/5">
+            <div
+              className={cn(
+                "absolute inset-0 bg-gradient-to-br transition-opacity duration-700",
+                tone,
+                step >= 3 ? "opacity-90" : "opacity-0"
+              )}
+              style={{ transitionDelay: step >= 3 ? `${i * 120}ms` : "0ms" }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Datos de la ficha */}
+      <div className="space-y-1.5 text-xs">
         <div className="flex items-center gap-2">
-          <Clock className="h-3.5 w-3.5 text-white/40" />
-          <span
-            className={cn(
-              "transition-colors duration-500",
-              step >= 1 ? "text-success" : "text-red-400/80"
-            )}
-          >
+          <Clock className="h-3.5 w-3.5 shrink-0 text-white/40" />
+          <span className={cn("transition-colors duration-500", step >= 1 ? "text-success" : "text-red-400/80")}>
             {step >= 1 ? "Abierto · cierra a las 20:00" : "Cerrado"}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <Phone className="h-3.5 w-3.5 text-white/40" />
-          <span
-            className={cn(
-              "transition-colors duration-500",
-              step >= 2 ? "text-white/80" : "text-white/30 line-through"
-            )}
-          >
+          <Phone className="h-3.5 w-3.5 shrink-0 text-white/40" />
+          <span className={cn("transition-colors duration-500", step >= 2 ? "text-white/80" : "text-white/30 line-through")}>
             {step >= 2 ? "+56 9 1234 5678" : "+56 32 123 4567"}
           </span>
         </div>
       </div>
 
-      <span className="text-[11px] text-white/50">
-        {step >= 3 ? "Ficha ordenada y al día" : "Revisando la ficha..."}
+      <span className="mt-auto text-[11px] text-white/50">
+        {done ? "Ficha ordenada y al día" : "Revisando la ficha..."}
       </span>
     </div>
   );
@@ -149,7 +164,8 @@ function MapsProfileDemo({ active }: { active: boolean }) {
 /* ---------------- Demo servicio: sitio web ---------------- */
 
 function WebsiteDemo({ active }: { active: boolean }) {
-  const step = useStepCycle(active, 5, 550, 500, 2000);
+  // Pocas piezas y con aire: menú, portada con imagen y botón de WhatsApp
+  const step = useStepCycle(active, 4, 600, 500, 2200);
   const show = (n: number) =>
     cn(
       "transition-all duration-500",
@@ -157,8 +173,8 @@ function WebsiteDemo({ active }: { active: boolean }) {
     );
 
   return (
-    <div className="flex h-44 flex-col rounded-lg bg-neutral-900 p-2.5">
-      <div className="mb-2 flex items-center gap-1 border-b border-white/10 pb-2">
+    <div className="flex h-56 flex-col rounded-lg bg-neutral-900 p-2.5">
+      <div className="mb-3 flex items-center gap-1 border-b border-white/10 pb-2">
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
@@ -168,59 +184,36 @@ function WebsiteDemo({ active }: { active: boolean }) {
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1.5">
+      <div className="relative flex flex-1 flex-col gap-3 px-1">
         {/* Menú */}
         <div className={cn("flex items-center justify-between", show(1))}>
-          <span className="h-2.5 w-2.5 rounded-sm bg-primary/70" />
-          <div className="flex items-center gap-1">
-            <span className="h-1 w-4 rounded-full bg-white/25" />
-            <span className="h-1 w-4 rounded-full bg-white/25" />
-            <span className="h-1 w-4 rounded-full bg-white/25" />
-            <span className="ml-1 h-2 w-6 rounded-full bg-primary/60" />
+          <span className="h-2.5 w-10 rounded-full bg-white/30" />
+          <div className="flex items-center gap-2">
+            <span className="h-1 w-5 rounded-full bg-white/20" />
+            <span className="h-1 w-5 rounded-full bg-white/20" />
           </div>
         </div>
 
-        {/* Portada: texto e imagen */}
-        <div className={cn("grid flex-1 grid-cols-5 gap-1.5", show(2))}>
-          <div className="col-span-3 flex flex-col justify-center gap-1">
-            <span className="h-2.5 w-full rounded bg-primary/40" />
-            <span className="h-1 w-5/6 rounded-full bg-white/20" />
-            <span className="h-1 w-2/3 rounded-full bg-white/20" />
-            <span className="mt-0.5 h-2.5 w-10 rounded-full bg-primary/70" />
+        {/* Portada: texto a la izquierda, imagen a la derecha */}
+        <div className="grid flex-1 grid-cols-2 items-center gap-3">
+          <div className={cn("flex flex-col gap-1.5", show(2))}>
+            <span className="h-3 w-full rounded bg-white/70" />
+            <span className="h-3 w-2/3 rounded bg-white/70" />
+            <span className="mt-1 h-1 w-5/6 rounded-full bg-white/20" />
+            <span className="mt-2 h-4 w-16 rounded-full bg-primary" />
           </div>
-          <div className="col-span-2 rounded bg-white/10" />
+          <div className={cn("h-full max-h-28 rounded-md bg-gradient-to-br from-[#f6b38a] to-[#b4532a]", show(3))} />
         </div>
 
-        {/* Servicios */}
-        <div className={cn("grid grid-cols-3 gap-1", show(3))}>
-          {[0, 1, 2].map((i) => (
-            <div key={i} className="flex h-6 flex-col justify-center gap-0.5 rounded bg-white/[0.06] px-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />
-              <span className="h-1 w-3/4 rounded-full bg-white/20" />
-            </div>
-          ))}
-        </div>
-
-        {/* Horario y botón de WhatsApp */}
-        <div className={cn("flex items-center justify-between gap-1", show(4))}>
-          <span className="flex items-center gap-1 text-[8px] text-white/60">
-            <Clock className="h-2.5 w-2.5 text-white/40" />
-            Lun a sáb · 10:00 a 20:00
-          </span>
-          <span className="flex h-4 items-center gap-1 rounded-full bg-primary px-1.5 text-[8px] font-medium text-primary-foreground">
-            <MessageCircle className="h-2.5 w-2.5" />
-            WhatsApp
-          </span>
-        </div>
-
-        {/* Pie de página */}
-        <div className={cn("flex items-center justify-between border-t border-white/10 pt-1", show(5))}>
-          <span className="h-1 w-8 rounded-full bg-white/15" />
-          <div className="flex gap-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
-            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
-          </div>
-        </div>
+        {/* Botón flotante de WhatsApp */}
+        <span
+          className={cn(
+            "absolute bottom-0 right-0 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-all duration-500",
+            step >= 4 ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          )}
+        >
+          <MessageCircle className="h-3.5 w-3.5" />
+        </span>
       </div>
     </div>
   );
@@ -409,6 +402,7 @@ const SERVICES = [
     ],
     cta: "Arreglar mi ficha",
     href: WHATSAPP_MAPS_URL,
+    scrollTo: null,
     Demo: MapsProfileDemo,
   },
   {
@@ -416,14 +410,15 @@ const SERVICES = [
     title: "Sitio web",
     priceFrom: WEB_PRICE_FROM,
     description:
-      "Páginas simples y rápidas, en WordPress o a medida, que se ven bien en el celular.",
+      "Páginas profesionales y rápidas, en plantilla o a medida, que se ven bien en el celular.",
     items: [
       "Desde una landing de una página hasta una tienda",
       "Sistema de reservas si trabajas con hora",
       "Botón directo a tu WhatsApp",
     ],
-    cta: "Cotizar mi web",
-    href: WHATSAPP_WEB_URL,
+    cta: "Ver tipos de web",
+    href: null,
+    scrollTo: "#tipos-de-web",
     Demo: WebsiteDemo,
   },
 ] as const;
@@ -440,7 +435,7 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8"
+      className="group relative flex flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8"
     >
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
@@ -450,7 +445,7 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
           Desde ${service.priceFrom.toLocaleString("es-CL")}
         </span>
       </div>
-      <h3 className="mb-1.5 text-xl font-semibold text-neutral-900">{service.title}</h3>
+      <h3 className="mb-1.5 text-2xl font-semibold text-foreground">{service.title}</h3>
       <p className="mb-5 text-sm text-neutral-500">{service.description}</p>
 
       <ul className="mb-6 space-y-2.5">
@@ -464,12 +459,24 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
 
       <div className="mt-auto">
         <Demo active={active} />
-        <Button className="group/btn mt-6 w-full" asChild>
-          <a href={service.href} target="_blank" rel="noopener noreferrer">
+        {service.scrollTo ? (
+          <Button
+            size="lg"
+            withArrow
+            className="mt-6 w-full justify-between pl-6"
+            onClick={() => scrollToSection(service.scrollTo)}
+          >
             {service.cta}
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-          </a>
-        </Button>
+            <ButtonArrow direction="down" />
+          </Button>
+        ) : (
+          <Button size="lg" withArrow className="mt-6 w-full justify-between pl-6" asChild>
+            <a href={service.href} target="_blank" rel="noopener noreferrer">
+              {service.cta}
+              <ButtonArrow />
+            </a>
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -482,12 +489,16 @@ const FEATURES = [
     icon: ShoppingCart,
     title: "Tiendas Online",
     description: "Vendes por internet con pago en línea, carrito y control de stock.",
+    cta: "Cotizar este tipo",
+    href: WHATSAPP_WEB_TYPE_URLS.ecommerce,
     Demo: EcommerceDemo,
   },
   {
     icon: Calendar,
     title: "Sistemas de Reserva",
     description: "Tus clientes eligen día y hora sin tener que llamarte.",
+    cta: "Cotizar este tipo",
+    href: WHATSAPP_WEB_TYPE_URLS.booking,
     Demo: BookingDemo,
   },
   {
@@ -495,12 +506,16 @@ const FEATURES = [
     title: "Landing Pages",
     description:
       "Una sola página con lo importante de tu negocio y un botón directo a tu WhatsApp.",
+    cta: "Cotizar este tipo",
+    href: WHATSAPP_WEB_TYPE_URLS.landing,
     Demo: LandingBuildDemo,
   },
   {
     icon: Building2,
     title: "Webs Corporativas",
     description: "Varias páginas: inicio, quiénes son, qué hacen y cómo contactarlos.",
+    cta: "Cotizar este tipo",
+    href: WHATSAPP_WEB_TYPE_URLS.corporate,
     Demo: SitemapDemo,
   },
 ] as const;
@@ -517,16 +532,22 @@ function FeatureCard({ feature }: { feature: (typeof FEATURES)[number] }) {
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
         <Icon className="h-5 w-5 text-primary" />
       </div>
-      <h3 className="mb-1.5 text-lg font-semibold text-neutral-900">
+      <h3 className="mb-1.5 text-lg font-semibold text-foreground">
         {feature.title}
       </h3>
-      <p className="mb-4 text-sm text-neutral-500">{feature.description}</p>
+      <p className="mb-4 flex-1 text-sm text-neutral-500">{feature.description}</p>
       <Demo active={active} />
+      <Button variant="white" withArrow className="mt-5 w-full justify-between pl-5" asChild>
+        <a href={feature.href} target="_blank" rel="noopener noreferrer">
+          {feature.cta}
+          <ButtonArrow tone="primary" />
+        </a>
+      </Button>
     </div>
   );
 }
@@ -535,7 +556,7 @@ export function FeaturesSection() {
   return (
     <section
       id="servicios"
-      className="relative overflow-hidden rounded-t-[3rem] bg-white px-4 py-24 sm:px-6 lg:px-8"
+      className="relative isolate px-4 py-24 sm:px-6 lg:px-8"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.4]"
@@ -543,26 +564,22 @@ export function FeaturesSection() {
           backgroundImage:
             "radial-gradient(circle, oklch(0.2 0 0 / 0.08) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
+          // Se desvanece arriba y abajo para no marcar el borde de la sección
+          maskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
         }}
       />
-      <div className="pointer-events-none absolute -top-20 right-10 h-64 w-64 animate-float-slow rounded-full bg-primary/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-10 h-72 w-72 animate-float-medium rounded-full bg-primary/5 blur-3xl" />
+      <Glows preset="features" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm text-primary">
-            <Sparkles className="h-3.5 w-3.5" />
-            Puedes contratar uno o los dos
-          </div>
-          <h2 className="text-3xl font-bold text-neutral-900 sm:text-5xl">
-            Dos servicios,{" "}
-            <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent animate-gradient">
-              eliges el que necesitas
-            </span>
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <SectionEyebrow step={3}>Lo que hago</SectionEyebrow>
+          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
+            Para arreglarlo,{" "}
+            <span className="text-primary">hago dos cosas</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-neutral-500">
-            El precio final depende de cómo esté tu ficha o de lo que necesite tu
-            web. Te mando la cotización antes de empezar.
+          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+            Puedes contratar uno o ambos servicios. El precio final depende del estado actual de tu perfil o de lo que necesite tu web.
           </p>
         </div>
 
@@ -572,37 +589,46 @@ export function FeaturesSection() {
           ))}
         </div>
 
-        <div className="mb-24 mt-5 flex flex-col items-center gap-4 rounded-2xl border border-primary/20 bg-primary/[0.06] p-6 text-center sm:flex-row sm:text-left">
+        <div className="mb-24 mt-10 flex flex-col items-center gap-4 rounded-3xl bg-primary p-6 text-center text-primary-foreground shadow-sm sm:flex-row sm:p-7 sm:text-left">
           <div className="flex shrink-0 items-center -space-x-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary/15">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary bg-white">
               <MapPin className="h-4 w-4 text-primary" />
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary/15">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary bg-white">
               <Globe className="h-4 w-4 text-primary" />
             </div>
           </div>
           <div className="flex-1">
-            <p className="font-semibold text-neutral-900">¿Necesitas las dos?</p>
-            <p className="text-sm text-neutral-500">
+            <p className="font-display text-lg font-semibold">¿Necesitas las dos?</p>
+            <p className="text-sm text-white/85">
               Te cotizo la ficha y la web juntas.
             </p>
           </div>
-          <Button className="group/btn shrink-0" asChild>
+          <Button variant="white" size="lg" withArrow className="shrink-0" asChild>
             <a href={WHATSAPP_BOTH_URL} target="_blank" rel="noopener noreferrer">
               Cotizar las dos
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+              <ButtonArrow tone="primary" />
             </a>
           </Button>
         </div>
 
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h3 className="text-2xl font-bold text-neutral-900 sm:text-3xl">
-            Cuatro tipos de web, según lo que vendes
+        <div id="tipos-de-web" className="mx-auto mb-12 max-w-3xl text-center">
+          <h3 className="text-2xl font-semibold text-foreground sm:text-4xl">
+            ¿Qué tipo de web necesitas?
           </h3>
           <p className="mx-auto mt-3 flex max-w-lg items-center justify-center gap-2 text-sm text-neutral-500">
             <Layers className="h-4 w-4" />
-            Todas se pueden hacer en WordPress o a medida
+            Todas se pueden hacer en plantilla o a medida
           </p>
+          <a
+            href={WHATSAPP_WEB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            ¿No sabes cuál te sirve? Escríbeme y lo definimos
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+          </a>
         </div>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">

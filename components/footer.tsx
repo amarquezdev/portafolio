@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Instagram, MessageCircle } from "lucide-react";
 
+import { CurrentYear } from "@/components/current-year";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const INSTAGRAM_URL = "https://www.instagram.com/macno.cl";
 
 const SOCIAL_CLASS =
-  "flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-primary/40 hover:text-primary";
+  "flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground ring-1 ring-black/5 transition-colors hover:bg-primary hover:text-primary-foreground hover:ring-primary";
 
 const FOOTER_LINKS = {
   Servicios: [
@@ -16,6 +17,7 @@ const FOOTER_LINKS = {
     { label: "Caso real", href: "/#caso" },
   ],
   Información: [
+    { label: "Cómo funciona", href: "/#como-funciona" },
     { label: "Cómo trabajo", href: "/#proceso" },
     { label: "Contacto", href: "/#contacto" },
   ],
@@ -23,7 +25,7 @@ const FOOTER_LINKS = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 px-4 py-16 sm:px-6 lg:px-8">
+    <footer className="border-t border-black/5 px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
           <div className="col-span-2 md:col-span-1">
@@ -35,11 +37,10 @@ export function Footer() {
                 height={28}
                 className="h-7 w-7 object-contain"
               />
-              <span className="text-lg font-semibold text-white">Macno</span>
+              <span className="font-display text-lg font-semibold tracking-tight text-foreground">Macno</span>
             </Link>
-            <p className="mb-5 text-sm text-white/50">
-              Fichas de Google Maps y sitios web para negocios de Viña del Mar,
-              Reñaca y Concón.
+            <p className="mb-5 text-sm text-muted-foreground">
+              Fichas de Google Maps y sitios web para negocios en Chile.
             </p>
             <div className="flex items-center gap-3">
               {/* LinkedIn sin enlace por ahora */}
@@ -69,13 +70,13 @@ export function Footer() {
 
           {Object.entries(FOOTER_LINKS).map(([title, links]) => (
             <div key={title}>
-              <h4 className="mb-4 text-sm font-semibold text-white">{title}</h4>
+              <h4 className="mb-4 text-sm font-semibold text-foreground">{title}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/50 transition-colors hover:text-white"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {link.label}
                     </Link>
@@ -86,8 +87,8 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/40">
-          &copy; {new Date().getFullYear()} Macno. Todos los derechos reservados.
+        <div className="mt-12 border-t border-black/5 pt-8 text-center text-xs text-muted-foreground">
+          &copy; <CurrentYear buildYear={new Date().getFullYear()} /> Macno. Todos los derechos reservados.
         </div>
       </div>
     </footer>

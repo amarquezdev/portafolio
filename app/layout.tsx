@@ -1,27 +1,27 @@
 import type { Metadata } from "next";
-import { Dancing_Script, Caveat } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PageTransition } from "@/components/page-transition";
 import { NavigationTransition } from "@/components/navigation-transition";
 import "./globals.css";
 
-const dancingScript = Dancing_Script({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dancing-script",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const caveat = Caveat({
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  variable: "--font-caveat",
+  variable: "--font-inter-tight",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Macno | Google Maps y sitios web en Viña del Mar, Reñaca y Concón, Chile",
+  title: "Macno | Fichas de Google Maps y sitios web para negocios en Chile",
   description:
-    "Ordeno la ficha de Google Maps de tu negocio y hago sitios web simples, en WordPress o a medida. Trabajo con negocios de Viña del Mar, Reñaca y Concón. Pide un diagnóstico gratis de tu ficha por WhatsApp.",
+    "Ordeno la ficha de Google Maps de tu negocio y hago sitios web simples, en WordPress o a medida, para negocios de todo Chile. Pide un diagnóstico gratis de tu ficha por WhatsApp.",
 };
 
 export default function RootLayout({
@@ -30,9 +30,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
+    <html lang="es">
       <body
-        className={`${dancingScript.variable} ${caveat.variable} font-sans antialiased`}
+        className={`${inter.variable} ${interTight.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         <Suspense fallback={null}>

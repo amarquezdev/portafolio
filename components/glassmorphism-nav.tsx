@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 
 import { cn, scrollToSection } from "@/lib/utils";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const NAV_LINKS = [
-  { label: "Servicios", href: "#servicios" },
   { label: "Cómo funciona", href: "#como-funciona" },
+  { label: "Servicios", href: "#servicios" },
   { label: "Caso real", href: "#caso" },
   { label: "Contacto", href: "#contacto" },
 ];
@@ -53,13 +53,13 @@ export function GlassmorphismNav() {
     <>
       <nav
         className={cn(
-          "fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-3xl transition-all duration-500",
+          "fixed top-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 transition-all duration-500 md:top-5",
           mounted && "animate-fade-in-nav",
           visible ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
         )}
       >
-        <div className="flex items-center justify-between gap-4 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md md:px-6 md:py-3">
-          <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Macno, ir al inicio">
+        <div className="flex items-center justify-between gap-4 glass rounded-full p-1.5 pl-4">
+          <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Macno, ir al inicio">
             <Image
               src="/images/logo-portafolio.png"
               alt="Logo de Macno"
@@ -68,17 +68,17 @@ export function GlassmorphismNav() {
               className="h-7 w-7 object-contain"
               priority
             />
-            <span className="hidden text-lg font-semibold text-white sm:inline">
+            <span className="hidden font-display text-lg font-semibold tracking-tight text-foreground sm:inline">
               Macno
             </span>
           </Link>
 
-          <div className="hidden items-center gap-6 lg:flex">
+          <div className="hidden items-center gap-1.5 lg:flex">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link.href)}
-                className="text-sm text-white/80 transition-colors hover:text-white"
+                className="rounded-full bg-white px-4 py-2 text-xs font-medium text-foreground ring-1 ring-black/5 transition-colors hover:bg-primary hover:text-primary-foreground hover:ring-primary"
               >
                 {link.label}
               </button>
@@ -90,15 +90,17 @@ export function GlassmorphismNav() {
               href={WHATSAPP_CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group hidden items-center gap-1.5 rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition-transform hover:scale-105 sm:flex"
+              className="group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:flex"
             >
               Escríbeme
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <span className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary transition-transform duration-300 group-hover/btn:rotate-45">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
             </a>
 
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center rounded-full text-white lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-foreground ring-1 ring-black/5 lg:hidden"
               aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
             >
               <span className="relative h-5 w-5">
@@ -122,7 +124,7 @@ export function GlassmorphismNav() {
 
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-black/70 backdrop-blur-lg transition-opacity duration-300 lg:hidden",
+          "fixed inset-0 z-40 bg-background/95 backdrop-blur-lg transition-opacity duration-300 lg:hidden",
           mobileOpen ? "opacity-100" : "pointer-events-none opacity-0"
         )}
       >
@@ -132,7 +134,7 @@ export function GlassmorphismNav() {
               key={link.label}
               onClick={() => handleNavClick(link.href)}
               className={cn(
-                "text-2xl font-medium text-white opacity-0",
+                "font-display text-2xl font-medium tracking-tight text-foreground opacity-0",
                 mobileOpen && "animate-mobile-menu-item"
               )}
               style={{ animationDelay: mobileOpen ? `${index * 80}ms` : undefined }}
@@ -146,13 +148,15 @@ export function GlassmorphismNav() {
             rel="noopener noreferrer"
             onClick={() => setMobileOpen(false)}
             className={cn(
-              "mt-4 flex items-center gap-2 rounded-full bg-white px-6 py-3 text-base font-medium text-black opacity-0",
+              "mt-4 flex h-12 items-center gap-1 rounded-full bg-primary pl-6 pr-1.5 text-base font-medium text-primary-foreground opacity-0",
               mobileOpen && "animate-mobile-menu-item"
             )}
             style={{ animationDelay: mobileOpen ? `${NAV_LINKS.length * 80}ms` : undefined }}
           >
             Escríbeme
-            <ArrowRight className="h-4 w-4" />
+            <span className="ml-2 flex h-9 w-9 items-center justify-center rounded-full bg-white text-primary">
+              <ArrowUpRight className="h-4 w-4" />
+            </span>
           </a>
         </div>
       </div>
