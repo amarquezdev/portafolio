@@ -3,7 +3,7 @@ import { ProblemSolutionComparison } from "@/components/problem-solution-compari
 export function ProblemSolutionSection() {
   return (
     <section className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
             Si Google dice una cosa y tu web otra,

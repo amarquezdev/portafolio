@@ -566,13 +566,13 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} service={service} />
           ))}
         </div>
 
-        <div className="mx-auto mb-24 mt-5 flex max-w-4xl flex-col items-center gap-4 rounded-2xl border border-primary/20 bg-primary/[0.06] p-6 text-center sm:flex-row sm:text-left">
+        <div className="mb-24 mt-5 flex flex-col items-center gap-4 rounded-2xl border border-primary/20 bg-primary/[0.06] p-6 text-center sm:flex-row sm:text-left">
           <div className="flex shrink-0 items-center -space-x-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary/15">
               <MapPin className="h-4 w-4 text-primary" />

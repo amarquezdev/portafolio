@@ -18,7 +18,7 @@ export function HeroSection() {
   const businesses = Array.from({ length: 4 }, () => LOCAL_BUSINESSES).flat();
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-32 pb-16 text-center animate-fade-in-hero">
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-32 sm:px-6 lg:px-8 pb-16 text-center animate-fade-in-hero">
       <div className="animate-fade-in-badge opacity-0 [animation-delay:0.1s]">
         <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white/90 backdrop-blur-md">
           <span className="relative flex h-2 w-2">
@@ -71,7 +71,7 @@ export function HeroSection() {
         </Button>
       </div>
 
-      <div className="animate-fade-in-trust opacity-0 [animation-delay:0.8s] mt-24 w-full max-w-5xl">
+      <div className="animate-fade-in-trust opacity-0 [animation-delay:0.8s] mt-24 w-full max-w-6xl">
         <p className="mb-6 text-xs uppercase tracking-widest text-white/40">
           Negocios de la zona con los que he trabajado
         </p>

@@ -57,9 +57,13 @@ function useInView<T extends HTMLElement>() {
   return { ref, inView };
 }
 
+// Solo en escritorio: panel con borde y dos filas compartidas con el panel vecino.
+const PANEL =
+  "lg:row-span-2 lg:grid lg:grid-rows-subgrid lg:gap-y-8 lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/[0.03] lg:p-8 lg:backdrop-blur-sm";
+
 function WorkList({ title, icon: Icon, items }: { title: string; icon: typeof Globe; items: string[] }) {
   return (
-    <div className="mt-6">
+    <div className="mt-6 lg:mt-0">
       <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-primary">
         <Icon className="h-4 w-4" />
         {title}
@@ -86,7 +90,7 @@ export function CaseStudySection() {
       <div className="pointer-events-none absolute left-1/3 top-20 h-80 w-80 animate-pulse-slow rounded-full bg-primary/10 blur-3xl" />
 
       <div ref={ref} className="relative mx-auto max-w-6xl">
-        <div className={cn("mx-auto mb-14 max-w-2xl text-center", reveal("[animation-delay:0s]"))}>
+        <div className={cn("mx-auto mb-14 max-w-3xl text-center", reveal("[animation-delay:0s]"))}>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white/90 backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
@@ -103,10 +107,12 @@ export function CaseStudySection() {
           <p className="mt-4 text-white/60">{CASE.summary}</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-12">
+        {/* En escritorio cada bloque es un panel; comparten filas (subgrid) para que
+            las capturas y las listas queden alineadas a la misma altura. */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-6">
           {/* Sitio web */}
-          <div className={cn("lg:col-span-3", reveal("[animation-delay:0.15s]"))}>
-            <div className="animate-float-slow">
+          <div className={cn(PANEL, "lg:col-span-3", reveal("[animation-delay:0.15s]"))}>
+            <div className="animate-float-slow lg:self-center">
               <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_0_40px_-15px] shadow-primary/40 backdrop-blur-sm">
                 <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
                   <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
@@ -131,8 +137,8 @@ export function CaseStudySection() {
           </div>
 
           {/* Ficha de Google */}
-          <div className={cn("lg:col-span-2", reveal("[animation-delay:0.3s]"))}>
-            <div className="animate-float-medium">
+          <div className={cn(PANEL, "lg:col-span-2", reveal("[animation-delay:0.3s]"))}>
+            <div className="animate-float-medium lg:self-center">
               <div className="mx-auto w-full max-w-[260px] rounded-[2.25rem] border border-white/15 bg-white/[0.04] p-2.5 shadow-[0_0_40px_-15px] shadow-primary/40 backdrop-blur-sm">
                 <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[1.75rem]">
                   <Image
@@ -151,12 +157,12 @@ export function CaseStudySection() {
 
         <div
           className={cn(
-            "mx-auto mt-14 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-8",
+            "mx-auto mt-14 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-8 lg:mt-6 lg:max-w-none",
             reveal("[animation-delay:0.45s]")
           )}
         >
           <Quote className="mb-3 h-6 w-6 text-primary" />
-          <p className="text-base text-white/80 sm:text-lg">{CASE.quote.text}</p>
+          <p className="max-w-3xl text-base text-white/80 sm:text-lg">{CASE.quote.text}</p>
           <p className="mt-4 text-sm text-white/50">{CASE.quote.author}</p>
 
           {(CASE.web.url || CASE.maps.url) && (
