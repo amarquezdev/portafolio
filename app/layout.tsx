@@ -19,9 +19,9 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "Macno | Fichas de Google Maps y sitios web para negocios en Chile",
+  title: "Diseño web profesional y perfiles de Google Maps | Macno",
   description:
-    "Ordeno la ficha de Google Maps de tu negocio y hago sitios web simples, en WordPress o a medida, para negocios de todo Chile. Pide un diagnóstico gratis de tu ficha por WhatsApp.",
+    "Antes de llamarte, tus clientes te buscan en Google. Diseño sitios web profesionales y cuido tu perfil en Maps para que esa primera impresión esté a tu altura.",
 };
 
 export default function RootLayout({
