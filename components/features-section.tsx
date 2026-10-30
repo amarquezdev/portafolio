@@ -29,7 +29,7 @@ import {
 } from "@/lib/whatsapp";
 
 // Precio "desde" de cada servicio. El de la web es el de una landing en WordPress.
-const MAPS_PRICE_FROM = 80000; // PENDIENTE: confirmar precio real
+const MAPS_PRICE_FROM = 80000;
 const WEB_PRICE_FROM = 250000;
 
 function useInView<T extends HTMLElement>() {
