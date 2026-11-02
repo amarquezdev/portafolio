@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Check, ExternalLink, Globe, Lock, MapPin, Sparkles } from "lucide-react";
+import { Check, ExternalLink, Globe, Lock, MapPin, Quote } from "lucide-react";
 
 import { Glows } from "@/components/glows";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { Button } from "@/components/ui/button";
+import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-column";
 import { cn } from "@/lib/utils";
 
 // Capturas en public/images/casos/. La de la ficha puede ser más alta que el marco del
@@ -14,7 +15,7 @@ import { cn } from "@/lib/utils";
 const CASE = {
   name: "Studio Clau Miranda",
   summary:
-    "Una salon de belleza donde creé el sitio web con sistema de reservas en línea 100% personalizado y optimización de su perfil de Google para potenciar sus numeros. Así se ve hoy.",
+    "Un salón de belleza: le hice la web con reservas en línea y ordené su ficha de Google. Así se ve hoy.",
   web: {
     image: "/images/casos/studio-clau-web.jpg",
     // Proporción del marco del navegador: debe coincidir con la captura para no recortarla
@@ -35,10 +36,39 @@ const CASE = {
       "QR para pedir reseñas al terminar la atención",
     ],
   },
-  // Nota en primera persona (no es una cita de la clienta): explica qué cambió.
-  note:
-    "Antes, para pedir hora había que llamar al estudio y agendar a mano con muchos errores y perdida de tiempo. Ahora las clientas reservan solas desde la web, a la hora que deseen sin depender de un llamado, y el perfil de Google muestra la información relevante.",
+  // Reseña de la dueña: cuenta qué cambió con sus palabras
+  quote: {
+    text: "El sistema de reservas nos quitó todas las llamadas para agendar citas. Ahora los clientes reservan solos desde el móvil.",
+    name: "Claudia Miranda",
+    role: "Fundadora, Studio Clau Miranda",
+  },
 };
+
+// Reseñas de otros negocios, debajo del caso. Para sumar una, basta con agregarla aquí:
+// se reparten solas entre las columnas animadas.
+const TESTIMONIALS: Testimonial[] = [
+  {
+    text: "Nuestra web anterior era de 2015. Con Macno tenemos una tienda online que por fin vende algo por su cuenta.",
+    name: "Raul Baca",
+    role: "Dueño, Todo en Vidrio",
+    initials: "RB",
+  },
+  {
+    text: "Nos hicieron una web corporativa completa, con todas las secciones que necesitábamos. Se nota que entendieron el negocio.",
+    name: "Marcia Perez",
+    role: "Dueña, Asesoria Legal E Integral C&M",
+    initials: "MP",
+  },
+];
+
+const MAX_COLUMNS = 3;
+const MASK = "[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]";
+
+/** Reparte las reseñas en columnas de forma alternada (1ª, 2ª, 3ª, 1ª...). */
+function toColumns(items: Testimonial[]) {
+  const count = Math.min(MAX_COLUMNS, items.length);
+  return Array.from({ length: count }, (_, col) => items.filter((_, i) => i % count === col));
+}
 
 function useInView<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -89,12 +119,12 @@ export function CaseStudySection() {
     cn("opacity-0", inView && "animate-fade-in-up", delay);
 
   return (
-    <section id="caso" className="relative isolate px-4 py-24 sm:px-6 lg:px-8">
+    <section id="caso" className="relative isolate px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <Glows preset="case" />
 
       <div ref={ref} className="relative mx-auto max-w-6xl">
-        <div className={cn("mx-auto mb-14 max-w-5xl text-center", reveal("[animation-delay:0s]"))}>
-          <SectionEyebrow step={5}>Un caso real</SectionEyebrow>
+        <div className={cn("mx-auto mb-10 max-w-5xl text-center sm:mb-14", reveal("[animation-delay:0s]"))}>
+          <SectionEyebrow step={2}>Un caso real</SectionEyebrow>
           <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
             {CASE.name}:{" "}
             <span className="text-primary">
@@ -157,15 +187,15 @@ export function CaseStudySection() {
 
         <div
           className={cn(
-            "mx-auto mt-14 max-w-3xl rounded-3xl bg-gradient-to-br from-neutral-800 to-neutral-950 p-6 shadow-sm sm:p-8 lg:mt-12 lg:max-w-none",
+            "mx-auto mt-10 max-w-3xl rounded-3xl sm:mt-14 bg-gradient-to-br from-neutral-800 to-neutral-950 p-6 shadow-sm sm:p-8 lg:mt-12 lg:max-w-none",
             reveal("[animation-delay:0.45s]")
           )}
         >
-          <p className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-primary">
-            <Sparkles className="h-4 w-4" />
-            Qué cambió
+          <Quote className="mb-3 h-6 w-6 text-primary" />
+          <p className="max-w-3xl font-display text-lg text-white sm:text-2xl">{CASE.quote.text}</p>
+          <p className="mt-4 text-sm text-white/60">
+            <span className="font-medium text-white">{CASE.quote.name}</span> · {CASE.quote.role}
           </p>
-          <p className="max-w-3xl font-display text-lg text-white sm:text-2xl">{CASE.note}</p>
 
           {(CASE.web.url || CASE.maps.url) && (
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -188,7 +218,40 @@ export function CaseStudySection() {
             </div>
           )}
         </div>
+
+        <TestimonialsWall />
       </div>
     </section>
+  );
+}
+
+function TestimonialsWall() {
+  const columns = toColumns(TESTIMONIALS);
+  // Con una reseña por columna basta una altura baja; con más, la columna se alarga
+  const tall = columns.some((col) => col.length > 1);
+
+  return (
+    <div className="mt-10 sm:mt-14">
+      <p className="mb-6 text-center text-sm font-semibold uppercase tracking-wide text-primary">
+        Lo que dicen otros negocios
+      </p>
+
+      {/* Celular y tablet: una columna con todas las reseñas */}
+      <div className={cn("mx-auto h-[380px] max-w-xl lg:hidden", MASK)}>
+        <TestimonialsColumn testimonials={TESTIMONIALS} duration={TESTIMONIALS.length * 7} />
+      </div>
+
+      {/* Escritorio: hasta tres columnas, cada una a su propio ritmo */}
+      <div
+        className={cn("hidden gap-6 lg:grid", MASK)}
+        style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
+      >
+        {columns.map((col, i) => (
+          <div key={i} className={tall ? "h-[420px]" : "h-[200px]"}>
+            <TestimonialsColumn testimonials={col} duration={col.length * 10 + i} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

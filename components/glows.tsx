@@ -13,15 +13,11 @@ const PRESETS = {
     "right-[-4%] top-[4%] h-[24rem] w-[24rem] bg-[#ffb27a]/40 animate-float-medium",
     "left-1/2 bottom-[2%] h-72 w-[36rem] -translate-x-1/2 bg-[#ffd3b0]/60 animate-pulse-slow",
   ],
-  connects: [
-    "left-[10%] top-[30%] h-80 w-80 bg-primary/20 animate-float-medium",
-    "right-[8%] bottom-[5%] h-96 w-96 bg-[#ffc49a]/45 animate-float-slow",
-  ],
   case: [
     "left-[25%] top-[8%] h-96 w-96 bg-[#ffc49a]/40 animate-float-slow",
     "right-[5%] bottom-[20%] h-80 w-80 bg-primary/15 animate-float-medium",
   ],
-  testimonials: [
+  process: [
     "left-[5%] top-[35%] h-80 w-80 bg-[#ffc49a]/45 animate-float-medium",
     "right-[15%] top-[20%] h-72 w-72 bg-primary/15 animate-float-slow",
   ],

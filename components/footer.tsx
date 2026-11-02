@@ -17,8 +17,8 @@ const FOOTER_LINKS = {
     { label: "Caso real", href: "/#caso" },
   ],
   Información: [
-    { label: "Cómo funciona", href: "/#como-funciona" },
     { label: "Cómo trabajo", href: "/#proceso" },
+    { label: "Preguntas frecuentes", href: "/#preguntas" },
     { label: "Contacto", href: "/#contacto" },
   ],
 };

@@ -5,8 +5,8 @@ import { WHATSAPP_BOTH_URL, WHATSAPP_MAPS_URL, WHATSAPP_WEB_URL } from "@/lib/wh
 
 export function CTASection() {
   return (
-    <section id="contacto" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-[#e2560c] p-10 text-center text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_50px_-20px_rgb(242_107_29/0.6)] sm:p-16">
+    <section id="contacto" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-[#e2560c] px-6 py-10 text-center text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_50px_-20px_rgb(242_107_29/0.6)] sm:p-16">
         <div className="glow-blob pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 animate-pulse-slow rounded-full bg-white/25 blur-3xl" />
         <div className="glow-blob pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 animate-float-slow rounded-full bg-[#ffd3b0]/30 blur-3xl" />
         <div className="glow-blob pointer-events-none absolute -right-16 top-1/3 h-60 w-60 animate-float-medium rounded-full bg-[#b23f00]/30 blur-3xl" />

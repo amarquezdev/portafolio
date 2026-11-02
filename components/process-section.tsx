@@ -11,7 +11,7 @@ const STEPS = [
     description: "Vemos si necesitas la ficha, la web o las dos.",
   },
   {
-    name: "Te envio una cotización",
+    name: "Te envío una cotización",
     description: "Precio y plazo claros antes de empezar.",
   },
   {
@@ -70,10 +70,10 @@ export function ProcessSection() {
   const progress = Math.max(0, active) / (STEPS.length - 1);
 
   return (
-    <section id="proceso" className="relative px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <SectionEyebrow step={4}>Cómo trabajo</SectionEyebrow>
+    <section id="proceso" className="relative px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="relative mx-auto max-w-6xl">
+        <div className="mb-10 text-center sm:mb-12">
+          <SectionEyebrow step={3}>Cómo trabajo</SectionEyebrow>
           <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
             Si me escribes, <span className="text-primary">esto es lo que sigue</span>
           </h2>

@@ -55,7 +55,7 @@ export function HeroSection() {
       <div className="animate-fade-in-buttons opacity-0 [animation-delay:0.55s] mt-10 flex flex-col items-center gap-4 sm:flex-row">
         <Button size="lg" withArrow asChild>
           <a href={WHATSAPP_DIAGNOSIS_URL} target="_blank" rel="noopener noreferrer">
-            Diagnostico gratuito de mi perfil
+            Diagnóstico gratuito de mi perfil
             <ButtonArrow />
           </a>
         </Button>

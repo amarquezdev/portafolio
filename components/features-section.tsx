@@ -21,12 +21,7 @@ import { Glows } from "@/components/glows";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { Button, ButtonArrow } from "@/components/ui/button";
 import { cn, scrollToSection } from "@/lib/utils";
-import {
-  WHATSAPP_BOTH_URL,
-  WHATSAPP_MAPS_URL,
-  WHATSAPP_WEB_TYPE_URLS,
-  WHATSAPP_WEB_URL,
-} from "@/lib/whatsapp";
+import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_TYPE_URLS, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
 
 // Precio "desde" de cada servicio. El de la web es el de una landing en WordPress.
 const MAPS_PRICE_FROM = 80000;
@@ -565,7 +560,7 @@ export function FeaturesSection() {
   return (
     <section
       id="servicios"
-      className="relative isolate px-4 py-24 sm:px-6 lg:px-8"
+      className="relative isolate px-4 py-16 sm:px-6 sm:py-24 lg:px-8"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.4]"
@@ -581,14 +576,13 @@ export function FeaturesSection() {
       <Glows preset="features" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <SectionEyebrow step={3}>Lo que hago</SectionEyebrow>
+        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-16">
+          <SectionEyebrow step={1}>Lo que hago</SectionEyebrow>
           <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
-            Para arreglarlo,{" "}
-            <span className="text-primary">hago dos cosas</span>
+            Dos servicios, <span className="text-primary">uno o ambos</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Puedes contratar uno o ambos servicios. El precio final depende del estado actual de tu perfil o de lo que necesite tu web.
+            El precio final depende del estado de tu ficha o de lo que necesite tu web.
           </p>
         </div>
 
@@ -598,30 +592,7 @@ export function FeaturesSection() {
           ))}
         </div>
 
-        <div className="mb-24 mt-10 flex flex-col items-center gap-4 rounded-3xl bg-primary p-6 text-center text-primary-foreground shadow-sm sm:flex-row sm:p-7 sm:text-left">
-          <div className="flex shrink-0 items-center -space-x-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary bg-white">
-              <MapPin className="h-4 w-4 text-primary" />
-            </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary bg-white">
-              <Globe className="h-4 w-4 text-primary" />
-            </div>
-          </div>
-          <div className="flex-1">
-            <p className="font-display text-lg font-semibold">¿Necesitas las dos?</p>
-            <p className="text-sm text-white/85">
-              Te cotizo la ficha y la web juntas.
-            </p>
-          </div>
-          <Button variant="white" size="lg" withArrow className="shrink-0" asChild>
-            <a href={WHATSAPP_BOTH_URL} target="_blank" rel="noopener noreferrer">
-              Cotizar las dos
-              <ButtonArrow tone="primary" />
-            </a>
-          </Button>
-        </div>
-
-        <div id="tipos-de-web" className="mx-auto mb-12 max-w-3xl text-center">
+        <div id="tipos-de-web" className="mx-auto mb-8 mt-16 max-w-3xl text-center sm:mb-12 sm:mt-24">
           <h3 className="text-2xl font-semibold text-foreground sm:text-4xl">
             ¿Qué tipo de web necesitas?
           </h3>
@@ -635,14 +606,17 @@ export function FeaturesSection() {
             rel="noopener noreferrer"
             className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
-            ¿No sabes cuál te sirve? Escríbeme y lo definimos
+            ¿No sabes cuál te sirve? Escríbeme
             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {/* En celular es un carrusel que se desliza de lado; desde tablet, una grilla */}
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 scrollbar-hide md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4">
           {FEATURES.map((feature) => (
-            <FeatureCard key={feature.title} feature={feature} />
+            <div key={feature.title} className="flex w-[80%] shrink-0 snap-center *:flex-1 md:w-auto">
+              <FeatureCard feature={feature} />
+            </div>
           ))}
         </div>
       </div>
