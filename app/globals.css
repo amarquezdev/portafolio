@@ -1,57 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  /* Mapa de noche: negro cálido, texto marfil y naranja señal como única señal fuerte */
-  --background: #0c0b0a;
-  --foreground: #f1ece4;
+  /* Mapa de noche: negro frío, texto blanco y azul cobalto como única señal fuerte
+     (#4864ff: el texto blanco encima cumple contraste AA) */
+  --background: #08090c;
+  --foreground: #f4f5f8;
 
-  --card: #161412;
-  --card-foreground: #f1ece4;
+  --card: #12141a;
+  --card-foreground: #f4f5f8;
 
-  --popover: #161412;
-  --popover-foreground: #f1ece4;
+  --popover: #12141a;
+  --popover-foreground: #f4f5f8;
 
-  --primary: #ff6b2c;
-  --primary-foreground: #0c0b0a;
+  --primary: #4864ff;
+  --primary-foreground: #ffffff;
 
   --success: #6ee7a0;
-  --success-foreground: #0c0b0a;
+  --success-foreground: #08090c;
 
-  --secondary: #1f1c19;
-  --secondary-foreground: #f1ece4;
+  --secondary: #1b1e26;
+  --secondary-foreground: #f4f5f8;
 
-  --muted: #1c1a17;
-  --muted-foreground: #958e84;
+  --muted: #181a21;
+  --muted-foreground: #8a90a2;
 
-  --accent: #1f1c19;
-  --accent-foreground: #f1ece4;
+  --accent: #1b1e26;
+  --accent-foreground: #f4f5f8;
 
   --destructive: #f87171;
-  --destructive-foreground: #0c0b0a;
+  --destructive-foreground: #08090c;
 
   --border: rgb(255 255 255 / 0.08);
   --input: rgb(255 255 255 / 0.12);
-  --ring: #ff6b2c;
+  --ring: var(--primary);
 
   --radius: 1rem;
 
-  /* Segundo tono, solo para agua y destellos del mapa: azul, como el logo */
-  --water: #5b8cff;
+  /* Segundo tono, solo para agua y destellos del mapa: lila suave */
+  --water: #b7a6ff;
+  /* Pines apagados del mapa */
+  --pin: #343947;
 
-  --chart-1: #ff6b2c;
-  --chart-2: #5b8cff;
-  --chart-3: #958e84;
-  --chart-4: #f1ece4;
-  --chart-5: #3f453f;
+  --chart-1: var(--primary);
+  --chart-2: var(--water);
+  --chart-3: #8a90a2;
+  --chart-4: #f4f5f8;
+  --chart-5: #343947;
 
-  --sidebar: #161412;
-  --sidebar-foreground: #f1ece4;
-  --sidebar-primary: #ff6b2c;
-  --sidebar-primary-foreground: #0c0b0a;
-  --sidebar-accent: #1f1c19;
-  --sidebar-accent-foreground: #f1ece4;
+  --sidebar: #12141a;
+  --sidebar-foreground: #f4f5f8;
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1b1e26;
+  --sidebar-accent-foreground: #f4f5f8;
   --sidebar-border: rgb(255 255 255 / 0.08);
-  --sidebar-ring: #ff6b2c;
+  --sidebar-ring: var(--primary);
 }
 
 @theme inline {
@@ -107,6 +110,7 @@
   --radius-xl: calc(var(--radius) + 0.25rem);
 
   --color-water: var(--water);
+  --color-pin: var(--pin);
 
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-bricolage), var(--font-onest), ui-sans-serif, system-ui, sans-serif;
@@ -170,26 +174,40 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Los títulos de sección aparecen al entrar en pantalla (solo navegadores que lo soportan) */
+/* Encabezados de sección al entrar en pantalla (solo navegadores que lo soportan):
+   la línea superior se dibuja de izquierda a derecha y el título se revela de abajo hacia arriba */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     main section h2 {
       animation: reveal-title linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 60%;
+      animation-range: entry 0% entry 70%;
+    }
+    .section-rule {
+      animation: draw-rule linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
     }
   }
 }
 @keyframes reveal-title {
   from {
     opacity: 0;
-    transform: translateY(32px);
-    filter: blur(8px);
+    transform: translateY(0.35em);
+    clip-path: inset(100% -5% -25% -5%);
   }
   to {
     opacity: 1;
     transform: none;
-    filter: none;
+    clip-path: inset(-25% -5% -25% -5%);
+  }
+}
+@keyframes draw-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -681,10 +699,10 @@ body::after {
 }
 
 /* ---------------------------------------------- */
-/* Vidrio (glassmorphism) sobre los destellos      */
+/* Vidrio (glassmorphism): menú y reseñas         */
 /* ---------------------------------------------- */
 @utility glass {
-  background-color: rgb(22 20 18 / 0.6);
+  background-color: color-mix(in oklch, var(--card) 60%, transparent);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   backdrop-filter: blur(18px) saturate(140%);
   border: 1px solid rgb(255 255 255 / 0.09);
@@ -696,21 +714,9 @@ body::after {
 /* Si el sistema pide menos transparencia, el vidrio pasa a sólido */
 @media (prefers-reduced-transparency: reduce) {
   .glass {
-    background-color: #161412;
+    background-color: var(--card);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-  }
-}
-
-/* Cada destello va en su propia capa: el desenfoque se pinta una vez y luego solo se mueve */
-.glow-blob {
-  will-change: transform;
-}
-
-/* Los destellos quedan quietos si el sistema pide reducir movimiento */
-@media (prefers-reduced-motion: reduce) {
-  .glow-blob {
-    animation: none !important;
   }
 }
 

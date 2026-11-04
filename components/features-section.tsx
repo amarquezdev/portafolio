@@ -8,7 +8,6 @@ import {
   Check,
   Clock,
   Globe,
-  Layers,
   MapPin,
   MessageCircle,
   Phone,
@@ -17,8 +16,7 @@ import {
   Star,
 } from "lucide-react";
 
-import { Glows } from "@/components/glows";
-import { SectionEyebrow } from "@/components/section-eyebrow";
+import { SectionHeading } from "@/components/section-heading";
 import { Button, ButtonArrow } from "@/components/ui/button";
 import { cn, scrollToSection } from "@/lib/utils";
 import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_TYPE_URLS, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
@@ -77,9 +75,9 @@ function useStepCycle(active: boolean, steps: number, interval: number, start = 
 
 // Fotos de ejemplo: antes grises y sin imagen, después con color (como fotos actuales)
 const PHOTO_TONES = [
-  "from-[#ff6b2c] to-[#7a2e0e]",
-  "from-[#5b8cff] to-[#1e2f66]",
-  "from-[#f1ece4] to-[#5a544c]",
+  "from-primary to-primary/25",
+  "from-water to-water/25",
+  "from-foreground/90 to-foreground/25",
 ];
 
 function MapsProfileDemo({ active }: { active: boolean }) {
@@ -199,7 +197,7 @@ function WebsiteDemo({ active }: { active: boolean }) {
             <span className="mt-1 h-1 w-5/6 rounded-full bg-white/20" />
             <span className="mt-2 h-4 w-16 rounded-full bg-primary" />
           </div>
-          <div className={cn("h-full max-h-28 rounded-md bg-gradient-to-br from-[#ff6b2c]/90 to-[#5b8cff]/70", show(3))} />
+          <div className={cn("h-full max-h-28 rounded-md bg-gradient-to-br from-primary/90 to-water/70", show(3))} />
         </div>
 
         {/* Botón flotante de WhatsApp */}
@@ -432,7 +430,7 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[0_30px_80px_-30px_rgb(255_107_44/0.25)] sm:p-8"
+      className="group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[0_30px_80px_-30px_color-mix(in_oklch,var(--primary)_25%,transparent)] sm:p-8"
     >
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
@@ -573,18 +571,17 @@ export function FeaturesSection() {
           WebkitMaskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
         }}
       />
-      <Glows preset="features" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-10 max-w-3xl sm:mb-16">
-          <SectionEyebrow step={1}>Lo que hago</SectionEyebrow>
-          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
-            Dos servicios, <span className="text-primary">uno o ambos</span>
-          </h2>
-          <p className="mt-4 max-w-lg text-muted-foreground">
-            El precio final depende del estado de tu perfil o de lo que necesite tu web.
-          </p>
-        </div>
+        <SectionHeading
+          title={
+            <>
+              Dos servicios, <span className="text-primary">uno o ambos</span>
+            </>
+          }
+        >
+          El precio final depende del estado de tu perfil o de lo que necesite tu web.
+        </SectionHeading>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {SERVICES.map((service) => (
@@ -592,14 +589,16 @@ export function FeaturesSection() {
           ))}
         </div>
 
-        <div id="tipos-de-web" className="mb-8 mt-16 max-w-3xl sm:mb-12 sm:mt-24">
-          <h3 className="text-2xl font-semibold text-foreground sm:text-4xl">
-            ¿Qué tipo de web necesitas?
-          </h3>
-          <p className="mt-3 flex max-w-lg items-center gap-2 text-sm text-muted-foreground">
-            <Layers className="h-4 w-4" />
-            Todas se pueden hacer en plantilla o a medida
-          </p>
+        <SectionHeading
+          id="tipos-de-web"
+          className="mt-20 sm:mt-28"
+          title={
+            <>
+              ¿Qué tipo de web <span className="text-primary">necesitas?</span>
+            </>
+          }
+        >
+          <p>Todas se pueden hacer en plantilla o a medida.</p>
           <a
             href={WHATSAPP_WEB_URL}
             target="_blank"
@@ -609,7 +608,7 @@ export function FeaturesSection() {
             ¿No sabes cuál te sirve? Escríbeme
             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
-        </div>
+        </SectionHeading>
 
         {/* En celular es un carrusel que se desliza de lado; desde tablet, una grilla */}
         <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 scrollbar-hide md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4">

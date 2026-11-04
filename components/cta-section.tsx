@@ -17,7 +17,7 @@ export function CTASection() {
   return (
     <section id="contacto" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-primary px-6 py-12 text-primary-foreground sm:px-16 sm:py-20">
-        {/* Cuadrícula de calles, como el mapa del hero pero en negro sobre naranja */}
+        {/* Cuadrícula de calles, como el mapa del hero pero en negro sobre azul */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.12] [mask-image:radial-gradient(ellipse_at_80%_20%,black,transparent_70%)]"

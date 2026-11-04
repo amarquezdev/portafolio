@@ -90,7 +90,7 @@ export function GlassmorphismNav() {
               href={WHATSAPP_CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:shadow-[0_0_30px_-4px_rgb(255_107_44/0.6)] sm:flex"
+              className="group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:shadow-[0_0_30px_-4px_color-mix(in_oklch,var(--primary)_60%,transparent)] sm:flex"
             >
               Escríbeme
               <span className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary-foreground text-primary transition-transform duration-300 group-hover/btn:rotate-45">

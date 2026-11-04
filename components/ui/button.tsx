@@ -11,7 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-[0_0_0_0_rgb(255_107_44/0)] hover:shadow-[0_0_40px_-6px_rgb(255_107_44/0.55)]",
+          "bg-primary text-primary-foreground shadow-[0_0_0_0_transparent] hover:shadow-[0_0_40px_-6px_color-mix(in_oklch,var(--primary)_55%,transparent)]",
         // Botón secundario: vidrio claro sobre fondo oscuro
         white: "bg-white/[0.04] text-foreground ring-1 ring-inset ring-white/15 hover:bg-white/[0.08]",
         dark: "bg-background text-foreground hover:bg-secondary",

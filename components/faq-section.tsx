@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-import { Glows } from "@/components/glows";
-import { SectionEyebrow } from "@/components/section-eyebrow";
+import { SectionHeading } from "@/components/section-heading";
 import { cn } from "@/lib/utils";
 
 // Dudas que suelen frenar a alguien antes de escribir. Respuestas cortas: el detalle va en la cotización.
@@ -41,27 +40,29 @@ export function FaqSection() {
 
   return (
     <section id="preguntas" className="relative isolate px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <Glows preset="process" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
-        <div className="lg:sticky lg:top-32 lg:self-start">
-          <SectionEyebrow step={4}>Preguntas</SectionEyebrow>
-          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
-            Lo que suelen <span className="text-primary">preguntarme</span>
-          </h2>
-        </div>
+      <div className="relative mx-auto max-w-6xl">
+        <SectionHeading
+          title={
+            <>
+              Lo que suelen <span className="text-primary">preguntarme</span>
+            </>
+          }
+        >
+          Si tu duda no está aquí, escríbeme por WhatsApp y te respondo yo.
+        </SectionHeading>
 
-        <ul className="space-y-3">
+        <ul className="space-y-3 lg:ml-auto lg:max-w-3xl">
           {FAQS.map((faq, index) => {
             const isOpen = open === index;
             return (
               <li
                 key={faq.question}
-                // El borde con brillo es el fondo degradado que asoma por el padding de 1.5px
+                // El borde es el fondo que asoma por el padding de 1.5px: azul cuando la pregunta está abierta
                 className={cn(
                   "rounded-[1.75rem] p-[1.5px] transition-shadow duration-500",
                   isOpen
-                    ? "bg-gradient-to-r from-primary via-water to-primary shadow-[0_10px_50px_-12px_rgb(255_107_44/0.35)]"
+                    ? "bg-primary/70"
                     : "bg-white/[0.07]"
                 )}
               >

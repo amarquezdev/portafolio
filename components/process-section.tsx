@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { SectionEyebrow } from "@/components/section-eyebrow";
+import { SectionHeading } from "@/components/section-heading";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
@@ -72,12 +72,13 @@ export function ProcessSection() {
   return (
     <section id="proceso" className="relative px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-10 sm:mb-14">
-          <SectionEyebrow step={3}>Cómo trabajo</SectionEyebrow>
-          <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
-            Si me escribes, <span className="text-primary">esto es lo que sigue</span>
-          </h2>
-        </div>
+        <SectionHeading
+          title={
+            <>
+              Si me escribes, <span className="text-primary">esto es lo que sigue</span>
+            </>
+          }
+        />
 
         <ol ref={ref} className="relative grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
           {/* Línea base y línea de avance: vertical en celular, horizontal en escritorio */}

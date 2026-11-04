@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Check, ExternalLink, Globe, Lock, MapPin, Quote } from "lucide-react";
+import { Check, ExternalLink, Globe, Lock, MapPin } from "lucide-react";
 
-import { Glows } from "@/components/glows";
-import { SectionEyebrow } from "@/components/section-eyebrow";
+import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
 import { PhoneMockup, ScreenScroll } from "@/components/ui/phone-mockup";
 import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-column";
@@ -16,7 +15,7 @@ import { cn } from "@/lib/utils";
 const CASE = {
   name: "Studio Clau Miranda",
   summary:
-    "Un salón de belleza: le hice la web con reservas en línea y ordené su perfil de Google Maps. Así se ve hoy.",
+    "Studio Clau Miranda, un salón de belleza: le hice la web con reservas en línea y ordené su perfil de Google Maps. Así se ve hoy.",
   web: {
     image: "/images/casos/studio-clau-web.jpg",
     // Proporción del marco del navegador: debe coincidir con la captura para no recortarla
@@ -36,12 +35,6 @@ const CASE = {
       "Fotos actuales del estudio y de los trabajos",
       "QR para pedir reseñas al terminar la atención",
     ],
-  },
-  // Reseña de la dueña: cuenta qué cambió con sus palabras
-  quote: {
-    text: "El sistema de reservas nos quitó todas las llamadas para agendar citas. Ahora los clientes reservan solos desde el móvil.",
-    name: "Claudia Miranda",
-    role: "Fundadora, Studio Clau Miranda",
   },
 };
 
@@ -121,19 +114,37 @@ export function CaseStudySection() {
 
   return (
     <section id="caso" className="relative isolate px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <Glows preset="case" />
 
       <div ref={ref} className="relative mx-auto max-w-6xl">
-        <div className={cn("mb-10 max-w-4xl sm:mb-14", reveal("[animation-delay:0s]"))}>
-          <SectionEyebrow step={2}>Un caso real</SectionEyebrow>
-          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
-            {CASE.name}:{" "}
-            <span className="text-primary">
-              web y perfil de Google Maps
-            </span>
-          </h2>
-          <p className="mt-4 max-w-xl text-muted-foreground">{CASE.summary}</p>
-        </div>
+        <SectionHeading
+          title={
+            <>
+              Un caso <span className="text-primary">real</span>
+            </>
+          }
+        >
+          <p>{CASE.summary}</p>
+          {(CASE.web.url || CASE.maps.url) && (
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              {CASE.web.url && (
+                <Button variant="white" asChild>
+                  <a href={CASE.web.url} target="_blank" rel="noopener noreferrer">
+                    Ver el sitio
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              )}
+              {CASE.maps.url && (
+                <Button variant="white" asChild>
+                  <a href={CASE.maps.url} target="_blank" rel="noopener noreferrer">
+                    Ver el perfil en Google Maps
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              )}
+            </div>
+          )}
+        </SectionHeading>
 
         {/* En escritorio cada bloque es un panel; comparten filas (subgrid) para que
             las capturas y las listas queden alineadas a la misma altura. */}
@@ -141,7 +152,7 @@ export function CaseStudySection() {
           {/* Sitio web */}
           <div className={cn(PANEL, "lg:col-span-3", reveal("[animation-delay:0.15s]"))}>
             <div className="animate-float-slow lg:self-center">
-              <div className="overflow-hidden rounded-2xl bg-[#1f1c19] p-2.5 pt-0 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] ring-1 ring-white/10">
+              <div className="overflow-hidden rounded-2xl bg-secondary p-2.5 pt-0 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] ring-1 ring-white/10">
                 <div className="flex items-center gap-1.5 px-1.5 py-3">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
@@ -182,40 +193,6 @@ export function CaseStudySection() {
           </div>
         </div>
 
-        <div
-          className={cn(
-            "mx-auto mt-10 max-w-3xl rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] sm:mt-14 sm:p-10 lg:mt-12 lg:max-w-none",
-            reveal("[animation-delay:0.45s]")
-          )}
-        >
-          <Quote className="mb-4 h-7 w-7 fill-primary text-primary" />
-          <p className="max-w-4xl font-serif text-2xl leading-snug text-foreground sm:text-4xl">“{CASE.quote.text}”</p>
-          <p className="mt-5 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">{CASE.quote.name}</span> · {CASE.quote.role}
-          </p>
-
-          {(CASE.web.url || CASE.maps.url) && (
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              {CASE.web.url && (
-                <Button variant="white" asChild>
-                  <a href={CASE.web.url} target="_blank" rel="noopener noreferrer">
-                    Ver el sitio
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-              )}
-              {CASE.maps.url && (
-                <Button variant="white" asChild>
-                  <a href={CASE.maps.url} target="_blank" rel="noopener noreferrer">
-                    Ver el perfil en Google Maps
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
-
         <TestimonialsWall />
       </div>
     </section>
@@ -229,7 +206,7 @@ function TestimonialsWall() {
 
   return (
     <div className="mt-10 sm:mt-14">
-      <p className="mb-6 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+      <p className="mb-6 text-sm font-medium text-muted-foreground">
         Lo que dicen otros negocios
       </p>
 

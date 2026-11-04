@@ -7,14 +7,14 @@ export function PhoneMockup({ children, className }: { children: React.ReactNode
   return (
     <div
       className={cn(
-        "relative rounded-[3rem] bg-gradient-to-b from-[#4d4a46] via-[#24221f] to-[#3d3a36] p-[3px] shadow-[0_50px_100px_-30px_rgb(0_0_0/0.9)]",
+        "relative rounded-[3rem] bg-gradient-to-b from-[#4a4a4f] via-[#232326] to-[#3a3a3e] p-[3px] shadow-[0_50px_100px_-30px_rgb(0_0_0/0.9)]",
         className
       )}
     >
       {/* Botones laterales */}
-      <span className="absolute -left-[3px] top-[18%] h-8 w-[3px] rounded-l bg-[#3d3a36]" />
-      <span className="absolute -left-[3px] top-[27%] h-12 w-[3px] rounded-l bg-[#3d3a36]" />
-      <span className="absolute -right-[3px] top-[24%] h-16 w-[3px] rounded-r bg-[#3d3a36]" />
+      <span className="absolute -left-[3px] top-[18%] h-8 w-[3px] rounded-l bg-[#3a3a3e]" />
+      <span className="absolute -left-[3px] top-[27%] h-12 w-[3px] rounded-l bg-[#3a3a3e]" />
+      <span className="absolute -right-[3px] top-[24%] h-16 w-[3px] rounded-r bg-[#3a3a3e]" />
 
       <div className="rounded-[2.85rem] bg-black p-[9px]">
         <div className="relative aspect-[9/19.5] w-full overflow-hidden rounded-[2.3rem] bg-neutral-900">
