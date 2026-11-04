@@ -78,7 +78,7 @@ export function GlassmorphismNav() {
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link.href)}
-                className="rounded-full bg-white px-4 py-2 text-xs font-medium text-foreground ring-1 ring-black/5 transition-colors hover:bg-primary hover:text-primary-foreground hover:ring-primary"
+                className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
               >
                 {link.label}
               </button>
@@ -90,17 +90,17 @@ export function GlassmorphismNav() {
               href={WHATSAPP_CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:flex"
+              className="group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:shadow-[0_0_30px_-4px_rgb(255_107_44/0.6)] sm:flex"
             >
               Escríbeme
-              <span className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary transition-transform duration-300 group-hover/btn:rotate-45">
+              <span className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary-foreground text-primary transition-transform duration-300 group-hover/btn:rotate-45">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </a>
 
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-foreground ring-1 ring-black/5 lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-foreground ring-1 ring-white/10 lg:hidden"
               aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
             >
               <span className="relative h-5 w-5">
@@ -154,7 +154,7 @@ export function GlassmorphismNav() {
             style={{ animationDelay: mobileOpen ? `${NAV_LINKS.length * 80}ms` : undefined }}
           >
             Escríbeme
-            <span className="ml-2 flex h-9 w-9 items-center justify-center rounded-full bg-white text-primary">
+            <span className="ml-2 flex h-9 w-9 items-center justify-center rounded-full bg-primary-foreground text-primary">
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </a>

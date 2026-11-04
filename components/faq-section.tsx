@@ -1,24 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import { Glows } from "@/components/glows";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { cn } from "@/lib/utils";
-import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 // Dudas que suelen frenar a alguien antes de escribir. Respuestas cortas: el detalle va en la cotización.
 const FAQS = [
   {
     question: "¿Qué incluye el diagnóstico gratuito?",
     answer:
-      "Me mandas el nombre de tu negocio por WhatsApp, reviso tu ficha de Google y te digo qué está mal y qué conviene corregir. Sin costo ni compromiso.",
+      "Me mandas el nombre de tu negocio por WhatsApp, reviso tu perfil de Google Maps y te digo qué está mal y qué conviene corregir. Sin costo ni compromiso.",
   },
   {
     question: "¿Cuánto se demora?",
     answer:
-      "Depende de lo que necesites: ordenar una ficha es mucho más rápido que hacer una web. Te doy el plazo exacto en la cotización, antes de empezar.",
+      "Depende de lo que necesites: ordenar un perfil es mucho más rápido que hacer una web. Te doy el plazo exacto en la cotización, antes de empezar.",
   },
   {
     question: "¿El dominio y el hosting están incluidos?",
@@ -32,7 +31,7 @@ const FAQS = [
   {
     question: "¿Qué pasa después de la entrega?",
     answer:
-      "Te dejo un documento con indicaciones para mantener tu ficha o tu web al día. Si más adelante necesitas un cambio, me escribes.",
+      "Te dejo un documento con indicaciones para mantener tu perfil o tu web al día. Si más adelante necesitas un cambio, me escribes.",
   },
 ];
 
@@ -44,10 +43,12 @@ export function FaqSection() {
     <section id="preguntas" className="relative isolate px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <Glows preset="process" />
 
-      <div className="relative mx-auto max-w-3xl">
-        <div className="mb-10 text-center sm:mb-12">
+      <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+        <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionEyebrow step={4}>Preguntas</SectionEyebrow>
-          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">Preguntas frecuentes</h2>
+          <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
+            Lo que suelen <span className="text-primary">preguntarme</span>
+          </h2>
         </div>
 
         <ul className="space-y-3">
@@ -60,18 +61,18 @@ export function FaqSection() {
                 className={cn(
                   "rounded-[1.75rem] p-[1.5px] transition-shadow duration-500",
                   isOpen
-                    ? "bg-gradient-to-r from-[#ffb27a] via-primary to-[#ffd3b0] shadow-[0_10px_40px_-12px_rgb(242_107_29/0.45)]"
-                    : "bg-black/5"
+                    ? "bg-gradient-to-r from-primary via-water to-primary shadow-[0_10px_50px_-12px_rgb(255_107_44/0.35)]"
+                    : "bg-white/[0.07]"
                 )}
               >
-                <div className="rounded-[calc(1.75rem-1.5px)] bg-white">
+                <div className="rounded-[calc(1.75rem-1.5px)] bg-card">
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : index)}
                     aria-expanded={isOpen}
                     className="flex w-full items-center gap-4 py-3 pl-5 pr-3 text-left sm:pl-6"
                   >
-                    <span className="w-4 shrink-0 text-xs text-muted-foreground">{index + 1}</span>
+                    <span className="w-5 shrink-0 font-mono text-xs text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
                     <span className="flex-1 text-sm font-medium text-foreground sm:text-base">
                       {faq.question}
                     </span>
@@ -79,8 +80,8 @@ export function FaqSection() {
                       className={cn(
                         "flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300",
                         isOpen
-                          ? "bg-white text-foreground ring-1 ring-black/15"
-                          : "bg-foreground text-white"
+                          ? "bg-transparent text-foreground ring-1 ring-white/20"
+                          : "bg-foreground text-background"
                       )}
                     >
                       <Plus
@@ -107,19 +108,6 @@ export function FaqSection() {
             );
           })}
         </ul>
-
-        <div className="mt-10 text-center">
-          <p className="text-sm text-muted-foreground">¿Tienes otra pregunta?</p>
-          <a
-            href={WHATSAPP_CONTACT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-1 inline-flex items-center gap-1 text-sm font-semibold text-foreground underline-offset-4 hover:underline"
-          >
-            Escríbeme
-            <ArrowUpRight className="h-3.5 w-3.5 text-primary transition-transform duration-300 group-hover:rotate-45" />
-          </a>
-        </div>
       </div>
     </section>
   );

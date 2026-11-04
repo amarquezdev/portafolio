@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const STEPS = [
   {
     name: "Conversamos",
-    description: "Vemos si necesitas la ficha, la web o las dos.",
+    description: "Vemos si necesitas el perfil de Google Maps, la web o los dos.",
   },
   {
     name: "Te envío una cotización",
@@ -72,7 +72,7 @@ export function ProcessSection() {
   return (
     <section id="proceso" className="relative px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-10 text-center sm:mb-12">
+        <div className="mb-10 sm:mb-14">
           <SectionEyebrow step={3}>Cómo trabajo</SectionEyebrow>
           <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
             Si me escribes, <span className="text-primary">esto es lo que sigue</span>
@@ -81,12 +81,12 @@ export function ProcessSection() {
 
         <ol ref={ref} className="relative grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
           {/* Línea base y línea de avance: vertical en celular, horizontal en escritorio */}
-          <span className="pointer-events-none absolute bottom-4 left-4 top-4 w-px -translate-x-1/2 bg-black/10 md:hidden" />
+          <span className="pointer-events-none absolute bottom-4 left-4 top-4 w-px -translate-x-1/2 bg-white/10 md:hidden" />
           <span
             className="pointer-events-none absolute left-4 top-4 w-0.5 -translate-x-1/2 rounded-full bg-primary transition-[height] duration-700 ease-out md:hidden"
             style={{ height: `calc((100% - 2rem) * ${progress})` }}
           />
-          <span className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-4 hidden h-px bg-black/10 md:block" />
+          <span className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-4 hidden h-px bg-white/10 md:block" />
           <span
             className="pointer-events-none absolute left-[12.5%] top-4 hidden h-0.5 -translate-y-1/2 rounded-full bg-primary transition-[width] duration-700 ease-out md:block"
             style={{ width: `calc(75% * ${progress})` }}
@@ -106,10 +106,10 @@ export function ProcessSection() {
                   )}
                   <span
                     className={cn(
-                      "relative flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold shadow-sm ring-1 transition-all duration-500",
+                      "relative flex h-8 w-8 items-center justify-center rounded-full text-xs font-mono font-semibold ring-1 transition-all duration-500",
                       isActive && "scale-110 bg-primary text-primary-foreground ring-primary",
-                      isDone && "bg-[#fde8dc] text-primary ring-primary/30",
-                      !isActive && !isDone && "bg-white text-primary ring-black/5"
+                      isDone && "bg-primary/15 text-primary ring-primary/30",
+                      !isActive && !isDone && "bg-card text-muted-foreground ring-white/10"
                     )}
                   >
                     {String(index + 1).padStart(2, "0")}

@@ -10,11 +10,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        white: "bg-white text-foreground shadow-sm ring-1 ring-black/5 hover:bg-neutral-50",
-        dark: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
-        outline: "border border-black/10 bg-transparent text-foreground hover:bg-white",
-        ghost: "bg-transparent text-foreground hover:bg-black/5",
+        default:
+          "bg-primary text-primary-foreground shadow-[0_0_0_0_rgb(255_107_44/0)] hover:shadow-[0_0_40px_-6px_rgb(255_107_44/0.55)]",
+        // Botón secundario: vidrio claro sobre fondo oscuro
+        white: "bg-white/[0.04] text-foreground ring-1 ring-inset ring-white/15 hover:bg-white/[0.08]",
+        dark: "bg-background text-foreground hover:bg-secondary",
+        outline: "border border-white/15 bg-transparent text-foreground hover:bg-white/5",
+        ghost: "bg-transparent text-foreground hover:bg-white/5",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -74,9 +76,9 @@ function ButtonArrow({
       className={cn(
         "ml-1 flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300",
         direction === "down" ? "group-hover/btn:translate-y-0.5" : "group-hover/btn:rotate-45",
-        tone === "light" && "bg-white text-primary",
-        tone === "dark" && "bg-secondary text-white",
-        tone === "primary" && "bg-primary text-white"
+        tone === "light" && "bg-primary-foreground text-primary",
+        tone === "dark" && "bg-secondary text-foreground",
+        tone === "primary" && "bg-primary text-primary-foreground"
       )}
     >
       <Icon className="h-4 w-4" />

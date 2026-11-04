@@ -7,15 +7,16 @@ import { Check, ExternalLink, Globe, Lock, MapPin, Quote } from "lucide-react";
 import { Glows } from "@/components/glows";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { Button } from "@/components/ui/button";
+import { PhoneMockup, ScreenScroll } from "@/components/ui/phone-mockup";
 import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-column";
 import { cn } from "@/lib/utils";
 
-// Capturas en public/images/casos/. La de la ficha puede ser más alta que el marco del
+// Capturas en public/images/casos/. La del perfil puede ser más alta que el marco del
 // celular: se desplaza sola para mostrarla completa. Si un enlace queda vacío, su botón no se muestra.
 const CASE = {
   name: "Studio Clau Miranda",
   summary:
-    "Un salón de belleza: le hice la web con reservas en línea y ordené su ficha de Google. Así se ve hoy.",
+    "Un salón de belleza: le hice la web con reservas en línea y ordené su perfil de Google Maps. Así se ve hoy.",
   web: {
     image: "/images/casos/studio-clau-web.jpg",
     // Proporción del marco del navegador: debe coincidir con la captura para no recortarla
@@ -92,12 +93,12 @@ function useInView<T extends HTMLElement>() {
 
 // Solo en escritorio: panel con borde y dos filas compartidas con el panel vecino.
 const PANEL =
-  "lg:row-span-2 lg:grid lg:grid-rows-subgrid lg:gap-y-8 lg:rounded-3xl lg:bg-white lg:p-8 lg:shadow-sm lg:ring-1 lg:ring-black/5";
+  "lg:row-span-2 lg:grid lg:grid-rows-subgrid lg:gap-y-8 lg:rounded-3xl lg:bg-card lg:p-8 lg:ring-1 lg:ring-white/[0.07]";
 
 function WorkList({ title, icon: Icon, items }: { title: string; icon: typeof Globe; items: string[] }) {
   return (
     <div className="mt-6 lg:mt-0">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-primary">
+      <h3 className="mb-3 flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.16em] text-primary">
         <Icon className="h-4 w-4" />
         {title}
       </h3>
@@ -123,15 +124,15 @@ export function CaseStudySection() {
       <Glows preset="case" />
 
       <div ref={ref} className="relative mx-auto max-w-6xl">
-        <div className={cn("mx-auto mb-10 max-w-5xl text-center sm:mb-14", reveal("[animation-delay:0s]"))}>
+        <div className={cn("mb-10 max-w-4xl sm:mb-14", reveal("[animation-delay:0s]"))}>
           <SectionEyebrow step={2}>Un caso real</SectionEyebrow>
           <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
             {CASE.name}:{" "}
             <span className="text-primary">
-              web y ficha de Google
+              web y perfil de Google Maps
             </span>
           </h2>
-          <p className="mt-4 text-muted-foreground">{CASE.summary}</p>
+          <p className="mt-4 max-w-xl text-muted-foreground">{CASE.summary}</p>
         </div>
 
         {/* En escritorio cada bloque es un panel; comparten filas (subgrid) para que
@@ -140,13 +141,13 @@ export function CaseStudySection() {
           {/* Sitio web */}
           <div className={cn(PANEL, "lg:col-span-3", reveal("[animation-delay:0.15s]"))}>
             <div className="animate-float-slow lg:self-center">
-              <div className="overflow-hidden rounded-2xl bg-neutral-200 p-2.5 pt-0 shadow-xl shadow-black/10 ring-1 ring-black/10">
+              <div className="overflow-hidden rounded-2xl bg-[#1f1c19] p-2.5 pt-0 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] ring-1 ring-white/10">
                 <div className="flex items-center gap-1.5 px-1.5 py-3">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                  <span className="ml-3 flex flex-1 items-center gap-1.5 truncate rounded-full bg-white px-3 py-1 text-xs text-muted-foreground ring-1 ring-black/5">
-                    <Lock className="h-3 w-3 shrink-0 text-neutral-400" />
+                  <span className="ml-3 flex flex-1 items-center gap-1.5 truncate rounded-full bg-black/40 px-3 py-1 font-mono text-xs text-muted-foreground ring-1 ring-white/5">
+                    <Lock className="h-3 w-3 shrink-0 text-primary" />
                     {CASE.web.url ? CASE.web.url.replace(/^https?:\/\//, "") : "sitio web"}
                   </span>
                 </div>
@@ -164,37 +165,33 @@ export function CaseStudySection() {
             <WorkList title="Lo que hice en la web" icon={Globe} items={CASE.web.items} />
           </div>
 
-          {/* Ficha de Google */}
+          {/* Perfil de Google Maps */}
           <div className={cn(PANEL, "lg:col-span-2", reveal("[animation-delay:0.3s]"))}>
             <div className="animate-float-medium lg:self-center">
-              <div className="mx-auto w-full max-w-[260px] rounded-[2.25rem] bg-neutral-200 p-2.5 shadow-xl shadow-black/10 ring-1 ring-black/10">
-                <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[1.75rem] bg-neutral-900">
-                  <Image
-                    src={CASE.maps.image}
-                    alt={`Ficha de Google Maps de ${CASE.name}`}
-                    fill
-                    sizes="260px"
-                    className="animate-screen-pan object-cover object-top"
-                  />
-                  {/* Isla superior del celular */}
-                  <span className="absolute left-1/2 top-2 h-4 w-16 -translate-x-1/2 rounded-full bg-black" />
-                </div>
-              </div>
+              <PhoneMockup className="mx-auto w-full max-w-[240px]">
+                <ScreenScroll
+                  src={CASE.maps.image}
+                  alt={`Perfil de Google Maps de ${CASE.name}`}
+                  width={1215}
+                  height={2562}
+                  sizes="240px"
+                />
+              </PhoneMockup>
             </div>
-            <WorkList title="Lo que hice en la ficha" icon={MapPin} items={CASE.maps.items} />
+            <WorkList title="Lo que hice en el perfil" icon={MapPin} items={CASE.maps.items} />
           </div>
         </div>
 
         <div
           className={cn(
-            "mx-auto mt-10 max-w-3xl rounded-3xl sm:mt-14 bg-gradient-to-br from-neutral-800 to-neutral-950 p-6 shadow-sm sm:p-8 lg:mt-12 lg:max-w-none",
+            "mx-auto mt-10 max-w-3xl rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] sm:mt-14 sm:p-10 lg:mt-12 lg:max-w-none",
             reveal("[animation-delay:0.45s]")
           )}
         >
-          <Quote className="mb-3 h-6 w-6 text-primary" />
-          <p className="max-w-3xl font-display text-lg text-white sm:text-2xl">{CASE.quote.text}</p>
-          <p className="mt-4 text-sm text-white/60">
-            <span className="font-medium text-white">{CASE.quote.name}</span> · {CASE.quote.role}
+          <Quote className="mb-4 h-7 w-7 fill-primary text-primary" />
+          <p className="max-w-4xl font-serif text-2xl leading-snug text-foreground sm:text-4xl">“{CASE.quote.text}”</p>
+          <p className="mt-5 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">{CASE.quote.name}</span> · {CASE.quote.role}
           </p>
 
           {(CASE.web.url || CASE.maps.url) && (
@@ -210,7 +207,7 @@ export function CaseStudySection() {
               {CASE.maps.url && (
                 <Button variant="white" asChild>
                   <a href={CASE.maps.url} target="_blank" rel="noopener noreferrer">
-                    Ver la ficha en Google Maps
+                    Ver el perfil en Google Maps
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </Button>
@@ -232,7 +229,7 @@ function TestimonialsWall() {
 
   return (
     <div className="mt-10 sm:mt-14">
-      <p className="mb-6 text-center text-sm font-semibold uppercase tracking-wide text-primary">
+      <p className="mb-6 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
         Lo que dicen otros negocios
       </p>
 

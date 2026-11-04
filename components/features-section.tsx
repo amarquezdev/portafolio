@@ -73,13 +73,13 @@ function useStepCycle(active: boolean, steps: number, interval: number, start = 
   return step;
 }
 
-/* ---------------- Demo servicio: ficha de Google ---------------- */
+/* ---------------- Demo servicio: perfil de Google Maps ---------------- */
 
 // Fotos de ejemplo: antes grises y sin imagen, después con color (como fotos actuales)
 const PHOTO_TONES = [
-  "from-[#f6b38a] to-[#b4532a]",
-  "from-[#e9d5c4] to-[#8a6a55]",
-  "from-[#fbd0a6] to-[#d9752f]",
+  "from-[#ff6b2c] to-[#7a2e0e]",
+  "from-[#5b8cff] to-[#1e2f66]",
+  "from-[#f1ece4] to-[#5a544c]",
 ];
 
 function MapsProfileDemo({ active }: { active: boolean }) {
@@ -88,7 +88,7 @@ function MapsProfileDemo({ active }: { active: boolean }) {
   const done = step >= 4;
 
   return (
-    <div className="flex h-56 flex-col gap-3 rounded-lg bg-neutral-900 p-4">
+    <div className="flex h-56 flex-col gap-3 rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-4">
       {/* Encabezado: nombre, valoración y categoría */}
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
@@ -115,7 +115,7 @@ function MapsProfileDemo({ active }: { active: boolean }) {
             done ? "scale-90 border-transparent text-transparent opacity-0" : "border-red-400/40 text-red-400/80"
           )}
         >
-          Ficha duplicada
+          Perfil duplicado
         </span>
       </div>
 
@@ -135,7 +135,7 @@ function MapsProfileDemo({ active }: { active: boolean }) {
         ))}
       </div>
 
-      {/* Datos de la ficha */}
+      {/* Datos del perfil */}
       <div className="space-y-1.5 text-xs">
         <div className="flex items-center gap-2">
           <Clock className="h-3.5 w-3.5 shrink-0 text-white/40" />
@@ -152,7 +152,7 @@ function MapsProfileDemo({ active }: { active: boolean }) {
       </div>
 
       <span className="mt-auto text-[11px] text-white/50">
-        {done ? "Ficha ordenada y al día" : "Revisando la ficha..."}
+        {done ? "Perfil ordenado y al día" : "Revisando el perfil..."}
       </span>
     </div>
   );
@@ -170,7 +170,7 @@ function WebsiteDemo({ active }: { active: boolean }) {
     );
 
   return (
-    <div className="flex h-56 flex-col rounded-lg bg-neutral-900 p-2.5">
+    <div className="flex h-56 flex-col rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-2.5">
       <div className="mb-3 flex items-center gap-1 border-b border-white/10 pb-2">
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
@@ -199,7 +199,7 @@ function WebsiteDemo({ active }: { active: boolean }) {
             <span className="mt-1 h-1 w-5/6 rounded-full bg-white/20" />
             <span className="mt-2 h-4 w-16 rounded-full bg-primary" />
           </div>
-          <div className={cn("h-full max-h-28 rounded-md bg-gradient-to-br from-[#f6b38a] to-[#b4532a]", show(3))} />
+          <div className={cn("h-full max-h-28 rounded-md bg-gradient-to-br from-[#ff6b2c]/90 to-[#5b8cff]/70", show(3))} />
         </div>
 
         {/* Botón flotante de WhatsApp */}
@@ -229,7 +229,7 @@ function EcommerceDemo({ active }: { active: boolean }) {
   const total = PRODUCTS.slice(0, cartCount).reduce((sum, p) => sum + p.price, 0);
 
   return (
-    <div className="flex h-40 flex-col justify-between rounded-lg bg-neutral-900 p-3">
+    <div className="flex h-40 flex-col justify-between rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-3">
       <div className="grid grid-cols-3 gap-2">
         {PRODUCTS.map((product, i) => (
           <div
@@ -268,7 +268,7 @@ function BookingDemo({ active }: { active: boolean }) {
   const days = Array.from({ length: 21 }, (_, i) => i + 1);
 
   return (
-    <div className="flex h-40 flex-col justify-center rounded-lg bg-neutral-900 p-3">
+    <div className="flex h-40 flex-col justify-center rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-3">
       <div className="mb-2 flex items-center gap-1.5 text-xs text-white/60">
         <Calendar className="h-3.5 w-3.5" />
         Esta semana
@@ -301,7 +301,7 @@ function LandingBuildDemo({ active }: { active: boolean }) {
   const step = useStepCycle(active, 4, 550);
 
   return (
-    <div className="flex h-40 flex-col rounded-lg bg-neutral-900 p-2.5">
+    <div className="flex h-40 flex-col rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-2.5">
       <div className="mb-2 flex items-center gap-1 border-b border-white/10 pb-2">
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
         <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
@@ -359,7 +359,7 @@ function SitemapDemo({ active }: { active: boolean }) {
   const connected = useStepCycle(active, PAGES.length, 500, 0, 2300);
 
   return (
-    <div className="flex h-40 flex-col justify-center gap-3 rounded-lg bg-neutral-900 p-3">
+    <div className="flex h-40 flex-col justify-center gap-3 rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-3">
       <div className="grid grid-cols-2 gap-2">
         {PAGES.map((page, i) => (
           <div
@@ -390,14 +390,14 @@ const SERVICES = [
     title: "Perfil de Google Maps",
     priceFrom: MAPS_PRICE_FROM,
     description:
-      "Reviso y corrijo tu ficha para que la gente vea los datos correctos cuando te busca.",
+      "Reviso y corrijo tu perfil para que la gente vea los datos correctos cuando te busca.",
     items: [
       "Horario, teléfono, dirección y categoría",
       "Fotos actuales del local y de tu trabajo",
-      "Gestión con Google de fichas duplicadas o con nombre antiguo",
+      "Gestión con Google de perfiles duplicados o con nombre antiguo",
       "QR para pedir reseñas en el mesón",
     ],
-    cta: "Arreglar mi ficha",
+    cta: "Arreglar mi perfil",
     href: WHATSAPP_MAPS_URL,
     scrollTo: null,
     Demo: MapsProfileDemo,
@@ -432,25 +432,25 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8"
+      className="group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[0_30px_80px_-30px_rgb(255_107_44/0.25)] sm:p-8"
     >
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
           <Icon className="h-5 w-5 text-primary" />
         </div>
-        <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+        <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-xs font-medium text-primary">
           Desde ${service.priceFrom.toLocaleString("es-CL")}
         </span>
       </div>
-      <h3 className="mb-1.5 text-2xl font-semibold text-foreground">{service.title}</h3>
-      <p className="mb-5 text-sm text-neutral-500">{service.description}</p>
+      <h3 className="mb-1.5 text-3xl font-semibold text-foreground">{service.title}</h3>
+      <p className="mb-5 text-sm text-muted-foreground">{service.description}</p>
 
       <ul className="mb-6 space-y-2.5">
         {service.items.map((item, i) => (
           <li
             key={item}
             className={cn(
-              "flex items-start gap-2.5 text-sm text-neutral-700",
+              "flex items-start gap-2.5 text-sm text-foreground/80",
               // En celular, máximo 3 puntos por tarjeta
               i >= MOBILE_MAX_ITEMS && "hidden sm:flex"
             )}
@@ -536,7 +536,7 @@ function FeatureCard({ feature }: { feature: (typeof FEATURES)[number] }) {
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30"
     >
       <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
         <Icon className="h-5 w-5 text-primary" />
@@ -544,7 +544,7 @@ function FeatureCard({ feature }: { feature: (typeof FEATURES)[number] }) {
       <h3 className="mb-1.5 text-lg font-semibold text-foreground">
         {feature.title}
       </h3>
-      <p className="mb-4 flex-1 text-sm text-neutral-500">{feature.description}</p>
+      <p className="mb-4 flex-1 text-sm text-muted-foreground">{feature.description}</p>
       <Demo active={active} />
       <Button variant="white" withArrow className="mt-5 w-full justify-between pl-5" asChild>
         <a href={feature.href} target="_blank" rel="noopener noreferrer">
@@ -566,7 +566,7 @@ export function FeaturesSection() {
         className="pointer-events-none absolute inset-0 opacity-[0.4]"
         style={{
           backgroundImage:
-            "radial-gradient(circle, oklch(0.2 0 0 / 0.08) 1px, transparent 1px)",
+            "radial-gradient(circle, rgb(255 255 255 / 0.07) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
           // Se desvanece arriba y abajo para no marcar el borde de la sección
           maskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
@@ -576,13 +576,13 @@ export function FeaturesSection() {
       <Glows preset="features" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-16">
+        <div className="mb-10 max-w-3xl sm:mb-16">
           <SectionEyebrow step={1}>Lo que hago</SectionEyebrow>
           <h2 className="text-3xl font-semibold text-foreground sm:text-5xl">
             Dos servicios, <span className="text-primary">uno o ambos</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            El precio final depende del estado de tu ficha o de lo que necesite tu web.
+          <p className="mt-4 max-w-lg text-muted-foreground">
+            El precio final depende del estado de tu perfil o de lo que necesite tu web.
           </p>
         </div>
 
@@ -592,11 +592,11 @@ export function FeaturesSection() {
           ))}
         </div>
 
-        <div id="tipos-de-web" className="mx-auto mb-8 mt-16 max-w-3xl text-center sm:mb-12 sm:mt-24">
+        <div id="tipos-de-web" className="mb-8 mt-16 max-w-3xl sm:mb-12 sm:mt-24">
           <h3 className="text-2xl font-semibold text-foreground sm:text-4xl">
             ¿Qué tipo de web necesitas?
           </h3>
-          <p className="mx-auto mt-3 flex max-w-lg items-center justify-center gap-2 text-sm text-neutral-500">
+          <p className="mt-3 flex max-w-lg items-center gap-2 text-sm text-muted-foreground">
             <Layers className="h-4 w-4" />
             Todas se pueden hacer en plantilla o a medida
           </p>

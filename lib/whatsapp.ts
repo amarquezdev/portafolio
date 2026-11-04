@@ -5,11 +5,11 @@ export function buildWhatsAppUrl(message: string) {
 }
 
 export const WHATSAPP_DIAGNOSIS_URL = buildWhatsAppUrl(
-  "Hola Alejandro, quiero el diagnóstico gratis de mi ficha de Google. Mi negocio se llama: "
+  "Hola Alejandro, quiero el diagnóstico gratis de mi perfil de Google Maps. Mi negocio se llama: "
 );
 
 export const WHATSAPP_MAPS_URL = buildWhatsAppUrl(
-  "Hola Alejandro, quiero arreglar la ficha de Google Maps de mi negocio."
+  "Hola Alejandro, quiero arreglar el perfil de Google Maps de mi negocio."
 );
 
 export const WHATSAPP_WEB_URL = buildWhatsAppUrl(
@@ -24,7 +24,7 @@ export const WHATSAPP_WEB_TYPE_URLS = {
 };
 
 export const WHATSAPP_BOTH_URL = buildWhatsAppUrl(
-  "Hola Alejandro, quiero arreglar la ficha de Google Maps de mi negocio y también cotizar un sitio web."
+  "Hola Alejandro, quiero arreglar el perfil de Google Maps de mi negocio y también cotizar un sitio web."
 );
 
 export const WHATSAPP_CONTACT_URL = buildWhatsAppUrl(

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Etiqueta numerada sobre el título de cada sección: marca el paso de la historia. */
+/** Etiqueta sobre el título de cada sección, estilo índice de mapa: (01) ── Servicios. */
 export function SectionEyebrow({
   step,
   children,
@@ -13,12 +13,12 @@ export function SectionEyebrow({
   return (
     <div
       className={cn(
-        "glass mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm text-foreground",
+        "mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground",
         className
       )}
     >
-      <span className="font-semibold text-primary">{String(step).padStart(2, "0")}</span>
-      <span className="h-3 w-px bg-black/15" />
+      <span className="text-primary">({String(step).padStart(2, "0")})</span>
+      <span className="h-px w-10 bg-white/20" />
       {children}
     </div>
   );

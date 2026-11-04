@@ -1,54 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta clara inspirada en la referencia: gris muy claro, blanco, negro y naranja */
-  --background: #f3f3f1;
-  --foreground: #0d0d0d;
+  /* Mapa de noche: negro cálido, texto marfil y naranja señal como única señal fuerte */
+  --background: #0c0b0a;
+  --foreground: #f1ece4;
 
-  --card: #ffffff;
-  --card-foreground: #0d0d0d;
+  --card: #161412;
+  --card-foreground: #f1ece4;
 
-  --popover: #ffffff;
-  --popover-foreground: #0d0d0d;
+  --popover: #161412;
+  --popover-foreground: #f1ece4;
 
-  --primary: #f26b1d;
-  --primary-foreground: #ffffff;
+  --primary: #ff6b2c;
+  --primary-foreground: #0c0b0a;
 
-  --success: #16a34a;
-  --success-foreground: #ffffff;
+  --success: #6ee7a0;
+  --success-foreground: #0c0b0a;
 
-  --secondary: #141414;
-  --secondary-foreground: #ffffff;
+  --secondary: #1f1c19;
+  --secondary-foreground: #f1ece4;
 
-  --muted: #ebebe8;
-  --muted-foreground: #6b6b6b;
+  --muted: #1c1a17;
+  --muted-foreground: #958e84;
 
-  --accent: #ebebe8;
-  --accent-foreground: #0d0d0d;
+  --accent: #1f1c19;
+  --accent-foreground: #f1ece4;
 
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
+  --destructive: #f87171;
+  --destructive-foreground: #0c0b0a;
 
-  --border: rgb(0 0 0 / 0.07);
-  --input: rgb(0 0 0 / 0.1);
-  --ring: #f26b1d;
+  --border: rgb(255 255 255 / 0.08);
+  --input: rgb(255 255 255 / 0.12);
+  --ring: #ff6b2c;
 
   --radius: 1rem;
 
-  --chart-1: #f26b1d;
-  --chart-2: #141414;
-  --chart-3: #a3a3a3;
-  --chart-4: #fdba74;
-  --chart-5: #525252;
+  /* Segundo tono, solo para agua y destellos del mapa: azul, como el logo */
+  --water: #5b8cff;
 
-  --sidebar: #ffffff;
-  --sidebar-foreground: #0d0d0d;
-  --sidebar-primary: #f26b1d;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ebebe8;
-  --sidebar-accent-foreground: #0d0d0d;
-  --sidebar-border: rgb(0 0 0 / 0.07);
-  --sidebar-ring: #f26b1d;
+  --chart-1: #ff6b2c;
+  --chart-2: #5b8cff;
+  --chart-3: #958e84;
+  --chart-4: #f1ece4;
+  --chart-5: #3f453f;
+
+  --sidebar: #161412;
+  --sidebar-foreground: #f1ece4;
+  --sidebar-primary: #ff6b2c;
+  --sidebar-primary-foreground: #0c0b0a;
+  --sidebar-accent: #1f1c19;
+  --sidebar-accent-foreground: #f1ece4;
+  --sidebar-border: rgb(255 255 255 / 0.08);
+  --sidebar-ring: #ff6b2c;
 }
 
 @theme inline {
@@ -103,8 +106,12 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 0.25rem);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-water: var(--water);
+
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 @layer base {
@@ -122,7 +129,12 @@
     color: var(--foreground);
   }
 
-  /* Títulos con la letra geométrica y apretada de la referencia */
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* Títulos con una grotesca con carácter; la palabra destacada va en serif cursiva */
   h1,
   h2,
   h3 {
@@ -135,6 +147,49 @@
   }
   h3 {
     letter-spacing: -0.01em;
+  }
+
+  /* La palabra en color de cada título se escribe en serif cursiva: rompe el look de plantilla */
+  h1 .text-primary,
+  h2 .text-primary {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Grano fino sobre toda la página: le quita el aspecto plano de pantalla */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Los títulos de sección aparecen al entrar en pantalla (solo navegadores que lo soportan) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main section h2 {
+      animation: reveal-title linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+@keyframes reveal-title {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 
@@ -599,21 +654,25 @@
 }
 
 /* Desplaza una captura más alta que su marco (celular del caso real) */
+/* Recorre una captura alta dentro de la pantalla del celular. Se mueve con transform (no con
+   object-position) para que el navegador solo desplace la imagen y no la vuelva a pintar.
+   100cqh es el alto de la pantalla: el contenedor declara container-type: size. */
 @keyframes screen-pan {
   0%,
   12% {
-    object-position: 50% 0%;
+    transform: translate3d(0, 0, 0);
   }
   48%,
   62% {
-    object-position: 50% 100%;
+    transform: translate3d(0, calc(-100% + 100cqh), 0);
   }
   100% {
-    object-position: 50% 0%;
+    transform: translate3d(0, 0, 0);
   }
 }
 .animate-screen-pan {
   animation: screen-pan 14s ease-in-out infinite;
+  will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
   .animate-screen-pan {
@@ -625,27 +684,77 @@
 /* Vidrio (glassmorphism) sobre los destellos      */
 /* ---------------------------------------------- */
 @utility glass {
-  background-color: rgb(255 255 255 / 0.45);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgb(255 255 255 / 0.75);
+  background-color: rgb(22 20 18 / 0.6);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.09);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 10px 30px -14px rgb(0 0 0 / 0.15);
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 10px 30px -14px rgb(0 0 0 / 0.6);
 }
 
 /* Si el sistema pide menos transparencia, el vidrio pasa a sólido */
 @media (prefers-reduced-transparency: reduce) {
   .glass {
-    background-color: #ffffff;
+    background-color: #161412;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
+}
+
+/* Cada destello va en su propia capa: el desenfoque se pinta una vez y luego solo se mueve */
+.glow-blob {
+  will-change: transform;
 }
 
 /* Los destellos quedan quietos si el sistema pide reducir movimiento */
 @media (prefers-reduced-motion: reduce) {
   .glow-blob {
     animation: none !important;
+  }
+}
+
+/* ---------------------------------------------- */
+/* Mapa del hero                                   */
+/* ---------------------------------------------- */
+/* Las calles se dibujan solas al cargar (cada línea tiene pathLength=1) */
+.map-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: map-draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes map-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.animate-map-ripple {
+  animation: map-ripple 1.8s ease-out infinite;
+}
+@keyframes map-ripple {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.animate-caret {
+  animation: caret-blink 1s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .animate-map-ripple {
+    animation: none;
   }
 }

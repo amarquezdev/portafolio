@@ -8,7 +8,7 @@ import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 const INSTAGRAM_URL = "https://www.instagram.com/macno.cl";
 
 const SOCIAL_CLASS =
-  "flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground ring-1 ring-black/5 transition-colors hover:bg-primary hover:text-primary-foreground hover:ring-primary";
+  "flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-foreground ring-1 ring-white/10 transition-colors hover:bg-primary hover:text-primary-foreground hover:ring-primary";
 
 const FOOTER_LINKS = {
   Servicios: [
@@ -25,7 +25,7 @@ const FOOTER_LINKS = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/5 px-4 py-16 sm:px-6 lg:px-8">
+    <footer className="border-t border-white/[0.07] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
           <div className="col-span-2 md:col-span-1">
@@ -40,7 +40,7 @@ export function Footer() {
               <span className="font-display text-lg font-semibold tracking-tight text-foreground">Macno</span>
             </Link>
             <p className="mb-5 text-sm text-muted-foreground">
-              Fichas de Google Maps y sitios web para negocios en Chile.
+              Perfiles de Google Maps y sitios web para negocios en Chile.
             </p>
             <div className="flex items-center gap-3">
               {/* LinkedIn sin enlace por ahora */}
@@ -87,7 +87,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-black/5 pt-8 text-center text-xs text-muted-foreground">
+        <div className="mt-12 border-t border-white/[0.07] pt-8 text-center text-xs text-muted-foreground">
           &copy; <CurrentYear buildYear={new Date().getFullYear()} /> Macno. Todos los derechos reservados.
         </div>
       </div>
