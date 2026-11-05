@@ -418,7 +418,7 @@ const SERVICES = [
   },
 ] as const;
 
-function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
+function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[number]; onShowTypes: () => void }) {
   const { ref, inView } = useInView<HTMLDivElement>();
   const [hovered, setHovered] = useState(false);
   const active = inView || hovered;
@@ -466,7 +466,7 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
             size="lg"
             withArrow
             className="mt-6 w-full justify-between pl-6"
-            onClick={() => scrollToSection(service.scrollTo)}
+            onClick={onShowTypes}
           >
             {service.cta}
             <ButtonArrow direction="down" />
@@ -555,6 +555,22 @@ function FeatureCard({ feature }: { feature: (typeof FEATURES)[number] }) {
 }
 
 export function FeaturesSection() {
+  // Los tipos de web quedan ocultos hasta que se toca "Ver tipos de web" en la tarjeta del sitio
+  const [typesOpen, setTypesOpen] = useState(false);
+  const [scrollRequest, setScrollRequest] = useState(0);
+
+  function showTypes() {
+    setTypesOpen(true);
+    setScrollRequest((n) => n + 1);
+  }
+
+  // Se baja después de que el bloque ya está en la página (la primera vez recién se monta)
+  useEffect(() => {
+    if (scrollRequest === 0) return;
+    const frame = requestAnimationFrame(() => scrollToSection("#tipos-de-web"));
+    return () => cancelAnimationFrame(frame);
+  }, [scrollRequest]);
+
   return (
     <section
       id="servicios"
@@ -585,39 +601,43 @@ export function FeaturesSection() {
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {SERVICES.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+            <ServiceCard key={service.title} service={service} onShowTypes={showTypes} />
           ))}
         </div>
 
-        <SectionHeading
-          id="tipos-de-web"
-          className="mt-20 sm:mt-28"
-          title={
-            <>
-              ¿Qué tipo de web <span className="text-primary">necesitas?</span>
-            </>
-          }
-        >
-          <p>Todas se pueden hacer en plantilla o a medida.</p>
-          <a
-            href={WHATSAPP_WEB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+        {typesOpen && (
+          <div className="animate-fade-in-up">
+          <SectionHeading
+            id="tipos-de-web"
+            className="mt-20 sm:mt-28"
+            title={
+              <>
+                ¿Qué tipo de web <span className="text-primary">necesitas?</span>
+              </>
+            }
           >
-            ¿No sabes cuál te sirve? Escríbeme
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
-        </SectionHeading>
+            <p>Todas se pueden hacer en plantilla o a medida.</p>
+            <a
+              href={WHATSAPP_WEB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            >
+              ¿No sabes cuál te sirve? Escríbeme
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </SectionHeading>
 
-        {/* En celular es un carrusel que se desliza de lado; desde tablet, una grilla */}
-        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 scrollbar-hide md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4">
-          {FEATURES.map((feature) => (
-            <div key={feature.title} className="flex w-[80%] shrink-0 snap-center *:flex-1 md:w-auto">
-              <FeatureCard feature={feature} />
-            </div>
-          ))}
-        </div>
+          {/* En celular es un carrusel que se desliza de lado; desde tablet, una grilla */}
+          <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 scrollbar-hide md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4">
+            {FEATURES.map((feature) => (
+              <div key={feature.title} className="flex w-[80%] shrink-0 snap-center *:flex-1 md:w-auto">
+                <FeatureCard feature={feature} />
+              </div>
+            ))}
+          </div>
+          </div>
+        )}
       </div>
     </section>
   );
