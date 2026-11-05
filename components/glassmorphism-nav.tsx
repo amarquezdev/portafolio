@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import { cn, scrollToSection } from "@/lib/utils";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
@@ -53,12 +53,13 @@ export function GlassmorphismNav() {
     <>
       <nav
         className={cn(
-          "fixed top-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 transition-all duration-500 md:top-5",
+          "fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl sm:w-[calc(100%-1.5rem)] -translate-x-1/2 transition-all duration-500 md:top-5",
           mounted && "animate-fade-in-nav",
           visible ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
         )}
       >
-        <div className="flex items-center justify-between gap-4 glass rounded-full p-1.5 pl-4">
+        {/* En celular no hay barra: solo el logo a un lado y el menú al otro, sueltos */}
+        <div className="flex items-center justify-between gap-4 sm:glass sm:rounded-full sm:p-1.5 sm:pl-4">
           <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Macno, ir al inicio">
             <Image
               src="/images/logo-portafolio.png"
@@ -100,20 +101,28 @@ export function GlassmorphismNav() {
 
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-foreground ring-1 ring-white/10 lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground max-sm:justify-end sm:bg-white/5 sm:ring-1 sm:ring-white/10 lg:hidden"
               aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={mobileOpen}
             >
-              <span className="relative h-5 w-5">
-                <Menu
+              {/* Tres líneas de largo decreciente, alineadas a la derecha; al abrir forman una X */}
+              <span className="relative block h-3.5 w-5" aria-hidden="true">
+                <span
                   className={cn(
-                    "absolute inset-0 h-5 w-5 transition-all duration-300",
-                    mobileOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+                    "absolute right-0 h-[1.5px] w-5 rounded-full bg-current transition-all duration-300",
+                    mobileOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
                   )}
                 />
-                <X
+                <span
                   className={cn(
-                    "absolute inset-0 h-5 w-5 transition-all duration-300",
-                    mobileOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
+                    "absolute right-0 top-1/2 h-[1.5px] -translate-y-1/2 rounded-full bg-current transition-all duration-300",
+                    mobileOpen ? "w-0 opacity-0" : "w-3.5 opacity-100"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute right-0 h-[1.5px] rounded-full bg-current transition-all duration-300",
+                    mobileOpen ? "bottom-1/2 w-5 translate-y-1/2 -rotate-45" : "bottom-0 w-2"
                   )}
                 />
               </span>
