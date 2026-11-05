@@ -57,46 +57,6 @@ type Business = {
 
 const BUSINESSES: Business[] = [
   {
-    query: "peluquería cerca de mí",
-    name: "Tu peluquería",
-    category: "Peluquería",
-    rating: "4.9",
-    reviews: 128,
-    closes: "Cierra a las 20:00",
-    icon: Scissors,
-    tiles: ["from-[#e9d3bf] to-[#9a6b4b]", "from-[#d8bba3] to-[#6e4c37]", "from-[#f2e4d6] to-[#c0946f]"],
-    site: {
-      bg: "#f4eee7",
-      fg: "#2a211c",
-      accent: "#2a211c",
-      accentFg: "#f4eee7",
-      art: "from-[#e3cdb8] to-[#a87a57]",
-      headline: ["Cortes y color", "con hora online"],
-      cta: "Reservar hora",
-      services: ["Corte", "Color", "Peinado"],
-    },
-  },
-  {
-    query: "abogado cerca de mí",
-    name: "Tu estudio jurídico",
-    category: "Abogado",
-    rating: "4.9",
-    reviews: 94,
-    closes: "Cierra a las 19:00",
-    icon: Scale,
-    tiles: ["from-[#2c3a55] to-[#0e1424]", "from-[#cfb37a] to-[#7a6232]", "from-[#3b4a68] to-[#151c2e]"],
-    site: {
-      bg: "#0f1626",
-      fg: "#eef1f6",
-      accent: "#cfb37a",
-      accentFg: "#0f1626",
-      art: "from-[#2a3754] to-[#0b101c]",
-      headline: ["Asesoría legal", "clara y cercana"],
-      cta: "Agendar consulta",
-      services: ["Familia", "Laboral", "Civil"],
-    },
-  },
-  {
     query: "dentista cerca de mí",
     name: "Tu consulta dental",
     category: "Dentista",
@@ -136,6 +96,46 @@ const BUSINESSES: Business[] = [
       services: ["Espresso", "Pastelería", "Brunch"],
     },
   },
+  {
+    query: "peluquería cerca de mí",
+    name: "Tu peluquería",
+    category: "Peluquería",
+    rating: "4.9",
+    reviews: 128,
+    closes: "Cierra a las 20:00",
+    icon: Scissors,
+    tiles: ["from-[#e9d3bf] to-[#9a6b4b]", "from-[#d8bba3] to-[#6e4c37]", "from-[#f2e4d6] to-[#c0946f]"],
+    site: {
+      bg: "#f4eee7",
+      fg: "#2a211c",
+      accent: "#2a211c",
+      accentFg: "#f4eee7",
+      art: "from-[#e3cdb8] to-[#a87a57]",
+      headline: ["Cortes y color", "con hora online"],
+      cta: "Reservar hora",
+      services: ["Corte", "Color", "Peinado"],
+    },
+  },
+  {
+    query: "abogado cerca de mí",
+    name: "Tu estudio jurídico",
+    category: "Abogado",
+    rating: "4.9",
+    reviews: 94,
+    closes: "Cierra a las 19:00",
+    icon: Scale,
+    tiles: ["from-[#2c3a55] to-[#0e1424]", "from-[#cfb37a] to-[#7a6232]", "from-[#3b4a68] to-[#151c2e]"],
+    site: {
+      bg: "#0f1626",
+      fg: "#eef1f6",
+      accent: "#cfb37a",
+      accentFg: "#0f1626",
+      art: "from-[#2a3754] to-[#0b101c]",
+      headline: ["Asesoría legal", "clara y cercana"],
+      cta: "Agendar consulta",
+      services: ["Familia", "Laboral", "Civil"],
+    },
+  },
 ];
 
 // Superficie de las piezas de la escena: sólida, sin desenfoque (se movería en cada cuadro)
@@ -145,13 +145,16 @@ const PANEL = "border border-white/10 bg-card shadow-[0_40px_80px_-30px_rgb(0_0_
 const PROFILE_MS = 2900;
 const FADE_MS = 550;
 const SITE_MS = 5000;
+// Ritmo de la búsqueda: cada letra al escribir y al borrar
+const TYPE_CHAR_MS = 50;
+const ERASE_CHAR_MS = 28;
 
 /**
  * La escena cuenta los dos servicios: alguien busca, caen los pines, se enciende un negocio
  * con la ruta, se abre su perfil y se toca "Sitio web"; el perfil se desvanece y recién
  * entonces aparece su web, en el mismo lugar. Al terminar la web se va y empieza otro rubro.
  * Pasos: 0 escribe, 1 pines, 2 ruta, 3 perfil, 4 toca "Sitio web", 5 perfil se va, 6 web,
- * 7 web se va. Se pausa cuando el hero no está en pantalla.
+ * 7 web se va (y la búsqueda se borra letra a letra). Se pausa cuando el hero no está en pantalla.
  */
 function useSearchStory(active: boolean) {
   const [typed, setTyped] = useState(0);
@@ -169,11 +172,12 @@ function useSearchStory(active: boolean) {
     setTyped(0);
     setStep(0);
     const timers: ReturnType<typeof setTimeout>[] = [];
-    const start = cycle === 0 ? 1400 : 500; // la primera vez espera a que se dibuje el mapa
+    // La primera vez espera a que se dibuje el mapa; después la pausa ya la dio el borrado
+    const start = cycle === 0 ? 1400 : 350;
     for (let i = 1; i <= biz.query.length; i++) {
-      timers.push(setTimeout(() => setTyped(i), start + i * 50));
+      timers.push(setTimeout(() => setTyped(i), start + i * TYPE_CHAR_MS));
     }
-    const typedAt = start + biz.query.length * 50;
+    const typedAt = start + biz.query.length * TYPE_CHAR_MS;
     const profileAt = typedAt + 2000;
     const siteAt = profileAt + PROFILE_MS + FADE_MS;
     timers.push(setTimeout(() => setStep(1), typedAt + 300));
@@ -183,7 +187,13 @@ function useSearchStory(active: boolean) {
     timers.push(setTimeout(() => setStep(5), profileAt + PROFILE_MS));
     timers.push(setTimeout(() => setStep(6), siteAt));
     timers.push(setTimeout(() => setStep(7), siteAt + SITE_MS));
-    timers.push(setTimeout(() => setCycle((c) => c + 1), siteAt + SITE_MS + 700));
+    // Mientras la web se va, la búsqueda se borra letra a letra (más rápido que al escribir)
+    const eraseAt = siteAt + SITE_MS + 300;
+    for (let i = 1; i <= biz.query.length; i++) {
+      timers.push(setTimeout(() => setTyped(biz.query.length - i), eraseAt + i * ERASE_CHAR_MS));
+    }
+    const erasedAt = eraseAt + biz.query.length * ERASE_CHAR_MS;
+    timers.push(setTimeout(() => setCycle((c) => c + 1), erasedAt + 150));
     return () => timers.forEach(clearTimeout);
   }, [cycle, active, biz.query.length]);
 
