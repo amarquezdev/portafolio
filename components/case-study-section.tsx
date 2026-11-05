@@ -55,6 +55,15 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+// En celular se muestra un trabajo a la vez. Mientras nadie toque las pestañas, cambian solas
+// cada AUTOPLAY_MS para que también se vea el segundo.
+type Tab = "web" | "maps";
+const TABS: { id: Tab; label: string; icon: typeof Globe }[] = [
+  { id: "web", label: "Sitio web", icon: Globe },
+  { id: "maps", label: "Google Maps", icon: MapPin },
+];
+const AUTOPLAY_MS = 7000;
+
 const MAX_COLUMNS = 3;
 const MASK = "[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]";
 
@@ -88,9 +97,19 @@ function useInView<T extends HTMLElement>() {
 const PANEL =
   "lg:row-span-2 lg:grid lg:grid-rows-subgrid lg:gap-y-8 lg:rounded-3xl lg:bg-card lg:p-8 lg:ring-1 lg:ring-white/[0.07]";
 
-function WorkList({ title, icon: Icon, items }: { title: string; icon: typeof Globe; items: string[] }) {
+function WorkList({
+  title,
+  icon: Icon,
+  items,
+  className,
+}: {
+  title: string;
+  icon: typeof Globe;
+  items: string[];
+  className?: string;
+}) {
   return (
-    <div className="mt-6 lg:mt-0">
+    <div className={cn("mt-6 lg:mt-0", className)}>
       <h3 className="mb-3 flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.16em] text-primary">
         <Icon className="h-4 w-4" />
         {title}
@@ -111,6 +130,22 @@ export function CaseStudySection() {
   const { ref, inView } = useInView<HTMLDivElement>();
   const reveal = (delay: string) =>
     cn("opacity-0", inView && "animate-fade-in-up", delay);
+
+  const [tab, setTab] = useState<Tab>("web");
+  const [picked, setPicked] = useState(false);
+
+  // Rotación automática: solo en celular/tablet, con la sección a la vista, si nadie eligió
+  // una pestaña y si el sistema no pide menos movimiento.
+  useEffect(() => {
+    if (!inView || picked) return;
+    if (window.matchMedia("(min-width: 1024px), (prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setTab((t) => (t === "web" ? "maps" : "web")), AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [inView, picked]);
+
+  // El contenido de la pestaña inactiva se desvanece (solo bajo lg; en escritorio se ven ambos)
+  const pane = (id: Tab) =>
+    cn("transition-[opacity,visibility] duration-500", tab !== id && "max-lg:invisible max-lg:opacity-0");
 
   return (
     <section id="caso" className="relative isolate px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -146,12 +181,54 @@ export function CaseStudySection() {
           )}
         </SectionHeading>
 
-        {/* En escritorio cada bloque es un panel; comparten filas (subgrid) para que
-            las capturas y las listas queden alineadas a la misma altura. */}
+        {/* Celular y tablet: pestañas para ver un trabajo a la vez */}
+        <div
+          role="tablist"
+          aria-label="Trabajo realizado"
+          className={cn(
+            "mx-auto mb-8 flex max-w-xs rounded-full bg-secondary p-1 ring-1 ring-white/10 lg:hidden",
+            reveal("[animation-delay:0.1s]")
+          )}
+        >
+          {TABS.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              id={`caso-tab-${id}`}
+              type="button"
+              role="tab"
+              aria-selected={tab === id}
+              aria-controls={`caso-panel-${id}`}
+              onClick={() => {
+                setTab(id);
+                setPicked(true);
+              }}
+              className={cn(
+                "flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                tab === id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Icon className="h-4 w-4" />
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* En celular los dos paneles ocupan la misma celda (uno encima del otro), así el alto
+            no salta al cambiar de pestaña. En escritorio cada bloque es un panel; comparten filas
+            (subgrid) para que las capturas y las listas queden alineadas a la misma altura. */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-6">
           {/* Sitio web */}
-          <div className={cn(PANEL, "lg:col-span-3", reveal("[animation-delay:0.15s]"))}>
-            <div className="animate-float-slow lg:self-center">
+          <div
+            id="caso-panel-web"
+            role="tabpanel"
+            aria-labelledby="caso-tab-web"
+            className={cn(
+              PANEL,
+              "max-lg:col-start-1 max-lg:row-start-1 max-lg:flex max-lg:flex-col max-lg:justify-center lg:col-span-3",
+              reveal("[animation-delay:0.15s]")
+            )}
+          >
+            <div className={cn("animate-float-slow lg:self-center", pane("web"))}>
               <div className="overflow-hidden rounded-2xl bg-secondary p-2.5 pt-0 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] ring-1 ring-white/10">
                 <div className="flex items-center gap-1.5 px-1.5 py-3">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -173,12 +250,21 @@ export function CaseStudySection() {
                 </div>
               </div>
             </div>
-            <WorkList title="Lo que hice en la web" icon={Globe} items={CASE.web.items} />
+            <WorkList title="Lo que hice en la web" icon={Globe} items={CASE.web.items} className={pane("web")} />
           </div>
 
           {/* Perfil de Google Maps */}
-          <div className={cn(PANEL, "lg:col-span-2", reveal("[animation-delay:0.3s]"))}>
-            <div className="animate-float-medium lg:self-center">
+          <div
+            id="caso-panel-maps"
+            role="tabpanel"
+            aria-labelledby="caso-tab-maps"
+            className={cn(
+              PANEL,
+              "max-lg:col-start-1 max-lg:row-start-1 lg:col-span-2",
+              reveal("[animation-delay:0.15s] lg:[animation-delay:0.3s]")
+            )}
+          >
+            <div className={cn("animate-float-medium lg:self-center", pane("maps"))}>
               <PhoneMockup className="mx-auto w-full max-w-[240px]">
                 <ScreenScroll
                   src={CASE.maps.image}
@@ -189,7 +275,7 @@ export function CaseStudySection() {
                 />
               </PhoneMockup>
             </div>
-            <WorkList title="Lo que hice en el perfil" icon={MapPin} items={CASE.maps.items} />
+            <WorkList title="Lo que hice en el perfil" icon={MapPin} items={CASE.maps.items} className={pane("maps")} />
           </div>
         </div>
 
