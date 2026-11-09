@@ -26,7 +26,7 @@ import { WHATSAPP_DIAGNOSIS_URL } from "@/lib/whatsapp";
 
 // Línea fija en vez de cinta animada: con pocos nombres la cinta se repetía y lucía vacía.
 // Cuando haya 6 u 8 clientes (ideal con logos) vale la pena volver a una cinta.
-const LOCAL_BUSINESSES = ["Studio Clau Miranda", "Todo en Vidrio", "Asesoría C&M"];
+const LOCAL_BUSINESSES = ["Studio Clau Miranda", "Ivesa", "Todo en Vidrio"];
 
 /**
  * Rubros de ejemplo que se turnan en cada vuelta de la escena, para que cualquier visitante se
