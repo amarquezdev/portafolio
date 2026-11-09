@@ -486,7 +486,7 @@ export function HeroSection() {
               ))}
             </div>
             <p className="text-sm text-muted-foreground">
-              {LOCAL_BUSINESSES.slice(0, -1).join(", ")} y {LOCAL_BUSINESSES.at(-1)} ya trabajan conmigo
+              {LOCAL_BUSINESSES.slice(0, -1).join(", ")} y {LOCAL_BUSINESSES.at(-1)} ya trabajaron conmigo
             </p>
             <button
               type="button"
