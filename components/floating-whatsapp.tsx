@@ -7,19 +7,37 @@ import { cn } from "@/lib/utils";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 /**
- * Solo en celular: botón fijo a WhatsApp que aparece al dejar atrás el hero.
+ * Solo en celular: botón fijo a WhatsApp que aparece al dejar atrás el hero y se oculta al
+ * llegar a la tarjeta de contacto, para no mostrar dos botones de WhatsApp a la vez.
  * Reemplaza los botones de cotizar que antes se repetían en cada sección.
  */
 export function FloatingWhatsApp() {
-  const [visible, setVisible] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  // Se oculta mientras se ve la tarjeta de contacto o el footer: ya tienen su propio WhatsApp
+  const [nearContact, setNearContact] = useState(false);
+  const visible = pastHero && !nearContact;
 
   useEffect(() => {
     function onScroll() {
-      setVisible(window.scrollY > window.innerHeight * 0.8);
+      setPastHero(window.scrollY > window.innerHeight * 0.8);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    const targets = [document.getElementById("contacto"), document.querySelector("footer")].filter(
+      (el): el is HTMLElement => el !== null
+    );
+    const showing = new Set<Element>();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => (entry.isIntersecting ? showing.add(entry.target) : showing.delete(entry.target)));
+      setNearContact(showing.size > 0);
+    });
+    targets.forEach((el) => observer.observe(el));
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
