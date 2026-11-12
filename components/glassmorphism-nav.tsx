@@ -17,13 +17,14 @@ const NAV_LINKS = [
 
 const NAVBAR_OFFSET = 100;
 
+/** Retraso (en segundos) de una pieza del navbar al armarse; lo lee la animación vía --d. */
+const delay = (s: number) => ({ "--d": `${s}s` }) as React.CSSProperties;
+
 export function GlassmorphismNav() {
   const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     let lastScrollY = window.scrollY;
 
     function onScroll() {
@@ -54,13 +55,17 @@ export function GlassmorphismNav() {
       <nav
         className={cn(
           "fixed top-3 left-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl sm:w-[calc(100%-1.5rem)] -translate-x-1/2 transition-all duration-500 md:top-5",
-          mounted && "animate-fade-in-nav",
           visible ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
         )}
       >
-        {/* En celular no hay barra: solo el logo a un lado y el menú al otro, sueltos */}
-        <div className="flex items-center justify-between gap-4 sm:glass sm:rounded-full sm:p-1.5 sm:pl-4">
-          <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Macno, ir al inicio">
+        {/* En celular no hay barra: solo el logo a un lado y el menú al otro, sueltos.
+            Al cargar, la barra se despliega desde el centro (como la búsqueda del hero) y
+            después aparecen el logo, los links y el botón (estilos .hero-* en globals.css). */}
+        <div
+          className="hero-unfold flex items-center justify-between gap-4 sm:glass sm:rounded-full sm:p-1.5 sm:pl-4"
+          style={delay(0)}
+        >
+          <Link href="/" className="hero-pop flex shrink-0 items-center gap-2" style={delay(1.0)} aria-label="Macno, ir al inicio">
             <Image
               src="/images/logo-portafolio.png"
               alt="Logo de Macno"
@@ -75,11 +80,12 @@ export function GlassmorphismNav() {
           </Link>
 
           <div className="hidden items-center gap-1.5 lg:flex">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link, index) => (
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link.href)}
-                className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+                style={delay(0.8 + index * 0.1)}
+                className="hero-build rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
               >
                 {link.label}
               </button>
@@ -91,7 +97,8 @@ export function GlassmorphismNav() {
               href={WHATSAPP_CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:shadow-[0_0_30px_-4px_color-mix(in_oklch,var(--primary)_60%,transparent)] sm:flex"
+              style={delay(1.2)}
+              className="hero-pop group/btn hidden h-10 items-center gap-1 rounded-full bg-primary pl-4 pr-1 text-sm font-medium text-primary-foreground transition-colors hover:shadow-[0_0_30px_-4px_color-mix(in_oklch,var(--primary)_60%,transparent)] sm:flex"
             >
               Escríbeme
               <span className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary-foreground text-primary transition-transform duration-300 group-hover/btn:rotate-45">
@@ -101,7 +108,8 @@ export function GlassmorphismNav() {
 
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground max-sm:justify-end sm:bg-white/5 sm:ring-1 sm:ring-white/10 lg:hidden"
+              style={delay(1.1)}
+              className="hero-pop flex h-10 w-10 items-center justify-center rounded-full text-foreground max-sm:justify-end sm:bg-white/5 sm:ring-1 sm:ring-white/10 lg:hidden"
               aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
               aria-expanded={mobileOpen}
             >

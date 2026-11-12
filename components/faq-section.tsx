@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 
 import { SectionHeading } from "@/components/section-heading";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
 
 // Dudas que suelen frenar a alguien antes de escribir. Respuestas cortas: el detalle va en la cotización.
 const FAQS = [
@@ -52,7 +53,8 @@ export function FaqSection() {
           Si tu duda no está aquí, escríbeme por WhatsApp y te respondo yo.
         </SectionHeading>
 
-        <ul className="space-y-3 lg:ml-auto lg:max-w-3xl">
+        {/* Cada pregunta sube como un bloque y se asienta en su lugar, una tras otra */}
+        <Reveal as="ul" variant="rise" className="space-y-3 lg:ml-auto lg:max-w-3xl">
           {FAQS.map((faq, index) => {
             const isOpen = open === index;
             return (
@@ -108,7 +110,7 @@ export function FaqSection() {
               </li>
             );
           })}
-        </ul>
+        </Reveal>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { SectionHeading } from "@/components/section-heading";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
 
 const STEPS = [
   {
@@ -80,64 +81,68 @@ export function ProcessSection() {
           }
         />
 
-        <ol ref={ref} className="relative grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
-          {/* Línea base y línea de avance: vertical en celular, horizontal en escritorio */}
-          <span className="pointer-events-none absolute bottom-4 left-4 top-4 w-px -translate-x-1/2 bg-white/10 md:hidden" />
-          <span
-            className="pointer-events-none absolute left-4 top-4 w-0.5 -translate-x-1/2 rounded-full bg-primary transition-[height] duration-700 ease-out md:hidden"
-            style={{ height: `calc((100% - 2rem) * ${progress})` }}
-          />
-          <span className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-4 hidden h-px bg-white/10 md:block" />
-          <span
-            className="pointer-events-none absolute left-[12.5%] top-4 hidden h-0.5 -translate-y-1/2 rounded-full bg-primary transition-[width] duration-700 ease-out md:block"
-            style={{ width: `calc(75% * ${progress})` }}
-          />
+        <Reveal>
+          <ol ref={ref} className="relative grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
+            {/* Línea base y línea de avance: vertical en celular, horizontal en escritorio */}
+            <span className="pointer-events-none absolute bottom-4 left-4 top-4 w-px -translate-x-1/2 bg-white/10 md:hidden" />
+            <span
+              className="pointer-events-none absolute left-4 top-4 w-0.5 -translate-x-1/2 rounded-full bg-primary transition-[height] duration-700 ease-out md:hidden"
+              style={{ height: `calc((100% - 2rem) * ${progress})` }}
+            />
+            <span className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-4 hidden h-px bg-white/10 md:block" />
+            <span
+              className="pointer-events-none absolute left-[12.5%] top-4 hidden h-0.5 -translate-y-1/2 rounded-full bg-primary transition-[width] duration-700 ease-out md:block"
+              style={{ width: `calc(75% * ${progress})` }}
+            />
 
-          {STEPS.map((step, index) => {
-            const isActive = index === active;
-            const isDone = index < active;
-            return (
-              <li
-                key={step.name}
-                className="relative flex items-start gap-4 md:flex-col md:items-center md:gap-0 md:text-center"
-              >
-                <span className="relative z-10 flex h-8 w-8 shrink-0 md:mb-4">
-                  {isActive && (
-                    <span className="absolute inset-0 rounded-full bg-primary/40 motion-safe:animate-ping" />
-                  )}
-                  <span
-                    className={cn(
-                      "relative flex h-8 w-8 items-center justify-center rounded-full text-xs font-mono font-semibold ring-1 transition-all duration-500",
-                      isActive && "scale-110 bg-primary text-primary-foreground ring-primary",
-                      isDone && "bg-primary/15 text-primary ring-primary/30",
-                      !isActive && !isDone && "bg-card text-muted-foreground ring-white/10"
+            {STEPS.map((step, index) => {
+              const isActive = index === active;
+              const isDone = index < active;
+              return (
+                <li
+                  key={step.name}
+                  // Los pasos aparecen uno tras otro al entrar la lista en pantalla
+                style={{ "--item": index, "--item-base": "150ms" } as React.CSSProperties}
+                className="reveal-item relative flex items-start gap-4 md:flex-col md:items-center md:gap-0 md:text-center"
+                >
+                  <span className="relative z-10 flex h-8 w-8 shrink-0 md:mb-4">
+                    {isActive && (
+                      <span className="absolute inset-0 rounded-full bg-primary/40 motion-safe:animate-ping" />
                     )}
-                  >
-                    {String(index + 1).padStart(2, "0")}
+                    <span
+                      className={cn(
+                        "relative flex h-8 w-8 items-center justify-center rounded-full text-xs font-mono font-semibold ring-1 transition-all duration-500",
+                        isActive && "scale-110 bg-primary text-primary-foreground ring-primary",
+                        isDone && "bg-primary/15 text-primary ring-primary/30",
+                        !isActive && !isDone && "bg-card text-muted-foreground ring-white/10"
+                      )}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                   </span>
-                </span>
-                <div>
-                  <h3
-                    className={cn(
-                      "text-base font-semibold transition-colors duration-500",
-                      isActive ? "text-primary" : "text-foreground"
-                    )}
-                  >
-                    {step.name}
-                  </h3>
-                  <p
-                    className={cn(
-                      "mt-1 text-sm transition-colors duration-500",
-                      isActive ? "text-foreground" : "text-muted-foreground"
-                    )}
-                  >
-                    {step.description}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+                  <div>
+                    <h3
+                      className={cn(
+                        "text-base font-semibold transition-colors duration-500",
+                        isActive ? "text-primary" : "text-foreground"
+                      )}
+                    >
+                      {step.name}
+                    </h3>
+                    <p
+                      className={cn(
+                        "mt-1 text-sm transition-colors duration-500",
+                        isActive ? "text-foreground" : "text-muted-foreground"
+                      )}
+                    >
+                      {step.description}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </Reveal>
       </div>
     </section>
   );

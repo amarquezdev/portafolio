@@ -4,6 +4,7 @@ import { Linkedin, Instagram, MessageCircle } from "lucide-react";
 
 import { CurrentYear } from "@/components/current-year";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
+import { Reveal } from "@/components/reveal";
 
 const INSTAGRAM_URL = "https://www.instagram.com/macno.cl";
 
@@ -27,7 +28,7 @@ export function Footer() {
   return (
     <footer className="border-t border-white/[0.07] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
+        <Reveal variant="stagger" className="grid grid-cols-2 gap-10 md:grid-cols-3">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2" aria-label="Macno, ir al inicio">
               <Image
@@ -85,7 +86,7 @@ export function Footer() {
               </ul>
             </div>
           ))}
-        </div>
+        </Reveal>
 
         <div className="mt-12 border-t border-white/[0.07] pt-8 text-center text-xs text-muted-foreground">
           &copy; <CurrentYear buildYear={new Date().getFullYear()} /> Macno. Todos los derechos reservados.

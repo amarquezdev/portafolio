@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { PhoneMockup, ScreenScroll } from "@/components/ui/phone-mockup";
 import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-column";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
 
 // Capturas en public/images/casos/. La del perfil puede ser más alta que el marco del
 // celular: se desplaza sola para mostrarla completa. Si un enlace queda vacío, su botón no se muestra.
@@ -291,7 +292,7 @@ function TestimonialsWall() {
   const tall = columns.some((col) => col.length > 1);
 
   return (
-    <div className="mt-10 sm:mt-14">
+    <Reveal className="mt-10 sm:mt-14">
       <p className="mb-6 text-sm font-medium text-muted-foreground">
         Lo que dicen otros negocios
       </p>
@@ -312,6 +313,6 @@ function TestimonialsWall() {
           </div>
         ))}
       </div>
-    </div>
+    </Reveal>
   );
 }

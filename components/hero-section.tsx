@@ -28,6 +28,18 @@ import { WHATSAPP_DIAGNOSIS_URL } from "@/lib/whatsapp";
 // Cuando haya 6 u 8 clientes (ideal con logos) vale la pena volver a una cinta.
 const LOCAL_BUSINESSES = ["Studio Clau Miranda", "Ivesa", "Todo en Vidrio"];
 
+// Título palabra por palabra: cada una sube por separado al cargar
+const HEADLINE = [
+  ["Que", "te", "encuentren."],
+  ["Que", "te", "elijan."],
+];
+
+/** Lo que el hero espera a que el navbar se arme antes de empezar con lo suyo, en segundos */
+const BUILD_OFFSET = 0.7;
+
+/** Retraso (en segundos) de una pieza del hero al armarse; lo lee la animación vía --d. */
+const delay = (s: number) => ({ "--d": `${s + BUILD_OFFSET}s` }) as React.CSSProperties;
+
 /**
  * Rubros de ejemplo que se turnan en cada vuelta de la escena, para que cualquier visitante se
  * vea reflejado. Son ilustrativos (el caso real va más abajo): cada uno trae su búsqueda, los
@@ -104,13 +116,14 @@ const BUSINESSES: Business[] = [
     reviews: 128,
     closes: "Cierra a las 20:00",
     icon: Scissors,
-    tiles: ["from-[#e9d3bf] to-[#9a6b4b]", "from-[#d8bba3] to-[#6e4c37]", "from-[#f2e4d6] to-[#c0946f]"],
+    // Rosa suave: fotos del perfil en rosados y web clara con acento rosa empolvado
+    tiles: ["from-[#f8dbe4] to-[#d98aa5]", "from-[#fbe7ee] to-[#e6a8bd]", "from-[#f3c9d7] to-[#c46f8e]"],
     site: {
-      bg: "#f4eee7",
-      fg: "#2a211c",
-      accent: "#2a211c",
-      accentFg: "#f4eee7",
-      art: "from-[#e3cdb8] to-[#a87a57]",
+      bg: "#fdf3f6",
+      fg: "#3a2229",
+      accent: "#d77a9a",
+      accentFg: "#ffffff",
+      art: "from-[#f8dbe4] to-[#d98aa5]",
       headline: ["Cortes y color", "con hora online"],
       cta: "Reservar hora",
       services: ["Corte", "Color", "Peinado"],
@@ -172,8 +185,8 @@ function useSearchStory(active: boolean) {
     setTyped(0);
     setStep(0);
     const timers: ReturnType<typeof setTimeout>[] = [];
-    // La primera vez espera a que se dibuje el mapa; después la pausa ya la dio el borrado
-    const start = cycle === 0 ? 1400 : 350;
+    // La primera vez espera a que se arme el hero (mapa y barra); después la pausa ya la dio el borrado
+    const start = cycle === 0 ? 2400 + BUILD_OFFSET * 1000 : 350;
     for (let i = 1; i <= biz.query.length; i++) {
       timers.push(setTimeout(() => setTyped(i), start + i * TYPE_CHAR_MS));
     }
@@ -454,44 +467,64 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-background to-transparent" />
 
       <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-10">
+        {/* Al cargar, el hero se arma por partes (estilos .hero-* en globals.css) */}
         <div>
-          <h1 className="animate-fade-in-heading text-[3.4rem] font-semibold leading-[0.92] text-foreground opacity-0 [animation-delay:0.25s] sm:text-7xl lg:text-[5.6rem]">
-            Que te encuentren.
-            <br />
-            Que te <span className="text-primary">elijan.</span>
+          <h1 className="text-[3.4rem] font-semibold leading-[0.92] text-foreground sm:text-7xl lg:text-[5.6rem]">
+            {HEADLINE.map((line, l) => (
+              <span key={l} className="block">
+                {line.map((word, w) => (
+                  <span key={w}>
+                    {w > 0 && " "}
+                    <span className="hero-word">
+                      <span
+                        className={word === "elijan." ? "text-primary" : undefined}
+                        style={delay(0.15 + (l * 3 + w) * 0.12)}
+                      >
+                        {word}
+                      </span>
+                    </span>
+                  </span>
+                ))}
+              </span>
+            ))}
           </h1>
 
-          <p className="animate-fade-in-subheading mt-7 max-w-md text-base text-muted-foreground opacity-0 [animation-delay:0.4s] sm:text-lg">
+          <p className="hero-build mt-7 max-w-md text-base text-muted-foreground sm:text-lg" style={delay(1.05)}>
             Hago sitios web y ordeno tu perfil de Google Maps para que quien te busca, te encuentre y
             te escriba. Puedes contratar uno o ambos.
           </p>
 
-          <div className="animate-fade-in-buttons mt-9 flex flex-col gap-3 opacity-0 [animation-delay:0.55s] sm:flex-row">
-            <Button size="lg" withArrow asChild>
-              <a href={WHATSAPP_DIAGNOSIS_URL} target="_blank" rel="noopener noreferrer">
-                Diagnóstico gratuito de mi perfil
-                <ButtonArrow />
-              </a>
-            </Button>
-            <Button variant="white" size="lg" onClick={() => scrollToSection("#servicios")}>
-              <LayoutTemplate className="h-4 w-4" />
-              Ver servicios
-            </Button>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="hero-build" style={delay(1.25)}>
+              <Button size="lg" withArrow asChild className="w-full">
+                <a href={WHATSAPP_DIAGNOSIS_URL} target="_blank" rel="noopener noreferrer">
+                  Diagnóstico gratuito de mi perfil
+                  <ButtonArrow />
+                </a>
+              </Button>
+            </div>
+            <div className="hero-build" style={delay(1.4)}>
+              <Button variant="white" size="lg" className="w-full" onClick={() => scrollToSection("#servicios")}>
+                <LayoutTemplate className="h-4 w-4" />
+                Ver servicios
+              </Button>
+            </div>
           </div>
 
-          <div className="animate-fade-in-trust mt-10 flex flex-col gap-1.5 opacity-0 [animation-delay:0.8s]">
+          <div className="mt-10 flex flex-col gap-1.5">
             <div className="flex gap-0.5" aria-hidden>
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
+                <Star key={i} className="hero-pop h-3.5 w-3.5 fill-primary text-primary" style={delay(1.65 + i * 0.1)} />
               ))}
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="hero-build text-sm text-muted-foreground" style={delay(2.05)}>
               {LOCAL_BUSINESSES.slice(0, -1).join(", ")} y {LOCAL_BUSINESSES.at(-1)} ya trabajaron conmigo
             </p>
             <button
               type="button"
               onClick={() => scrollToSection("#caso")}
-              className="group inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+              style={delay(2.2)}
+              className="hero-build group inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
             >
               Ver el caso real
               <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -503,9 +536,10 @@ export function HeroSection() {
             Las dos piezas comparten la celda de la grilla, así nunca se ven montadas. */}
         <motion.div
           style={{ y: sceneY }}
-          className="animate-fade-in-hero relative mx-auto w-full min-w-0 max-w-sm opacity-0 [animation-delay:0.6s] lg:max-w-[30rem]"
+          className="relative mx-auto w-full min-w-0 max-w-sm lg:max-w-[30rem]"
         >
-          <div className="mx-auto mb-5 lg:w-80">
+          {/* La barra se despliega desde el centro justo antes de que empiece a escribirse */}
+          <div className="hero-unfold mx-auto mb-5 lg:w-80" style={delay(1.1)}>
             <SearchBar query={biz.query} typed={typed} />
           </div>
 

@@ -45,7 +45,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="bg-background">
+    // suppressHydrationWarning: el script de abajo agrega una clase a <html> antes de hidratar
+    <html lang="es" className="bg-background" suppressHydrationWarning>
+      <head>
+        {/* Con JS, las secciones parten ocultas y aparecen al hacer scroll (ver Reveal).
+            Va antes de pintar para que no se vean un instante y luego desaparezcan. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('reveal-ready')" }} />
+      </head>
       <body
         className={`${bricolage.variable} ${onest.variable} ${instrument.variable} ${jetbrains.variable} font-sans antialiased`}
         suppressHydrationWarning

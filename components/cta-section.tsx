@@ -5,6 +5,8 @@ import {
   WHATSAPP_MAPS_URL,
   WHATSAPP_WEB_URL,
 } from "@/lib/whatsapp";
+import { SplitWords, wordTiming } from "@/components/split-words";
+import { Reveal } from "@/components/reveal";
 
 // El cierre repite la oferta del hero (lo que menos compromete); cotizar queda como atajo.
 const QUOTE_LINKS = [
@@ -16,7 +18,7 @@ const QUOTE_LINKS = [
 export function CTASection() {
   return (
     <section id="contacto" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-primary px-6 py-12 text-primary-foreground sm:px-16 sm:py-20">
+      <Reveal className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-primary px-6 py-12 text-primary-foreground sm:px-16 sm:py-20">
         {/* Cuadrícula de calles, como el mapa del hero pero en negro sobre azul */}
         <div
           aria-hidden
@@ -29,9 +31,12 @@ export function CTASection() {
           }}
         />
 
-        <div className="relative max-w-3xl">
-          <h2 className="text-4xl font-semibold leading-[0.95] sm:text-6xl">
-            Escríbeme y vemos qué necesita <em className="font-serif font-normal">tu negocio.</em>
+        {/* El texto entra por partes después de la tarjeta */}
+        <Reveal variant="stagger" delay={250} className="relative max-w-3xl">
+          <h2 className="text-4xl font-semibold leading-[0.95] sm:text-6xl" style={wordTiming(150, 100)}>
+            <SplitWords>
+              Escríbeme y vemos qué necesita <em className="font-serif font-normal">tu negocio.</em>
+            </SplitWords>
           </h2>
           <p className="mt-5 max-w-lg text-primary-foreground/75">
             Empieza con un diagnóstico gratis de tu perfil de Google Maps. Te respondo yo, por WhatsApp,
@@ -59,8 +64,8 @@ export function CTASection() {
               </a>
             ))}
           </p>
-        </div>
-      </div>
+        </Reveal>
+      </Reveal>
     </section>
   );
 }

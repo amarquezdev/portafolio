@@ -20,6 +20,8 @@ import { SectionHeading } from "@/components/section-heading";
 import { Button, ButtonArrow } from "@/components/ui/button";
 import { cn, scrollToSection } from "@/lib/utils";
 import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_TYPE_URLS, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
+import { SplitWords, wordTiming } from "@/components/split-words";
+import { Reveal } from "@/components/reveal";
 
 // Precio "desde" de cada servicio. El de la web es el de una landing en WordPress.
 const MAPS_PRICE_FROM = 80000;
@@ -418,6 +420,9 @@ const SERVICES = [
   },
 ] as const;
 
+/** Turno de una pieza dentro de una tarjeta al armarse (ver .reveal-item en globals.css) */
+const item = (n: number) => ({ "--item": n }) as React.CSSProperties;
+
 function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[number]; onShowTypes: () => void }) {
   const { ref, inView } = useInView<HTMLDivElement>();
   const [hovered, setHovered] = useState(false);
@@ -432,34 +437,44 @@ function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[numb
       onMouseLeave={() => setHovered(false)}
       className="group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[0_30px_80px_-30px_color-mix(in_oklch,var(--primary)_25%,transparent)] sm:p-8"
     >
+      {/* Al entrar en pantalla la tarjeta se arma por partes: ícono, precio, título palabra
+          por palabra, texto, cada punto de la lista y al final la demo con el botón */}
       <div className="mb-4 flex items-center justify-between gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
+        <div className="reveal-pop flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10" style={item(0)}>
           <Icon className="h-5 w-5 text-primary" />
         </div>
-        <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-xs font-medium text-primary">
+        <span
+          className="reveal-item rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-xs font-medium text-primary"
+          style={item(1)}
+        >
           Desde ${service.priceFrom.toLocaleString("es-CL")}
         </span>
       </div>
-      <h3 className="mb-1.5 text-3xl font-semibold text-foreground">{service.title}</h3>
-      <p className="mb-5 text-sm text-muted-foreground">{service.description}</p>
+      <h3 className="mb-1.5 text-3xl font-semibold text-foreground" style={wordTiming(560, 100)}>
+        <SplitWords>{service.title}</SplitWords>
+      </h3>
+      <p className="reveal-item mb-5 text-sm text-muted-foreground" style={item(3)}>
+        {service.description}
+      </p>
 
       <ul className="mb-6 space-y-2.5">
-        {service.items.map((item, i) => (
+        {service.items.map((point, i) => (
           <li
-            key={item}
+            key={point}
+            style={item(4 + i)}
             className={cn(
-              "flex items-start gap-2.5 text-sm text-foreground/80",
+              "reveal-item flex items-start gap-2.5 text-sm text-foreground/80",
               // En celular, máximo 3 puntos por tarjeta
               i >= MOBILE_MAX_ITEMS && "hidden sm:flex"
             )}
           >
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-            {item}
+            {point}
           </li>
         ))}
       </ul>
 
-      <div className="mt-auto">
+      <div className="reveal-item mt-auto" style={item(4 + service.items.length)}>
         <Demo active={active} />
         {service.scrollTo ? (
           <Button
@@ -599,11 +614,11 @@ export function FeaturesSection() {
           El precio final depende del estado de tu perfil o de lo que necesite tu web.
         </SectionHeading>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <Reveal variant="stagger" className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} service={service} onShowTypes={showTypes} />
           ))}
-        </div>
+        </Reveal>
 
         {typesOpen && (
           <div className="animate-fade-in-up">
