@@ -9,19 +9,19 @@ import { Reveal } from "@/components/reveal";
 const STEPS = [
   {
     name: "Conversamos",
-    description: "Vemos si necesitas el perfil de Google Maps, la web o los dos.",
+    description: "Vemos cómo te llegan clientes hoy y qué pack te conviene.",
   },
   {
     name: "Te envío una cotización",
     description: "Precio y plazo claros antes de empezar.",
   },
   {
-    name: "Hago la gestión",
-    description: "Te voy enseñando avances.",
+    name: "Hago el trabajo",
+    description: "Te voy mostrando avances por WhatsApp.",
   },
   {
-    name: "Entrego y te explico",
-    description: "Con un documento de indicaciones para mantenerlo.",
+    name: "Entrego y medimos",
+    description: "Te explico todo y, desde ahí, ves en números cuántos clientes llegan.",
   },
 ];
 

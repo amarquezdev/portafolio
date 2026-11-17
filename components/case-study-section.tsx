@@ -116,8 +116,12 @@ function WorkList({
         {title}
       </h3>
       <ul className="space-y-2.5">
-        {items.map((item) => (
-          <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+        {items.map((item, i) => (
+          <li
+            key={item}
+            style={{ "--item": i + 2 } as React.CSSProperties}
+            className="reveal-item flex items-start gap-2.5 text-sm text-muted-foreground"
+          >
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
             {item}
           </li>
@@ -128,9 +132,8 @@ function WorkList({
 }
 
 export function CaseStudySection() {
+  // Solo para la rotación automática de pestañas; la aparición la maneja Reveal
   const { ref, inView } = useInView<HTMLDivElement>();
-  const reveal = (delay: string) =>
-    cn("opacity-0", inView && "animate-fade-in-up", delay);
 
   const [tab, setTab] = useState<Tab>("web");
   const [picked, setPicked] = useState(false);
@@ -183,13 +186,10 @@ export function CaseStudySection() {
         </SectionHeading>
 
         {/* Celular y tablet: pestañas para ver un trabajo a la vez */}
-        <div
+        <Reveal
           role="tablist"
           aria-label="Trabajo realizado"
-          className={cn(
-            "mx-auto mb-8 flex max-w-xs rounded-full bg-secondary p-1 ring-1 ring-white/10 lg:hidden",
-            reveal("[animation-delay:0.1s]")
-          )}
+          className="mx-auto mb-8 flex max-w-xs rounded-full bg-secondary p-1 ring-1 ring-white/10 lg:hidden"
         >
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
@@ -212,12 +212,14 @@ export function CaseStudySection() {
               {label}
             </button>
           ))}
-        </div>
+        </Reveal>
 
         {/* En celular los dos paneles ocupan la misma celda (uno encima del otro), así el alto
             no salta al cambiar de pestaña. En escritorio cada bloque es un panel; comparten filas
             (subgrid) para que las capturas y las listas queden alineadas a la misma altura. */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-6">
+        {/* Como el resto de la página: al entrar en pantalla los paneles suben uno tras otro
+            y después aparecen los puntos de cada lista */}
+        <Reveal variant="stagger" className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-6">
           {/* Sitio web */}
           <div
             id="caso-panel-web"
@@ -225,8 +227,7 @@ export function CaseStudySection() {
             aria-labelledby="caso-tab-web"
             className={cn(
               PANEL,
-              "max-lg:col-start-1 max-lg:row-start-1 max-lg:flex max-lg:flex-col max-lg:justify-center lg:col-span-3",
-              reveal("[animation-delay:0.15s]")
+              "max-lg:col-start-1 max-lg:row-start-1 max-lg:flex max-lg:flex-col max-lg:justify-center lg:col-span-3"
             )}
           >
             <div className={cn("animate-float-slow lg:self-center", pane("web"))}>
@@ -259,11 +260,7 @@ export function CaseStudySection() {
             id="caso-panel-maps"
             role="tabpanel"
             aria-labelledby="caso-tab-maps"
-            className={cn(
-              PANEL,
-              "max-lg:col-start-1 max-lg:row-start-1 lg:col-span-2",
-              reveal("[animation-delay:0.15s] lg:[animation-delay:0.3s]")
-            )}
+            className={cn(PANEL, "max-lg:col-start-1 max-lg:row-start-1 lg:col-span-2")}
           >
             <div className={cn("animate-float-medium lg:self-center", pane("maps"))}>
               <PhoneMockup className="mx-auto w-full max-w-[240px]">
@@ -278,7 +275,7 @@ export function CaseStudySection() {
             </div>
             <WorkList title="Lo que hice en el perfil" icon={MapPin} items={CASE.maps.items} className={pane("maps")} />
           </div>
-        </div>
+        </Reveal>
 
         <TestimonialsWall />
       </div>

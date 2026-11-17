@@ -9,7 +9,7 @@ export const WHATSAPP_DIAGNOSIS_URL = buildWhatsAppUrl(
 );
 
 export const WHATSAPP_MAPS_URL = buildWhatsAppUrl(
-  "Hola Alejandro, quiero arreglar el perfil de Google Maps de mi negocio."
+  "Hola Alejandro, quiero el Pack Google Maps para ordenar la ficha de mi negocio."
 );
 
 export const WHATSAPP_WEB_URL = buildWhatsAppUrl(
@@ -24,7 +24,11 @@ export const WHATSAPP_WEB_TYPE_URLS = {
 };
 
 export const WHATSAPP_BOTH_URL = buildWhatsAppUrl(
-  "Hola Alejandro, quiero arreglar el perfil de Google Maps de mi negocio y también cotizar un sitio web."
+  "Hola Alejandro, quiero cotizar el Pack Web + Maps: mi ficha de Google Maps y una página web para mi negocio."
+);
+
+export const WHATSAPP_GROWTH_URL = buildWhatsAppUrl(
+  "Hola Alejandro, quiero cotizar el Pack Más Clientes: atraer clientes nuevos y ver cada mes cuántos llegan."
 );
 
 export const WHATSAPP_CONTACT_URL = buildWhatsAppUrl(

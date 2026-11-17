@@ -9,7 +9,7 @@ import { cn, scrollToSection } from "@/lib/utils";
 import { WHATSAPP_CONTACT_URL } from "@/lib/whatsapp";
 
 const NAV_LINKS = [
-  { label: "Servicios", href: "#servicios" },
+  { label: "Packs", href: "#servicios" },
   { label: "Caso real", href: "#caso" },
   { label: "Cómo trabajo", href: "#proceso" },
   { label: "Contacto", href: "#contacto" },

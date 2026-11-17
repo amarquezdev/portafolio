@@ -34,9 +34,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Diseño web profesional y perfiles de Google Maps | Macno",
+  title: "Google Maps, página web y más clientes para tu negocio | Macno",
   description:
-    "Antes de llamarte, tus clientes te buscan en Google. Diseño sitios web profesionales y cuido tu perfil de Google Maps para que esa primera impresión esté a tu altura.",
+    "Ordeno tu ficha de Google Maps, hago tu página web y te traigo clientes nuevos con avisos en Google. Cada mes te muestro, con números simples, cuántos llegaron.",
 };
 
 export default function RootLayout({

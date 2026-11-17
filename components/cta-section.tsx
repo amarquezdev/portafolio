@@ -2,17 +2,17 @@ import { Button, ButtonArrow } from "@/components/ui/button";
 import {
   WHATSAPP_BOTH_URL,
   WHATSAPP_DIAGNOSIS_URL,
+  WHATSAPP_GROWTH_URL,
   WHATSAPP_MAPS_URL,
-  WHATSAPP_WEB_URL,
 } from "@/lib/whatsapp";
 import { SplitWords, wordTiming } from "@/components/split-words";
 import { Reveal } from "@/components/reveal";
 
 // El cierre repite la oferta del hero (lo que menos compromete); cotizar queda como atajo.
 const QUOTE_LINKS = [
-  { label: "Perfil de Google Maps", href: WHATSAPP_MAPS_URL },
-  { label: "Sitio web", href: WHATSAPP_WEB_URL },
-  { label: "Los dos", href: WHATSAPP_BOTH_URL },
+  { label: "Pack Google Maps", href: WHATSAPP_MAPS_URL },
+  { label: "Pack Web + Maps", href: WHATSAPP_BOTH_URL },
+  { label: "Pack Más Clientes", href: WHATSAPP_GROWTH_URL },
 ];
 
 export function CTASection() {
@@ -39,8 +39,8 @@ export function CTASection() {
             </SplitWords>
           </h2>
           <p className="mt-5 max-w-lg text-primary-foreground/75">
-            Empieza con un diagnóstico gratis de tu perfil de Google Maps. Te respondo yo, por WhatsApp,
-            sin compromiso.
+            Empieza con un diagnóstico gratis de tu ficha de Google Maps: te digo qué está fallando y por qué
+            se te pueden estar escapando clientes. Te respondo yo, por WhatsApp, sin compromiso.
           </p>
           <div className="mt-9">
             <Button variant="dark" size="lg" withArrow asChild>

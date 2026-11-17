@@ -15,23 +15,29 @@ const FAQS = [
       "Me mandas el nombre de tu negocio por WhatsApp, reviso tu perfil de Google Maps y te digo qué está mal y qué conviene corregir. Sin costo ni compromiso.",
   },
   {
-    question: "¿Cuánto se demora?",
+    question: "¿Cómo sé si de verdad me llegan más clientes?",
     answer:
-      "Depende de lo que necesites: ordenar un perfil es mucho más rápido que hacer una web. Te doy el plazo exacto en la cotización, antes de empezar.",
+      "Con el Pack Más Clientes, cada mes te mando un reporte corto y sin palabras raras: cuántas personas te llamaron, te escribieron por WhatsApp, pidieron cómo llegar a tu local o visitaron tu web, comparado con el mes anterior.",
   },
   {
-    question: "¿El dominio y el hosting están incluidos?",
+    question: "¿Los avisos en Google están incluidos?",
     answer:
-      "La cotización detalla qué incluye y cuánto cuesta mantener la web activa cada año, para que no haya sorpresas después.",
+      "Yo los armo, los publico y los voy ajustando para que rindan. Lo que se paga a Google por mostrar los avisos va aparte: lo pagas tú directamente y decides cuánto. Te recomiendo un monto según tu rubro.",
   },
   {
-    question: "¿Tenemos que reunirnos en persona?",
-    answer: "No. Trabajo con negocios de todo Chile y todo se coordina por WhatsApp.",
+    question: "¿Cómo consigo más opiniones en Google?",
+    answer:
+      "Te entrego placas con un código QR. Tus clientes lo escanean con el celular al terminar la atención y llegan directo a dejar su opinión, sin buscar nada.",
+  },
+  {
+    question: "¿Hay que pagar algo extra para mantener la web?",
+    answer:
+      "Toda web necesita una dirección (como tunegocio.cl) y un espacio donde estar guardada, y eso se paga una vez al año. La cotización detalla qué incluye y cuánto cuesta, para que no haya sorpresas después.",
   },
   {
     question: "¿Qué pasa después de la entrega?",
     answer:
-      "Te dejo un documento con indicaciones para mantener tu perfil o tu web al día. Si más adelante necesitas un cambio, me escribes.",
+      "En los packs de pago único te dejo indicaciones simples para mantener tu ficha y tu web al día, y si necesitas un cambio, me escribes. En el Pack Más Clientes sigo trabajando contigo cada mes.",
   },
 ];
 

@@ -13,8 +13,7 @@ const SOCIAL_CLASS =
 
 const FOOTER_LINKS = {
   Servicios: [
-    { label: "Perfil de Google Maps", href: "/#servicios" },
-    { label: "Sitios web", href: "/#servicios" },
+    { label: "Packs", href: "/#servicios" },
     { label: "Caso real", href: "/#caso" },
   ],
   Información: [
@@ -41,7 +40,7 @@ export function Footer() {
               <span className="font-display text-lg font-semibold tracking-tight text-foreground">Macno</span>
             </Link>
             <p className="mb-5 text-sm text-muted-foreground">
-              Perfiles de Google Maps y sitios web para negocios en Chile.
+              Google Maps, páginas web y clientes nuevos para negocios en Chile, con resultados que puedes ver.
             </p>
             <div className="flex items-center gap-3">
               {/* LinkedIn sin enlace por ahora */}

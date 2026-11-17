@@ -490,8 +490,8 @@ export function HeroSection() {
           </h1>
 
           <p className="hero-build mt-7 max-w-md text-base text-muted-foreground sm:text-lg" style={delay(1.05)}>
-            Hago sitios web y ordeno tu perfil de Google Maps para que quien te busca, te encuentre y
-            te escriba. Puedes contratar uno o ambos.
+            Ordeno tu ficha de Google Maps, hago tu página web y salgo a buscarte clientes nuevos. Cada
+            mes te muestro, con números simples, cuántos llegaron.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -506,7 +506,7 @@ export function HeroSection() {
             <div className="hero-build" style={delay(1.4)}>
               <Button variant="white" size="lg" className="w-full" onClick={() => scrollToSection("#servicios")}>
                 <LayoutTemplate className="h-4 w-4" />
-                Ver servicios
+                Ver packs
               </Button>
             </div>
           </div>

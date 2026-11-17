@@ -19,7 +19,7 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { Button, ButtonArrow } from "@/components/ui/button";
 import { cn, scrollToSection } from "@/lib/utils";
-import { WHATSAPP_MAPS_URL, WHATSAPP_WEB_TYPE_URLS, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
+import { WHATSAPP_GROWTH_URL, WHATSAPP_MAPS_URL, WHATSAPP_WEB_TYPE_URLS, WHATSAPP_WEB_URL } from "@/lib/whatsapp";
 import { SplitWords, wordTiming } from "@/components/split-words";
 import { Reveal } from "@/components/reveal";
 
@@ -382,35 +382,98 @@ function SitemapDemo({ active }: { active: boolean }) {
   );
 }
 
-/* ---------------- Servicios principales ---------------- */
+/* ---------------- Demo pack: reporte mensual ---------------- */
 
-const SERVICES = [
+// Números de ejemplo del reporte: lo que el cliente recibe cada mes, en palabras simples
+const REPORT_ROWS = [
+  { icon: MessageCircle, label: "Te escribieron por WhatsApp", value: 32, max: 45 },
+  { icon: Phone, label: "Te llamaron", value: 18, max: 45 },
+  { icon: MapPin, label: "Pidieron cómo llegar", value: 41, max: 45 },
+];
+
+function MonthlyReportDemo({ active }: { active: boolean }) {
+  const step = useStepCycle(active, REPORT_ROWS.length + 1, 650, 500, 2600);
+  const done = step > REPORT_ROWS.length;
+
+  return (
+    <div className="flex h-56 flex-col gap-3 rounded-xl bg-black/50 ring-1 ring-white/[0.06] p-4">
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-semibold text-white">Tu reporte de este mes</p>
+        <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-white/40">Ejemplo</span>
+      </div>
+
+      <div className="space-y-2.5">
+        {REPORT_ROWS.map((row, i) => {
+          const shown = step > i;
+          const RowIcon = row.icon;
+          return (
+            <div key={row.label} className="space-y-1">
+              <div className="flex items-center justify-between gap-2 text-xs">
+                <span className="flex items-center gap-2 text-white/60">
+                  <RowIcon className="h-3.5 w-3.5 shrink-0 text-white/40" />
+                  {row.label}
+                </span>
+                <span className={cn("font-mono font-semibold transition-colors duration-500", shown ? "text-white" : "text-white/20")}>
+                  {shown ? row.value : 0}
+                </span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
+                <div
+                  className="h-full rounded-full bg-primary transition-[width] duration-700 ease-out"
+                  style={{ width: shown ? `${(row.value / row.max) * 100}%` : "0%" }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <span className={cn("mt-auto text-[11px] transition-colors duration-500", done ? "text-success" : "text-white/50")}>
+        {done ? "50 consultas · 12 más que el mes pasado" : "Contando tus clientes del mes..."}
+      </span>
+    </div>
+  );
+}
+
+/* ---------------- Packs ---------------- */
+
+type Pack = {
+  icon: typeof MapPin;
+  title: string;
+  price: string;
+  description: string;
+  items: string[];
+  cta: string;
+  href: string | null;
+  scrollTo: string | null;
+  highlight?: string;
+  Demo: (props: { active: boolean }) => React.JSX.Element;
+};
+
+const PACKS: Pack[] = [
   {
     icon: MapPin,
-    title: "Perfil de Google Maps",
-    priceFrom: MAPS_PRICE_FROM,
-    description:
-      "Reviso y corrijo tu perfil para que la gente vea los datos correctos cuando te busca.",
+    title: "Pack Google Maps",
+    price: `Desde $${MAPS_PRICE_FROM.toLocaleString("es-CL")}`,
+    description: "Para que te encuentren y te vean bien en Google.",
     items: [
-      "Horario, teléfono, dirección y categoría",
-      "Fotos actuales del local y de tu trabajo",
-      "Gestión con Google de perfiles duplicados o con nombre antiguo",
-      "QR para pedir reseñas en el mesón",
+      "Ficha con datos y fotos al día",
+      "Corrección de fichas duplicadas",
+      "Placas QR para sumar reseñas",
     ],
-    cta: "Arreglar mi perfil",
+    cta: "Quiero este pack",
     href: WHATSAPP_MAPS_URL,
     scrollTo: null,
     Demo: MapsProfileDemo,
   },
   {
     icon: Globe,
-    title: "Sitio web",
-    priceFrom: WEB_PRICE_FROM,
-    description:
-      "Páginas profesionales y rápidas, en plantilla o a medida, que se ven bien en el celular.",
+    title: "Pack Web + Maps",
+    price: `Desde $${WEB_PRICE_FROM.toLocaleString("es-CL")}`,
+    description: "Tu ficha de Google más una web que convence.",
     items: [
-      "Desde una landing de una página hasta una tienda",
-      "Sistema de reservas si trabajas con hora",
+      "Todo el Pack Google Maps",
+      "Web pensada para celular",
       "Botón directo a tu WhatsApp",
     ],
     cta: "Ver tipos de web",
@@ -418,12 +481,28 @@ const SERVICES = [
     scrollTo: "#tipos-de-web",
     Demo: WebsiteDemo,
   },
-] as const;
+  {
+    icon: Rocket,
+    title: "Pack Más Clientes",
+    price: "Plan mensual",
+    highlight: "El más completo",
+    description: "Te busco clientes nuevos y te muestro cuántos llegan.",
+    items: [
+      "Todo el Pack Web + Maps",
+      "Avisos en Google",
+      "Reporte mensual de tus clientes",
+    ],
+    cta: "Quiero más clientes",
+    href: WHATSAPP_GROWTH_URL,
+    scrollTo: null,
+    Demo: MonthlyReportDemo,
+  },
+];
 
 /** Turno de una pieza dentro de una tarjeta al armarse (ver .reveal-item en globals.css) */
 const item = (n: number) => ({ "--item": n }) as React.CSSProperties;
 
-function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[number]; onShowTypes: () => void }) {
+function ServiceCard({ service, onShowTypes }: { service: Pack; onShowTypes: () => void }) {
   const { ref, inView } = useInView<HTMLDivElement>();
   const [hovered, setHovered] = useState(false);
   const active = inView || hovered;
@@ -435,7 +514,10 @@ function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[numb
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 ring-white/[0.07] transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[0_30px_80px_-30px_color-mix(in_oklch,var(--primary)_25%,transparent)] sm:p-8"
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 ring-1 transition-all duration-500 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[0_30px_80px_-30px_color-mix(in_oklch,var(--primary)_25%,transparent)] sm:p-8",
+        service.highlight ? "ring-primary/40" : "ring-white/[0.07]"
+      )}
     >
       {/* Al entrar en pantalla la tarjeta se arma por partes: ícono, precio, título palabra
           por palabra, texto, cada punto de la lista y al final la demo con el botón */}
@@ -447,9 +529,17 @@ function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[numb
           className="reveal-item rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-xs font-medium text-primary"
           style={item(1)}
         >
-          Desde ${service.priceFrom.toLocaleString("es-CL")}
+          {service.price}
         </span>
       </div>
+      {service.highlight && (
+        <span
+          className="reveal-item mb-2 w-fit rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-medium text-primary-foreground"
+          style={item(1)}
+        >
+          {service.highlight}
+        </span>
+      )}
       <h3 className="mb-1.5 text-3xl font-semibold text-foreground" style={wordTiming(560, 100)}>
         <SplitWords>{service.title}</SplitWords>
       </h3>
@@ -488,7 +578,7 @@ function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[numb
           </Button>
         ) : (
           <Button size="lg" withArrow className="mt-6 w-full justify-between pl-6" asChild>
-            <a href={service.href} target="_blank" rel="noopener noreferrer">
+            <a href={service.href ?? undefined} target="_blank" rel="noopener noreferrer">
               {service.cta}
               <ButtonArrow />
             </a>
@@ -504,33 +594,32 @@ function ServiceCard({ service, onShowTypes }: { service: (typeof SERVICES)[numb
 const FEATURES = [
   {
     icon: ShoppingCart,
-    title: "Tiendas Online",
-    description: "Vendes por internet con pago en línea, carrito y control de stock.",
+    title: "Tienda online",
+    description: "Vende por internet con pago en línea.",
     cta: "Cotizar este tipo",
     href: WHATSAPP_WEB_TYPE_URLS.ecommerce,
     Demo: EcommerceDemo,
   },
   {
     icon: Calendar,
-    title: "Sistemas de Reserva",
-    description: "Tus clientes eligen día y hora sin tener que llamarte.",
+    title: "Reserva de horas",
+    description: "Tus clientes agendan solos, sin llamarte.",
     cta: "Cotizar este tipo",
     href: WHATSAPP_WEB_TYPE_URLS.booking,
     Demo: BookingDemo,
   },
   {
     icon: Rocket,
-    title: "Landing Pages",
-    description:
-      "Una sola página con lo importante de tu negocio y un botón directo a tu WhatsApp.",
+    title: "Página única",
+    description: "Lo importante de tu negocio en una sola página.",
     cta: "Cotizar este tipo",
     href: WHATSAPP_WEB_TYPE_URLS.landing,
     Demo: LandingBuildDemo,
   },
   {
     icon: Building2,
-    title: "Webs Corporativas",
-    description: "Varias páginas: inicio, quiénes son, qué hacen y cómo contactarlos.",
+    title: "Web con varias secciones",
+    description: "Varias páginas para contar todo lo que haces.",
     cta: "Cotizar este tipo",
     href: WHATSAPP_WEB_TYPE_URLS.corporate,
     Demo: SitemapDemo,
@@ -607,15 +696,15 @@ export function FeaturesSection() {
         <SectionHeading
           title={
             <>
-              Dos servicios, <span className="text-primary">uno o ambos</span>
+              Elige tu <span className="text-primary">pack</span>
             </>
           }
         >
-          El precio final depende del estado de tu perfil o de lo que necesite tu web.
+          Parte por uno y sube cuando quieras.
         </SectionHeading>
 
-        <Reveal variant="stagger" className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {SERVICES.map((service) => (
+        <Reveal variant="stagger" className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+          {PACKS.map((service) => (
             <ServiceCard key={service.title} service={service} onShowTypes={showTypes} />
           ))}
         </Reveal>
@@ -631,7 +720,7 @@ export function FeaturesSection() {
               </>
             }
           >
-            <p>Todas se pueden hacer en plantilla o a medida.</p>
+            <p>Con diseño base o a tu medida.</p>
             <a
               href={WHATSAPP_WEB_URL}
               target="_blank"
