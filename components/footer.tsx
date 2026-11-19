@@ -31,11 +31,11 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2" aria-label="Macno, ir al inicio">
               <Image
-                src="/images/logo-portafolio.png"
+                src="/images/logo-macno.png"
                 alt="Logo de Macno"
-                width={28}
-                height={28}
-                className="h-7 w-7 object-contain"
+                width={27}
+                height={20}
+                className="h-5 w-auto object-contain"
               />
               <span className="font-display text-lg font-semibold tracking-tight text-foreground">Macno</span>
             </Link>

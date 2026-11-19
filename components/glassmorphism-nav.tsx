@@ -65,13 +65,13 @@ export function GlassmorphismNav() {
           className="hero-unfold flex items-center justify-between gap-4 sm:glass sm:rounded-full sm:p-1.5 sm:pl-4"
           style={delay(0)}
         >
-          <Link href="/" className="hero-pop flex shrink-0 items-center gap-2" style={delay(1.0)} aria-label="Macno, ir al inicio">
+          <Link href="/" className="hero-pop ml-2 flex shrink-0 items-center gap-2" style={delay(1.0)} aria-label="Macno, ir al inicio">
             <Image
-              src="/images/logo-portafolio.png"
+              src="/images/logo-macno.png"
               alt="Logo de Macno"
-              width={28}
-              height={28}
-              className="h-7 w-7 object-contain"
+              width={27}
+              height={20}
+              className="h-5 w-auto object-contain"
               priority
             />
             <span className="hidden font-display text-lg font-semibold tracking-tight text-foreground sm:inline">
