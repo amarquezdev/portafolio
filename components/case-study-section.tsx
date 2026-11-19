@@ -16,7 +16,7 @@ import { Reveal } from "@/components/reveal";
 const CASE = {
   name: "Studio Clau Miranda",
   summary:
-    "Studio Clau Miranda, un salón de belleza: le hice la web con reservas en línea y ordené su perfil de Google Maps. Así se ve hoy.",
+    "Creé una landing page con sistema de reserva y botón de WhatsApp, junto con la optimización de su perfil en Google Maps, lo que aumentó sus clientes.",
   web: {
     image: "/images/casos/studio-clau-web.jpg",
     // Proporción del marco del navegador: debe coincidir con la captura para no recortarla

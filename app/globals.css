@@ -2,7 +2,7 @@
 
 :root {
   /* Mapa de noche: negro frío, texto blanco y azul cobalto como única señal fuerte
-     (#4864ff: el texto blanco encima cumple contraste AA) */
+     (#2c2dfb: el texto blanco encima cumple contraste AA) */
   --background: #08090c;
   --foreground: #f4f5f8;
 
@@ -12,7 +12,7 @@
   --popover: #12141a;
   --popover-foreground: #f4f5f8;
 
-  --primary: #4849ff;
+  --primary: #2c2dfb;
   --primary-foreground: #ffffff;
 
   --success: #6ee7a0;

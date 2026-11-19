@@ -17,12 +17,7 @@ const FAQS = [
   {
     question: "¿Cómo sé si de verdad me llegan más clientes?",
     answer:
-      "Con el Pack Más Clientes, cada mes te mando un reporte corto y sin palabras raras: cuántas personas te llamaron, te escribieron por WhatsApp, pidieron cómo llegar a tu local o visitaron tu web, comparado con el mes anterior.",
-  },
-  {
-    question: "¿Los avisos en Google están incluidos?",
-    answer:
-      "Yo los armo, los publico y los voy ajustando para que rindan. Lo que se paga a Google por mostrar los avisos va aparte: lo pagas tú directamente y decides cuánto. Te recomiendo un monto según tu rubro.",
+      "Con el Pack Más Clientes, cada mes te mando un reporte corto y sin tecnicismos: cuántas personas te llamaron, te escribieron por WhatsApp, pidieron cómo llegar a tu local o visitaron tu web, comparado con el mes anterior.",
   },
   {
     question: "¿Cómo consigo más opiniones en Google?",
